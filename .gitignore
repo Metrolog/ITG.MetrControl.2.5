@@ -1,6 +1,15 @@
 obj
-/Metrocontrol/.csmdb examples/ncsm.csmdb23
-/Metrocontrol.v11.suo
+release
+bin
+_output
+dirstate
+make.log
+build.log
+.vs
 /_UpgradeReport_Files
 /UpgradeLog*.htm
 /UpgradeLog*.XML
+packages
+ReleaseNotes.md
+/Metrocontrol/.csmdb examples/ncsm.csmdb23
+/Metrocontrol.v11.suo
