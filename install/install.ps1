@@ -69,28 +69,12 @@ switch ( $env:PROCESSOR_ARCHITECTURE ) {
 };
 $ToPath = @();
 
-Import-Module -Name PackageManagement;
-
-$null = Install-PackageProvider -Name NuGet -Force;
-$null = Import-PackageProvider -Name NuGet -Force;
-$null = (
-    Get-PackageSource -ProviderName NuGet `
-    | Set-PackageSource -Trusted `
-);
-$null = Install-PackageProvider -Name Chocolatey -Force;
-$null = Import-PackageProvider -Name Chocolatey -Force;
-$null = (
-    Get-PackageSource -ProviderName Chocolatey `
-    | Set-PackageSource -Trusted `
-);
-if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
-    $null = Install-Package -Name chocolatey -MinimumVersion 0.9.10.3 -ProviderName Chocolatey;
+if ( 
+    ( -not ( $env:APPVEYOR -eq 'True' ) ) `
+    -and ( -not $env:ChocolateyInstall ) `
+) {
+    Invoke-WebRequest -Uri 'https://chocolatey.org/install.ps1' -UseBasicParsing | Invoke-Expression;
 };
-$null = Import-PackageProvider -Name Chocolatey -Force;
-$null = (
-    Get-PackageSource -ProviderName Chocolatey `
-    | Set-PackageSource -Trusted `
-);
 
 & choco install GitVersion.Portable --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 & choco install GitReleaseNotes.Portable --confirm --failonstderr | Out-String -Stream | Write-Verbose;
@@ -98,9 +82,6 @@ $null = (
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
     & choco install NuGet.CommandLine --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install git --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-    & choco install python --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-    $ToPath += 'C:\Python27';
-    & choco install StrawberryPerl --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install openssl --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install windows-sdk-10 --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 };
@@ -135,57 +116,17 @@ if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную
 $ToPath += "$env:CygWin\bin";
 
 Write-Verbose 'Install CygWin tools...';
-if ($PSCmdLet.ShouldProcess('perl,wget,fontconfig,ghostscript,make,mkdir,touch,zip,ttfautohint', 'Установить пакет CygWin')) {
+if ($PSCmdLet.ShouldProcess('make,mkdir,touch,zip,ttfautohint', 'Установить пакет CygWin')) {
     Execute-ExternalInstaller `
         -LiteralPath $cygwinsetup `
-        -ArgumentList '--packages perl,wget,fontconfig,ghostscript,make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
+        -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
     ;
 };
-
-& choco install fontforge --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-$ToPath += "${env:ProgramFiles(x86)}\FontForgeBuilds\bin";
-
-if ($PSCmdLet.ShouldProcess('TeX Live', 'Установить')) {
-    $TeXLiveZIP = "$env:Temp/install-tl.zip";
-    Invoke-WebRequest `
-        -Uri 'http://mirror.ctan.org/systems/texlive/tlnet/install-tl.zip' `
-        -OutFile $TeXLiveZIP `
-    ;
-    Expand-Archive -LiteralPath $TeXLiveZIP -DestinationPath "$env:Temp/texlive" -Force;
-    $TeXLiveSetup = "$env:Temp/texlive/" + ( Get-ChildItem -LiteralPath "$env:Temp/texlive" -Name 'install-tl-windows.bat' -Recurse -Depth 1 );
-    ' ' | & $TeXLiveSetup `
-        -v -no-gui `
-        -profile "$PSScriptRoot/texlive.profile" `
-    | Out-String -Stream | Write-Verbose;
-    $TeXBinDir = 'c:/texlive/' + ( Get-ChildItem -LiteralPath 'c:/texlive' -Name 'bin' -Recurse -Depth 1 ) + '/win32';
-
-#    & ppm install File::Copy::Recursive | Out-String | Write-Verbose;
-#    & ppm install HTML::FormatText | Out-String | Write-Verbose;
-    & "$TeXBinDir/tlmgr" install `
-        metatype1 `
-        texliveonfly `
-        latexmk `
-        polyglossia `
-        datetime2 `
-        interfaces `
-        todo `
-        geometry `
-        fontspec `
-        unicode-math `
-        enumitem `
-        psnfss `
-        ctanify `
-        ctanupload `
-    | Out-String -Stream | Write-Verbose;
-};
-
-& choco install ChocolateyPackageUpdater --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-& choco install SignCode.Install --confirm --version 1.0.3 | Out-String -Stream | Write-Verbose;
 
 if ( $GUI ) {
-    $null = Install-Package -Name SourceTree -ProviderName Chocolatey;
-    $null = Install-Package -Name visualstudio2015community -ProviderName Chocolatey;
-    $null = Install-Package -Name notepadplusplus -ProviderName Chocolatey;
+    & choco install SourceTree --confirm --failonstderr | Out-String -Stream | Write-Verbose;
+    & choco install visualstudio2015community --confirm --failonstderr | Out-String -Stream | Write-Verbose;
+    & choco install notepadplusplus --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 };
 
 Write-Verbose 'Preparing PATH environment variable...';
