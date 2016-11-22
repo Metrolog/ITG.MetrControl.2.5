@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix
+	xmlns="http://wixtoolset.org/schemas/v4/wxs"
+>
+
+	<?include Metrcontrol.wxi ?>
+
+	<Product
+		Id="$(var.ProductCode)"
+		Name="$(var.Manufacturer) $(var.ProductName)"
+		Version="$(var.ProductVersion)"
+		Language="1049"
+		Manufacturer="$(var.Manufacturer)"
+		UpgradeCode="$(var.UpgradeCode)"
+	>
+		<Package
+			InstallerVersion="200"
+			InstallScope="perMachine"
+			InstallPrivileges="elevated"
+			AdminImage="$(var.IsAdminImage)"
+			Compressed="$(var.Compressed)"
+			Manufacturer="IT-Service"
+			ShortNames="no"
+			Description="!(loc.PackageDescription) $(var.ProductName)."
+			Comments="!(loc.PackageDescription) $(var.ProductName)."
+			Keywords="Installer, $(var.ProductShortName)"
+			SummaryCodepage="!(loc.CodePage)"
+		/>
+
+		<WixVariable Id="ManufacturerId"      Value="$(var.ManufacturerId)"/>
+		<WixVariable Id="Manufacturer"        Value="$(var.Manufacturer)"/>
+		<WixVariable Id="ProductInternalName" Value="$(var.ProductInternalName)"/>
+		<WixVariable Id="ProductDescription"  Value="$(var.ProductDescription)"/>
+		<WixVariable Id="ProductShortName"    Value="$(var.ProductShortName)"/>
+		<WixVariable Id="ProductVersion"      Value="$(var.ProductVersion)"/>
+		<WixVariable Id="ProductMajorVersion" Value="$(var.ProductMajorVersion)"/>
+		<WixVariable Id="ProductMinorVersion" Value="$(var.ProductMinorVersion)"/>
+		<WixVariable Id="GitHubAccount"       Value="Metrolog"/>
+		<WixVariable Id="GitHubRepository"    Value="$(var.ProductProjectName)"/>
+		<WixVariable Id="PRIMARYFOLDER"       Value="PRODUCTPROGRAMFOLDER"/>
+
+		<Feature
+			Id="Product"
+			Level="1"
+			Absent="allow"
+			Display="2"
+			AllowAdvertise="yes"
+			InstallDefault="local"
+			TypicalDefault="install"
+			ConfigurableDirectory="APPLICATIONFOLDER"
+			Title="$(var.ProductShortName)"
+			Description="$(var.ProductName)"
+		>
+			<FeatureRef	Id="csmmain" />
+			<FeatureRef	Id="markinv" />
+			<FeatureRef Id="csmhelp" />
+			<FeatureRef	Id="csmadmin" />
+		</Feature>
+		<FeatureRef	Id="Bootstrapper" />
+
+		<Upgrade Id="$(var.UpgradeCode)">
+			<UpgradeVersion
+				Minimum="$(var.ProductVersion)"
+				IncludeMinimum="no"
+				Property="WIX_DOWNGRADE_DETECTED"
+			/>
+			<UpgradeVersion
+				Minimum="01.00.0000"
+				IncludeMinimum="yes"
+				Maximum="$(var.ProductVersion)"
+				IncludeMaximum="no"
+				RemoveFeatures="ALL"
+				Property="WIX_MAJOR_UPGRADE_DETECTED"
+				MigrateFeatures="yes"
+				IgnoreRemoveFailure="no"
+			/>
+		</Upgrade>
+		<Condition Message="!(loc.NewProductVersionExists)">
+			<![CDATA[NOT WIX_DOWNGRADE_DETECTED]]>
+		</Condition>
+		<InstallExecuteSequence>
+			<RemoveExistingProducts After="InstallExecute"/>
+		</InstallExecuteSequence>
+
+		<WixVariable Id="OriginalPackageKey" Value="$(var.ProductInternalName)"/>
+		<WixVariable Id="OriginalPackageUninstallerFileName" Value="uninstall.exe"/>
+		<WixVariable Id="OriginalPackageUninstallerArgs" Value="/S"/>
+		<CustomActionRef Id="UninstallOriginalPackage"/>
+
+		<PropertyRef Id="ITGPACKAGE"/>
+		<Property Id="ARPCOMMENTS" Value="$(var.ProductDescription)"/>
+		<Property Id="ARPCONTACT" Value="IT-Service"/>
+
+		<?ifdef AdminImage ?>
+		<Property Id="ARPNOMODIFY" Value="1"/>
+		<?endif?>
+		<!--<Property Id="ARPNOREMOVE" Value=""/>-->
+		<!--<Property Id="ARPNOREPAIR" Value=""/>-->
+		<!--<Property Id="ARPSYSTEMCOMPONENT" Value=""/>-->
+
+		<Property Id="MSIARPSETTINGSIDENTIFIER" Value="IFirst\MarkInventoryClient;ifirst\Metrcontrol"/>
+		<PropertyRef Id="MSIDEPLOYMENTCOMPLIANT"/>
+
+		<Icon Id="Product.ico" SourceFile=".\Icons\Product.ico"/>
+		<Property Id="ARPPRODUCTICON" Value="Product.ico"/>
+
+		<PropertyRef Id="PRIMARYFOLDER"/>
+
+		<!--<Property Id="ARPSIZE" Value=""/>-->
+
+		<Property Id="MSIFASTINSTALL" Value="3"/>
+
+		<Property Id="INSTALLLEVEL" Value="3"/>
+
+		<Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable"/>
+
+		<MediaTemplate EmbedCab="$(var.Compressed)"/>
+
+		<PropertyRef Id="DISABLESHORTCUTS"/>
+
+		<WixVariable Id="DISABLEPRODUCTSTARTUPFOLDERSHORTCUTS" Value="Yes"/>
+		<WixVariable Id="DISABLEPRODUCTDESKTOPFOLDERSHORTCUTS" Value="Yes"/>
+
+		<?ifndef AdminImage ?>
+
+		<UI>
+			<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>
+			<UIRef Id="WixUI_ErrorProgressText"/>
+		</UI>
+		<Property Id="WixAppFolder" Value="WixPerMachineFolder" />
+		<WixVariable Id="WixUISupportPerUser" Value="0" />
+		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
+
+		<?endif?>
+
+		<DirectoryRef Id="PRODUCTPROGRAMFOLDER">
+			<Directory Id="APPLICATIONFOLDER"
+				ComponentGuidGenerationSeed="{32EFBA94-C82D-45FB-A721-F6D534B1DE22}"
+			>
+				<Directory Id="Reports" SourceName="Reports"
+					ComponentGuidGenerationSeed="{84A9951A-107A-4B13-930A-54DD3198AF45}"
+				/>
+				<Directory Id="Help" SourceName="Help"
+					ComponentGuidGenerationSeed="{57D5DA46-5C82-4564-9343-6EF19A1F3BC9}"
+				/>
+				<Directory Id="CsmDbTemplatesFolder" SourceName="Templates" />
+			</Directory>
+		</DirectoryRef>
+
+	</Product>
+
+</Wix>
