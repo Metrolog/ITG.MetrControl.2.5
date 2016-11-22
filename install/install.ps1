@@ -80,10 +80,12 @@ if (
 & choco install GitReleaseNotes.Portable --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 
 if ( -not ( $env:APPVEYOR -eq 'True' ) ) {
+    & choco install visualstudio2015community --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install NuGet.CommandLine --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install git --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install openssl --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install windows-sdk-10 --confirm --failonstderr | Out-String -Stream | Write-Verbose;
+    & choco install wixtoolset --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 };
 
 & choco install cygwin --confirm --failonstderr | Out-String -Stream | Write-Verbose;
@@ -125,7 +127,6 @@ if ($PSCmdLet.ShouldProcess('make,mkdir,touch,zip,ttfautohint', 'Установ�
 
 if ( $GUI ) {
     & choco install SourceTree --confirm --failonstderr | Out-String -Stream | Write-Verbose;
-    & choco install visualstudio2015community --confirm --failonstderr | Out-String -Stream | Write-Verbose;
     & choco install notepadplusplus --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 };
 
