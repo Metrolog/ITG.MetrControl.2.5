@@ -8,15 +8,10 @@
 
 Для внесения изменений в пакет и повторной сборки пакета потребуются следующие продукты:
 
-- Microsoft Visual Studio 2012:
-	- [MS Visual Studio 2012 Shell Isolated][]
-	- [MS Visual Studio 2012 Shell Integrated][]
-	- [MS Visual Studio 2012 Express]. Достаточно данного продукта вместо предыдущих,
-	  но предыдущих будет достаточно, если не требуется корректировка кода загрузчика.
+- [Microsoft Visual Studio 2015 Community Edition][VS]
 - [Windows Installer XML Toolset - WIX][WIX]
 
-Установить необходимо все пакеты в указанном порядке. В результате - получае MS Visual Studio 2012 с подготовленными
-шаблонами проектов WiX. После этого открываем файл решения `Metrocontrol\Metrocontrol.sln` и собираем решение.
+Открываем файл решения `Metrocontrol\Metrocontrol.sln` и собираем решение.
 
 Варианты пакетов
 ----------------
@@ -156,7 +151,5 @@ GPO+GPP.
 несколько ярлыков на данный файл, при этом мы можем указать, какое приложение будет активировать ярлык по умолчанию (при двойном
 щелчке на ярлыке).
 
-[MS Visual Studio 2012 Shell Isolated]: http://www.microsoft.com/ru-ru/download/details.aspx?id=30670
-[MS Visual Studio 2012 Shell Integrated]: http://www.microsoft.com/ru-ru/download/details.aspx?id=30663
-[MS Visual Studio 2012 Express]: http://www.microsoft.com/visualstudio/rus/downloads#d-express-windows-desktop
+[VS]: https://www.microsoft.com/ru-ru/download/details.aspx?id=48146
 [WIX]: http://wixtoolset.org/
