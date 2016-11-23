@@ -199,6 +199,6 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent>$(ProjectDir)sign.bat "!(TargetPath)"</PostBuildEvent>
+    <PostBuildEvent />
   </PropertyGroup>
 </Project>
