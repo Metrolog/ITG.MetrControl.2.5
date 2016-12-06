@@ -18,5 +18,5 @@ build_script:
   - cmd: msbuild metrocontrol.sln
 
 artifacts:
-  - path: bin\$(configuration)\$(platform)\ru-RU
+  - path: bin\$(configuration)\$(platform)\ru-RU\Metrcontrol.msi
     name: msi.compressed
