@@ -11,3 +11,4 @@ install:
 
 build_script:
   - cmd: msbuild metrocontrol.sln
+
