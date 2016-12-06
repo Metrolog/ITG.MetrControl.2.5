@@ -17,3 +17,6 @@ configuration: Single .msi file
 build_script:
   - cmd: msbuild metrocontrol.sln
 
+artifacts:
+  - path: bin\$(configuration)\$(platform)\ru-RU
+    name: msi.compressed
