@@ -9,6 +9,11 @@ install:
   - cmd: GitVersion /output buildserver
   - ps: .\install\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
 
+platform:
+  - x86
+
+configuration: Single .msi file
+
 build_script:
   - cmd: msbuild metrocontrol.sln
 
