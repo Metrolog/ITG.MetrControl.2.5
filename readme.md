@@ -1,3 +1,5 @@
+[![Build status](https://ci.appveyor.com/api/projects/status/26eki19xnd70arbg?svg=true)](https://ci.appveyor.com/project/sergey-s-betke/itg-metrcontrol-2-4)
+
 Метроконтроль 2.4 - .msi пакет
 ==============================
 
