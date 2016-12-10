@@ -19,6 +19,7 @@
     <SuppressPdbOutput>True</SuppressPdbOutput>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' ">
     <DefineConstants>AdminImage</DefineConstants>
@@ -54,7 +55,6 @@
     <Content Include="Icons\Product.ico" />
     <Content Include="Common.RemoveAutoFile.wxi" />
     <Content Include="Metrcontrol.wxi" />
-    <Content Include="sign.bat" />
     <Content Include="SourceDir\%24PLUGINSDIR\InstallOptions.dll" />
     <Content Include="SourceDir\%24PLUGINSDIR\ioSpecial.ini" />
     <Content Include="SourceDir\%24PLUGINSDIR\modern-wizard.bmp" />
@@ -203,6 +203,7 @@
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <PropertyGroup>
-    <PostBuildEvent />
+    <PostBuildEvent>call "%25VS140COMNTOOLS%25VsDevCmd.bat"
+signtool sign /a /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
 </Project>
