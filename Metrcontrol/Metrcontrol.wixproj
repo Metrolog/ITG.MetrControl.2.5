@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Admin image</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.7</ProductVersion>
     <ProjectGuid>00cb7f8e-8726-4e55-91b7-eb05d0a4a5d3</ProjectGuid>
@@ -20,15 +20,13 @@
     <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' ">
-    <DefineConstants>AdminImage</DefineConstants>
-    <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Single .msi file|x86' ">
     <DefineConstants>SingleMSIFile</DefineConstants>
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
   </PropertyGroup>
+  <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
+    <!-- <DefineConstants>AdminImage</DefineConstants> -->
+    <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
+  <!-- </PropertyGroup> -->
   <ItemGroup>
     <Compile Include="csmadmin.wxs" />
     <Compile Include="CSMBootstrapper.wxs" />
