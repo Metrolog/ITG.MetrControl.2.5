@@ -8,6 +8,7 @@ environment:
 install:
   - cmd: GitVersion /output buildserver
   - ps: .\install\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
+  - cmd: call "%25VS140COMNTOOLS%25VsDevCmd.bat"
 
 platform:
   - x86
