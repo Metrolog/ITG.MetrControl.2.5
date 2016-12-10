@@ -40,7 +40,7 @@ $(eval $(call defineTest,install,msi,\
   cd $$(dir $$<);\
   msiexec.exe /norestart /qn /log install.log /i $$(notdir $$<);\
   EXIT_CODE=$$$$?;\
-  cat install.log;\
+  iconv -f UCS2 -c install.log;\
   exit $$$$EXIT_CODE;\
   , \
   $(msiTARGETS) \
@@ -50,7 +50,7 @@ $(eval $(call defineTest,uninstall,msi,\
   cd $$(dir $$<);\
   msiexec.exe /norestart /qn /log uninstall.log /x $$(notdir $$<);\
   EXIT_CODE=$$$$?;\
-  cat uninstall.log;\
+  iconv -f UCS2 -c uninstall.log;\
   exit $$$$EXIT_CODE;\
   , \
   $(msiTARGETS) \
