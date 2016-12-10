@@ -38,13 +38,21 @@ $(eval $(call defineTest,check_sign,msi,\
 
 $(eval $(call defineTest,install,msi,\
   cd $$(dir $$<);\
-  start /wait msiexec.exe /quiet /norestart /i $$(notdir $$<), \
+  msiexec.exe /norestart /qn /log install.log /i $$(notdir $$<);\
+  EXIT_CODE=$$$$?;\
+  cat install.log;\
+  exit $$$$EXIT_CODE;\
+  , \
   $(msiTARGETS) \
 ))
 
 $(eval $(call defineTest,uninstall,msi,\
   cd $$(dir $$<);\
-  start /wait msiexec.exe /quiet /norestart /x $$(notdir $$<), \
+  msiexec.exe /norestart /qn /log uninstall.log /x $$(notdir $$<);\
+  EXIT_CODE=$$$$?;\
+  cat uninstall.log;\
+  exit $$$$EXIT_CODE;\
+  , \
   $(msiTARGETS) \
 ))
 
