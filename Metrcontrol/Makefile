@@ -17,6 +17,7 @@ export CONFIGURATION := Release
 $(eval $(call exportGlobalVariable,CONFIGURATION))
 export SOLUTION := ../Metrocontrol.sln
 $(eval $(call exportGlobalVariable,SOLUTION))
+OUTPUTDIR := ../bin
 export msiTARGETS := ../bin/$(CONFIGURATION)/$(PLATFORM)/ru-RU/Metrcontrol.msi
 $(eval $(call exportGlobalVariable,msiTARGETS))
 
@@ -35,3 +36,6 @@ $(eval $(call defineTest,check_sign,msi,\
   $$(call SIGNTEST,$$<), \
   $(msiTARGETS) \
 ))
+
+clean::
+	rm -rf ../packages
