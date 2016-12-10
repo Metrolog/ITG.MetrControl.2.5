@@ -24,16 +24,25 @@ $(eval $(call exportGlobalVariable,msiTARGETS))
 $(eval $(call pushArtifactTargets,msiTARGETS))
 
 all: msi
-
 msi: $(msiTARGETS)
+	$(pushDeploymentArtifact)
 
 $(msiTARGETS): $(SOLUTION) $(CODE_SIGNING_CERTIFICATE_PFX)
 	msbuild.exe $<
 	$(SIGNTARGET)
-	$(pushDeploymentArtifact)
 
 $(eval $(call defineTest,check_sign,msi,\
   $$(call SIGNTEST,$$<), \
+  $(msiTARGETS) \
+))
+
+$(eval $(call defineTest,install,msi,\
+  msiexec.exe /quiet /norestart /i "$$(<)", \
+  $(msiTARGETS) \
+))
+
+$(eval $(call defineTest,uninstall,msi,\
+  msiexec.exe /quiet /norestart /x "$$(<)", \
   $(msiTARGETS) \
 ))
 
