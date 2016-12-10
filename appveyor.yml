@@ -12,7 +12,7 @@ install:
 platform:
   - x86
 
-configuration: Single .msi file
+configuration: Release
 
 build_script:
   - cmd: msbuild metrocontrol.sln
