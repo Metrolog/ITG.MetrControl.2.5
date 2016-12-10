@@ -200,8 +200,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
-  <PropertyGroup>
+  <!-- <PropertyGroup>
     <PostBuildEvent>call "%25VS140COMNTOOLS%25VsDevCmd.bat"
 signtool sign /a /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
-  </PropertyGroup>
+  </PropertyGroup> -->
 </Project>

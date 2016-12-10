@@ -28,7 +28,7 @@ msi: $(msiTARGETS)
 
 $(msiTARGETS): $(SOLUTION) $(CODE_SIGNING_CERTIFICATE_PFX)
 	msbuild.exe $<
-	@touch $@
+	$(SIGNTARGET)
 	$(pushDeploymentArtifact)
 
 $(eval $(call defineTest,check_sign,msi,\
