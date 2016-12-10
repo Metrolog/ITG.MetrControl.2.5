@@ -96,7 +96,7 @@ $env:CygWin = Get-ItemPropertyValue `
 Write-Verbose "CygWin root directory: $env:CygWin";
 $ToPath += "$env:CygWin\bin";
 
-#& choco install make mkdir touch zip ttfautohint --source cygwin --confirm --failonstderr | Out-String -Stream | Write-Verbose;
+#& choco install make mkdir touch zip --source cygwin --confirm --failonstderr | Out-String -Stream | Write-Verbose;
 # исправляем проблемы совместимости chocolatey, cyg-get и cygwin
 If ( Test-Path "$env:CygWin\cygwinsetup.exe" ) {
     $cygwinsetup = "$env:CygWin\cygwinsetup.exe";
@@ -118,10 +118,10 @@ if ($PSCmdLet.ShouldProcess('CygWin', 'Установить переменную
 $ToPath += "$env:CygWin\bin";
 
 Write-Verbose 'Install CygWin tools...';
-if ($PSCmdLet.ShouldProcess('make,mkdir,touch,zip,ttfautohint', 'Установить пакет CygWin')) {
+if ($PSCmdLet.ShouldProcess('make,mkdir,touch', 'Установить пакет CygWin')) {
     Execute-ExternalInstaller `
         -LiteralPath $cygwinsetup `
-        -ArgumentList '--packages make,mkdir,touch,zip,ttfautohint --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
+        -ArgumentList '--packages make,mkdir,touch --quiet-mode --no-desktop --no-startmenu --site http://mirrors.kernel.org/sourceware/cygwin/' `
     ;
 };
 
