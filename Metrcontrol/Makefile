@@ -37,12 +37,12 @@ $(eval $(call defineTest,check_sign,msi,\
 ))
 
 $(eval $(call defineTest,install,msi,\
-  msiexec.exe /quiet /norestart /i "$$(<)", \
+  msiexec.exe /quiet /norestart /i "$$<", \
   $(msiTARGETS) \
 ))
 
 $(eval $(call defineTest,uninstall,msi,\
-  msiexec.exe /quiet /norestart /x "$$(<)", \
+  msiexec.exe /quiet /norestart /x "$$<", \
   $(msiTARGETS) \
 ))
 
