@@ -52,7 +52,7 @@ $(eval $(call defineTest,uninstall,msi,\
   msiexec.exe /norestart /qn /log uninstall.log /x $$(notdir $$<);\
   wait;\
   EXIT_CODE=$$$$?;\
-  iconv -f UCS2 -c uninstall.log;\
+  iconv -f UTF8 -c ../../../../readme.md;\
   exit $$$$EXIT_CODE;\
   , \
   $(msiTARGETS) \
