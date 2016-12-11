@@ -38,7 +38,7 @@ $(eval $(call defineTest,check_sign,msi,\
 
 $(eval $(call defineTest,install,msi,\
   cd $$(dir $$<);\
-  msiexec.exe /norestart /qn /log install.log /i $$(notdir $$<);\
+  msiexec.exe /norestart /qn /leumo! install.log /i $$(notdir $$<);\
   wait;\
   EXIT_CODE=$$$$?;\
   iconv -f UCS2 -c install.log;\
@@ -49,10 +49,10 @@ $(eval $(call defineTest,install,msi,\
 
 $(eval $(call defineTest,uninstall,msi,\
   cd $$(dir $$<);\
-  msiexec.exe /norestart /qn /log uninstall.log /x $$(notdir $$<);\
+  msiexec.exe /norestart /qn /leumo! uninstall.log /x $$(notdir $$<);\
   wait;\
   EXIT_CODE=$$$$?;\
-  iconv -f UTF8 -c ../../../../readme.md;\
+  iconv -f UCS2 -c uninstall.log;\
   exit $$$$EXIT_CODE;\
   , \
   $(msiTARGETS) \
