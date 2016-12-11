@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Admin image</Configuration>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.7</ProductVersion>
     <ProjectGuid>00cb7f8e-8726-4e55-91b7-eb05d0a4a5d3</ProjectGuid>
@@ -19,15 +19,14 @@
     <SuppressPdbOutput>True</SuppressPdbOutput>
     <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' ">
-    <DefineConstants>AdminImage</DefineConstants>
-    <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Single .msi file|x86' ">
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <DefineConstants>SingleMSIFile</DefineConstants>
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
   </PropertyGroup>
+  <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
+    <!-- <DefineConstants>AdminImage</DefineConstants> -->
+    <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
+  <!-- </PropertyGroup> -->
   <ItemGroup>
     <Compile Include="csmadmin.wxs" />
     <Compile Include="CSMBootstrapper.wxs" />
@@ -54,7 +53,6 @@
     <Content Include="Icons\Product.ico" />
     <Content Include="Common.RemoveAutoFile.wxi" />
     <Content Include="Metrcontrol.wxi" />
-    <Content Include="sign.bat" />
     <Content Include="SourceDir\%24PLUGINSDIR\InstallOptions.dll" />
     <Content Include="SourceDir\%24PLUGINSDIR\ioSpecial.ini" />
     <Content Include="SourceDir\%24PLUGINSDIR\modern-wizard.bmp" />
@@ -202,7 +200,8 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
-  <PropertyGroup>
-    <PostBuildEvent />
-  </PropertyGroup>
+  <!-- <PropertyGroup>
+    <PostBuildEvent>call "%25VS140COMNTOOLS%25VsDevCmd.bat"
+signtool sign /a /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
+  </PropertyGroup> -->
 </Project>
