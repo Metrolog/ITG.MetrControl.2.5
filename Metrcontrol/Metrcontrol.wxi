@@ -2,15 +2,15 @@
 <Include
 	xmlns="http://schemas.microsoft.com/wix/2006/wi"
 >
-	<?define ProductVersion="02.03.5234.0234"?>
+	<?define ProductVersion="02.04"?>
 	<?define ProductMajorVersion="2"?>
-	<?define ProductMinorVersion="3"?>
+	<?define ProductMinorVersion="4"?>
 	<?define ProductShortName="АИС Метроконтроль"?>
 	<?define ProductInternalName="MetrControl"?>
-	<?define ProductProjectName="ITG.MetrControl.2.3"?>
+	<?define ProductProjectName="ITG.MetrControl.2.4"?>
 	<?define ProductDescription="Автоматизиованная информационная система АИС Метроконтроль."?>
 	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
-	<?define ProductCode="ABA668A2-5226-4163-8595-89BA3FDF2D23"?>
+	<?define ProductCode="0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66"?>
 	<?define UpgradeCode="19F14309-5782-4010-9770-E63635CC0782"?>
 	<?define Manufacturer="РЦН"?>
 	<?define ManufacturerId="iFirst"?>
