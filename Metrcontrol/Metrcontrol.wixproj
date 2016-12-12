@@ -24,8 +24,8 @@
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
   </PropertyGroup>
   <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
-    <!-- <DefineConstants>AdminImage</DefineConstants> -->
-    <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
+  <!-- <DefineConstants>AdminImage</DefineConstants> -->
+  <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
   <!-- </PropertyGroup> -->
   <ItemGroup>
     <Compile Include="csmadmin.wxs" />
@@ -38,27 +38,18 @@
     <Folder Include=".csmdb" />
     <Folder Include="ru-ru" />
     <Folder Include="SourceDir" />
-    <Folder Include="SourceDir\%24PLUGINSDIR" />
-    <Folder Include="SourceDir\%24Temp" />
     <Folder Include="Icons" />
     <Folder Include="SourceDir\Bootstrapper" />
     <Folder Include="SourceDir\Reports" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".csmdb\ncsm.csmdb23" />
-    <Content Include=".csmdb\template.csmdb23" />
+    <Content Include=".csmdb\template.csmdb24" />
     <Content Include="Icons\csmadmin.ico" />
     <Content Include="Icons\help.ico" />
     <Content Include="Icons\MarkInv.ico" />
     <Content Include="Icons\Product.ico" />
     <Content Include="Common.RemoveAutoFile.wxi" />
     <Content Include="Metrcontrol.wxi" />
-    <Content Include="SourceDir\%24PLUGINSDIR\InstallOptions.dll" />
-    <Content Include="SourceDir\%24PLUGINSDIR\ioSpecial.ini" />
-    <Content Include="SourceDir\%24PLUGINSDIR\modern-wizard.bmp" />
-    <Content Include="SourceDir\%24PLUGINSDIR\path.ini" />
-    <Content Include="SourceDir\%24PLUGINSDIR\StartMenu.dll" />
-    <Content Include="SourceDir\%24Temp\FindProcesses.exe" />
     <Content Include="SourceDir\Accounts.dll" />
     <Content Include="SourceDir\CommonControls.dll" />
     <Content Include="SourceDir\ConnectedDBComponents.dll" />
