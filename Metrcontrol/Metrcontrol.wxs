@@ -82,7 +82,7 @@
 			<RemoveExistingProducts After="InstallExecute"/>
 		</InstallExecuteSequence>
 
-		<WixVariable Id="OriginalPackageKey" Value="$(var.ProductInternalName)"/>
+		<WixVariable Id="OriginalPackageKey" Value="Метрконтроль"/>
 		<WixVariable Id="OriginalPackageUninstallerFileName" Value="uninstall.exe"/>
 		<WixVariable Id="OriginalPackageUninstallerArgs" Value="/S"/>
 		<CustomActionRef Id="UninstallOriginalPackage"/>
