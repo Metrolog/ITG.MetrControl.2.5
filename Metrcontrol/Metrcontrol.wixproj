@@ -56,8 +56,10 @@
     <Content Include="SourceDir\csm.dll" />
     <Content Include="SourceDir\csm4.dll" />
     <Content Include="SourceDir\csmadmin.exe" />
+    <Content Include="SourceDir\csmadmin.exe.config" />
     <Content Include="SourceDir\csmhelp.chm" />
     <Content Include="SourceDir\csmmain.exe" />
+    <Content Include="SourceDir\csmmain.exe.config" />
     <Content Include="SourceDir\csmusers.dll" />
     <Content Include="SourceDir\csmutil.dll" />
     <Content Include="SourceDir\CurrentCsmSelector.dll" />
@@ -75,6 +77,7 @@
     <Content Include="SourceDir\Reports\add_work_jur.rpt" />
     <Content Include="SourceDir\Reports\analitic_journal.rpt" />
     <Content Include="SourceDir\Reports\AUTHORIZED.rpt" />
+    <Content Include="SourceDir\Reports\Avail_Marks.rpt" />
     <Content Include="SourceDir\Reports\BadMarksReport.rpt" />
     <Content Include="SourceDir\Reports\CentralDevList.rpt" />
     <Content Include="SourceDir\Reports\codiff.rpt" />
@@ -138,6 +141,8 @@
     <Content Include="SourceDir\Reports\order_add.rpt" />
     <Content Include="SourceDir\Reports\payment_type.rpt" />
     <Content Include="SourceDir\Reports\plan.rpt" />
+    <Content Include="SourceDir\Reports\plans.rpt" />
+    <Content Include="SourceDir\Reports\plans_year.rpt" />
     <Content Include="SourceDir\Reports\purpose.rpt" />
     <Content Include="SourceDir\Reports\ResultReport.rpt" />
     <Content Include="SourceDir\Reports\Schedule.rpt" />
@@ -150,11 +155,13 @@
     <Content Include="SourceDir\Reports\Svidetelstvo_A5_ETALON.rpt" />
     <Content Include="SourceDir\Reports\Svidetelstvo_A5_form.rpt" />
     <Content Include="SourceDir\Reports\units.rpt" />
+    <Content Include="SourceDir\Reports\UPD.rpt" />
     <Content Include="SourceDir\Reports\urgency.rpt" />
     <Content Include="SourceDir\Reports\usage.rpt" />
     <Content Include="SourceDir\Reports\UsageReport_MeasureType.rpt" />
     <Content Include="SourceDir\Reports\UsageReport_MeasureType_Percent.rpt" />
     <Content Include="SourceDir\Reports\view_tariff_change.rpt" />
+    <Content Include="SourceDir\Reports\warrant.rpt" />
     <Content Include="SourceDir\Reports\Work_Place.rpt" />
     <Content Include="SourceDir\Reports\work_type.rpt" />
     <Content Include="SourceDir\sqlc.dll" />
