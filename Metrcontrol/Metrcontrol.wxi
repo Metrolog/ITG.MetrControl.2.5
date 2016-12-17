@@ -2,7 +2,8 @@
 <Include
 	xmlns="http://schemas.microsoft.com/wix/2006/wi"
 >
-	<?define ProductVersion="02.04.0000"?>
+	<?define ProductVersion="02.04.3369.0007"?>
+	<?define MetrControlVersion="2.4.3369.7"?>
 	<?define ProductMajorVersion="2"?>
 	<?define ProductMinorVersion="4"?>
 	<?define ProductShortName="АИС Метроконтроль"?>
