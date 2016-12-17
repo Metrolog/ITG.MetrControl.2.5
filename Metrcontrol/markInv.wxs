@@ -101,7 +101,7 @@
 				KeyPath="yes"
 				Assembly="win32"
 				AssemblyManifest="MarkInvInterop.dll.manifest"
-					AssemblyApplication="markinv.exe"
+				AssemblyApplication="markinv.exe"
 			>
 				<AssemblyName Id="Culture" Value="neutral"/>
 				<AssemblyName Id="Class" Value="MarkInvInterop.MarkInvSession"/>
@@ -117,11 +117,11 @@
 				KeyPath="yes"
 			/>
 			<Class
-				Id="{0B4C614E-E0EC-4CD8-A570-A31CA7968921}"
+				Id="{E526AD1F-225C-45C1-8ACE-1E859908E35E}"
 				Description="АИС Метроконтроль - учёт клейм."
 				Context="InprocServer32"
 				ThreadingModel="both"
-				Version="2.3.3369.2"
+				Version="$(var.MetrControlVersion)"
 				Advertise="no"
 				ForeignServer="mscoree.dll"
 			>
@@ -156,15 +156,15 @@
 		>
 			<RegistryKey
 				Root="HKMU"
-				Key="SOFTWARE\Classes\CLSID\{0B4C614E-E0EC-4CD8-A570-A31CA7968921}"
+				Key="SOFTWARE\Classes\CLSID\{E526AD1F-225C-45C1-8ACE-1E859908E35E}"
 			>
 				<RegistryKey Key="InprocServer32">
 					<RegistryValue Name="Class" Type="string" Value="MarkInvInterop.MarkInvSession" />
-					<RegistryValue Name="Assembly" Type="string" Value="MarkInvInterop, Version=2.3.3369.2, Culture=neutral, PublicKeyToken=null" />
+					<RegistryValue Name="Assembly" Type="string" Value="MarkInvInterop, Version=$(var.MetrControlVersion), Culture=neutral, PublicKeyToken=null" />
 					<RegistryValue Name="RuntimeVersion" Type="string" Value="v2.0.50727" />
-					<RegistryKey Key="2.3.3369.2">
+					<RegistryKey Key="$(var.MetrControlVersion)">
 						<RegistryValue Name="Class" Type="string" Value="MarkInvInterop.MarkInvSession" />
-						<RegistryValue Name="Assembly" Type="string" Value="MarkInvInterop, Version=2.3.3369.2, Culture=neutral, PublicKeyToken=null" KeyPath="yes" />
+						<RegistryValue Name="Assembly" Type="string" Value="MarkInvInterop, Version=$(var.MetrControlVersion), Culture=neutral, PublicKeyToken=null" KeyPath="yes" />
 						<RegistryValue Name="RuntimeVersion" Type="string" Value="v2.0.50727" />
 					</RegistryKey>
 				</RegistryKey>
