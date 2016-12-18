@@ -13,7 +13,7 @@
 	<?define OldPackageUninstallerArgs="/SILENT /NORESTART /SUPPRESSMSGBOXES"?>
 	<?endif?>
 
-	<?define OldPackageUninstallActionCondition="($(var.OldPackageProperty)) And (Not REMOVE) And (Not DONTUNINSTALLORIGINALPACKAGE)"?>
+	<?define OldPackageUninstallActionCondition='($(var.OldPackageProperty)) And (Not REMOVE) And (Not DONTUNINSTALLORIGINALPACKAGE) And (ALLUSERS)'?>
 
 	<Property Id="$(var.OldPackageProperty)">
 		<?ifdef OldPackageUninstallerFileName?>

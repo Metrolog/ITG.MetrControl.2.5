@@ -17,7 +17,7 @@
 	<?define ManufacturerId="iFirst"?>
 
 	<?define ProductId="$(var.ManufacturerId).$(var.ProductInternalName).$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
-	<?define ProductRegKey="SOFTWARE\$(var.ManufacturerId)\$(var.ProductInternalName)"?>
+	<?define ProductRegKey="SOFTWARE\$(var.ManufacturerId)\$(var.ProductInternalName)\$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
 	<?define ProductProgIdPrefix="$(var.ManufacturerId).$(var.ProductInternalName)"?>
 	<?define ProductProgIdPostfix="$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
 	<?define ProductProgId="$(var.ProductProgIdPrefix).$(var.ProductProgIdPostfix)"?>

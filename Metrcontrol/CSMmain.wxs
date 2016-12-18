@@ -39,7 +39,7 @@
 	<ComponentGroup Id="ProductComponents" Directory="APPLICATIONFOLDER">
 		<ComponentRef	Id="csmmain.exe" Primary="yes"/>
 		<ComponentRef	Id="csmmain.registry"/>
-		<ComponentRef	Id="common.registry"/>
+		<ComponentRef	Id="common.settings"/>
 		<?foreach Dll in $(var.MainDllList)?>
 		<ComponentRef	Id="$(var.Dll)"/>
 		<?endforeach?>
@@ -47,7 +47,6 @@
 	</ComponentGroup>
 
 	<ComponentGroup Id="CommonComponents">
-		<ComponentRef	Id="common.registry"/>
 		<ComponentRef	Id="common.settings"/>
 	</ComponentGroup>
  
@@ -109,7 +108,7 @@
 			/>
 			<!--Ключ ниже не требуется для работы. Ввёл, по сути, только для того, чтобы удалять его при деинсталляции-->
 			<RegistryKey
-				Root="HKLM"
+				Root="HKMU"
 				Key="$(var.ProductRegKey)"
 			>
 				<RegistryValue Name="CsmMainInstalled" Type="integer" Value="1" />
@@ -167,14 +166,14 @@
 		</Component>
 
 		<Component
-			Id="common.registry"
+			Id="common.settings"
 			Guid="{A62EDD1F-10C6-4427-9F04-A58AFB397E9B}"
-			Location="either"
+			Location="local"
 			Win64="$(var.Win64)"
 		>
 			<!--Ключ ниже не требуется для работы. Ввёл, по сути, только для того, чтобы удалять его при деинсталляции-->
 			<RegistryKey
-				Root="HKLM"
+				Root="HKMU"
 				Key="$(var.ProductRegKey)"
 				ForceCreateOnInstall="yes"
 				ForceDeleteOnUninstall="yes"
@@ -183,6 +182,11 @@
 				<RegistryValue Name="CurrentVersion" Type="string" Value="$(var.ProductVersion)" />
 				<RegistryValue Name="StartMenu" Type="string" Value="[PRODUCTMENUFOLDER]" />
 			</RegistryKey>
+			<CreateFolder Directory="PRODUCTLOCALAPPDATAFOLDER"/>
+			<RemoveFolder Id="common.settings.PRODUCTLOCALAPPDATAFOLDER" Directory="PRODUCTLOCALAPPDATAFOLDER" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ProductVersionLocalAppDataFolder" Directory="ProductVersionLocalAppDataFolder" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ProductLocalAppDataFolder" Directory="ProductLocalAppDataFolder" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ManufacturerLocalAppDataFolder" Directory="ManufacturerLocalAppDataFolder" On="uninstall"/>
 		</Component>
 
 		<?foreach Dll in $(var.MainDllList)?>
@@ -229,28 +233,6 @@
 				</Shortcut>
 			</File>
 			<RemoveFolder Id="csmhelp.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
-		</Component>
-	</DirectoryRef>
-
-	<DirectoryRef Id="ProductLocalAppDataFolder" FileSource=".\SourceDir">
-		<Component
-			Id="common.settings"
-			Guid="{CC7AD5EC-4FC4-40D4-90E7-2F136C0EC627}"
-			Location="local"
-		>
-			<!--Компонент ради удаления каталога с файлами конфигурации подключения к БД из профиля пользователя.
-			Однако, при установке на машину это решение не подходит, что и ожидаемо.-->
-			<RegistryKey
-				Root="HKCU"
-				Key="$(var.ProductRegKey)"
-			>
-				<RegistryValue Name="Version" Type="string" Value="$(var.ProductVersion)" KeyPath="yes" />
-			</RegistryKey>
-			<CreateFolder Directory="PRODUCTLOCALAPPDATAFOLDER"/>
-			<RemoveFolder Id="common.settings.PRODUCTLOCALAPPDATAFOLDER" Directory="PRODUCTLOCALAPPDATAFOLDER" On="uninstall"/>
-			<RemoveFolder Id="common.settings.ProductVersionLocalAppDataFolder" Directory="ProductVersionLocalAppDataFolder" On="uninstall"/>
-			<RemoveFolder Id="common.settings.ProductLocalAppDataFolder" Directory="ProductLocalAppDataFolder" On="uninstall"/>
-			<RemoveFolder Id="common.settings.ManufacturerLocalAppDataFolder" Directory="ManufacturerLocalAppDataFolder" On="uninstall"/>
 		</Component>
 	</DirectoryRef>
 

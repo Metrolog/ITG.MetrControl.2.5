@@ -14,9 +14,9 @@
 		UpgradeCode="$(var.UpgradeCode)"
 	>
 		<Package
-			InstallerVersion="200"
-			InstallScope="perMachine"
-			InstallPrivileges="elevated"
+			InstallerVersion="500"
+			InstallScope="perUser"
+			InstallPrivileges="limited"
 			AdminImage="$(var.IsAdminImage)"
 			Compressed="$(var.Compressed)"
 			Manufacturer="IT-Service"
@@ -121,11 +121,15 @@
 			<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>
 			<UIRef Id="WixUI_ErrorProgressText"/>
 		</UI>
-		<Property Id="WixAppFolder" Value="WixPerMachineFolder" />
-		<WixVariable Id="WixUISupportPerUser" Value="0" />
+		<Property Id="WixAppFolder" Value="WixPerUserFolder" />
+		<WixVariable Id="WixUISupportPerUser" Value="1" />
 		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
 
 		<?endif?>
+
+		<!-- установка приложения по умолчанию per user -->
+		<Property Id="ALLUSERS" Admin="yes" Value="2"/>
+		<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>
 
 		<DirectoryRef Id="PRODUCTPROGRAMFOLDER">
 			<Directory Id="APPLICATIONFOLDER"

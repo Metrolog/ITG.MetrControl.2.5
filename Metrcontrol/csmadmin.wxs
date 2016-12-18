@@ -70,8 +70,8 @@
 				CompanionFile="csmadmin.exe"
 			/>
 			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\ifirst\Metrcontrol"
+				Root="HKMU"
+				Key="$(var.ProductRegKey)"
 			>
 				<RegistryValue Name="CsmAdminInstalled" Type="integer" Value="1" />
 			</RegistryKey>
