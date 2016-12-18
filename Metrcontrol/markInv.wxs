@@ -91,7 +91,7 @@
 
 		<Component
 			Id="MarkInvInterop.dll"
-			Guid="{9717207D-A76E-4638-93A8-DD485DB3A807}"
+			Guid="{D89EAB43-DB96-4A54-905B-999E8D45DCF8}"
 			Location="local"
 			Win64="$(var.Win64)"
 		>
@@ -135,7 +135,7 @@
 
 		<Component
 			Id="markinv.registry"
-			Guid="{02E9FE07-30B7-4E56-A99A-444A03204244}"
+			Guid="{A36BAE00-34B8-4FCA-8418-58B1E5F144F4}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
@@ -150,7 +150,7 @@
 
 		<Component
 			Id="markinv.registry.2"
-			Guid="{9CCA0C59-BDB0-4486-8E95-CB8E9C1F4562}"
+			Guid="{10D58893-9058-4415-8A5F-BC984F8E9308}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>

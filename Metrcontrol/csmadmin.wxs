@@ -79,7 +79,7 @@
 
 		<Component
 			Id="csmadmin.registry"
-			Guid="{061D2DDA-8F3D-49C4-B89E-7137F43F5160}"
+			Guid="{E005B3BE-9D25-43E0-9197-1D2157D0FFC7}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>

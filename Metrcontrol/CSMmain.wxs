@@ -118,7 +118,7 @@
 
 		<Component
 			Id="csmmain.registry"
-			Guid="{4AF01660-10B6-4BFA-A0FC-6BC10286D3F1}"
+			Guid="{823857CB-E704-487A-9972-3B09FDF5273B}"
 			Location="either"
 				Win64="$(var.Win64)"
 		>
@@ -168,7 +168,7 @@
 
 		<Component
 			Id="common.registry"
-			Guid="{F4B04020-6528-4729-99CC-FAB8F6FBDFF2}"
+			Guid="{A62EDD1F-10C6-4427-9F04-A58AFB397E9B}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
@@ -235,7 +235,7 @@
 	<DirectoryRef Id="ProductLocalAppDataFolder" FileSource=".\SourceDir">
 		<Component
 			Id="common.settings"
-			Guid="{1E95A8D4-1C73-47AF-8F74-CED44DB1EFCB}"
+			Guid="{CC7AD5EC-4FC4-40D4-90E7-2F136C0EC627}"
 			Location="local"
 		>
 			<!--Компонент ради удаления каталога с файлами конфигурации подключения к БД из профиля пользователя.

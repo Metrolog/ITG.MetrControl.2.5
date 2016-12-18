@@ -135,13 +135,13 @@
 
 		<DirectoryRef Id="PRODUCTPROGRAMFOLDER">
 			<Directory Id="APPLICATIONFOLDER"
-				ComponentGuidGenerationSeed="{32EFBA94-C82D-45FB-A721-F6D534B1DE22}"
+				ComponentGuidGenerationSeed="{4C655BC2-D8FC-4FCC-BD2D-53C707A8E91C}"
 			>
 				<Directory Id="Reports" SourceName="Reports"
-					ComponentGuidGenerationSeed="{84A9951A-107A-4B13-930A-54DD3198AF45}"
+					ComponentGuidGenerationSeed="{A40459FC-2459-481F-BBE2-8708D8BE499D}"
 				/>
 				<Directory Id="Help" SourceName="Help"
-					ComponentGuidGenerationSeed="{57D5DA46-5C82-4564-9343-6EF19A1F3BC9}"
+					ComponentGuidGenerationSeed="{A3F8C7D4-81B2-4843-8E9D-CE80E3BDD557}"
 				/>
 				<Directory Id="CsmDbTemplatesFolder" SourceName="Templates" />
 			</Directory>
