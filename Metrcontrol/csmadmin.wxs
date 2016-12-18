@@ -24,7 +24,6 @@
 
 	<ComponentGroup Id="csmadmin" Directory="APPLICATIONFOLDER">
 		<ComponentRef	Id="csmadmin.exe" Primary="yes"/>
-		<ComponentRef	Id="csmadmin.exe_x64"/>
 		<ComponentRef	Id="csmadmin.registry"/>
 		<ComponentRef	Id="csmusers.dll"/>
 		<ComponentRef	Id="csmutil.dll"/>
@@ -75,26 +74,6 @@
 				Key="SOFTWARE\ifirst\Metrcontrol"
 			>
 				<RegistryValue Name="CsmAdminInstalled" Type="integer" Value="1" />
-			</RegistryKey>
-			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
-			>
-				<RegistryValue Name="[#csmadmin.exe]" Type="string" Value="RUNASADMIN" />
-			</RegistryKey>
-		</Component>
-
-		<Component
-			Id="csmadmin.exe_x64"
-			Guid="{0284D1EC-0FBD-4032-96BF-C44D12CC0278}"
-			Win64="yes"
-		>
-			<Condition><![CDATA[VersionNT64]]></Condition>
-			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
-			>
-				<RegistryValue Name="[#csmadmin.exe]" Type="string" Value="RUNASADMIN" KeyPath="yes"/>
 			</RegistryKey>
 		</Component>
 
