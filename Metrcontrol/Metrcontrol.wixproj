@@ -20,11 +20,11 @@
     <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <DefineConstants>SingleMSIFile</DefineConstants>
+    <DefineConstants>SingleMSIFile;ReportsSourceDir=.\SourceDir\Reports</DefineConstants>
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
-  </PropertyGroup>
+	</PropertyGroup>
   <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
-  <!-- <DefineConstants>AdminImage</DefineConstants> -->
+  <!-- <DefineConstants>AdminImage;ReportsSourceDir=.\SourceDir\Reports</DefineConstants> -->
   <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
   <!-- </PropertyGroup> -->
   <ItemGroup>
@@ -33,6 +33,12 @@
     <Compile Include="CSMmain.wxs" />
     <Compile Include="markInv.wxs" />
     <Compile Include="Metrcontrol.wxs" />
+		<HarvestDirectory Include="SourceDir\Reports">
+			<DirectoryRefId>Reports</DirectoryRefId>
+			<SuppressRootDirectory>true</SuppressRootDirectory>
+			<ComponentGroupName>ProductReports</ComponentGroupName>
+			<PreprocessorVariable>var.ReportsSourceDir</PreprocessorVariable>
+		</HarvestDirectory>
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".csmdb" />
@@ -40,7 +46,6 @@
     <Folder Include="SourceDir" />
     <Folder Include="Icons" />
     <Folder Include="SourceDir\Bootstrapper" />
-    <Folder Include="SourceDir\Reports" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".csmdb\template.csmdb24" />
@@ -72,98 +77,6 @@
     <Content Include="SourceDir\metrcontrolupdate.exe" />
     <Content Include="SourceDir\msvcr71.dll" />
     <Content Include="SourceDir\References.dll" />
-    <Content Include="SourceDir\Reports\ActF.rpt" />
-    <Content Include="SourceDir\Reports\add_work.rpt" />
-    <Content Include="SourceDir\Reports\add_work_jur.rpt" />
-    <Content Include="SourceDir\Reports\analitic_journal.rpt" />
-    <Content Include="SourceDir\Reports\AUTHORIZED.rpt" />
-    <Content Include="SourceDir\Reports\Avail_Marks.rpt" />
-    <Content Include="SourceDir\Reports\BadMarksReport.rpt" />
-    <Content Include="SourceDir\Reports\CentralDevList.rpt" />
-    <Content Include="SourceDir\Reports\codiff.rpt" />
-    <Content Include="SourceDir\Reports\contract_bills.rpt" />
-    <Content Include="SourceDir\Reports\contract_list.rpt" />
-    <Content Include="SourceDir\Reports\contract_orders.rpt" />
-    <Content Include="SourceDir\Reports\contract_specified_time.rpt" />
-    <Content Include="SourceDir\Reports\contract_subject.rpt" />
-    <Content Include="SourceDir\Reports\crebit.rpt" />
-    <Content Include="SourceDir\Reports\csm.rpt" />
-    <Content Include="SourceDir\Reports\CSM_ACCOMPLISHED_ORDER_POS.RPT" />
-    <Content Include="SourceDir\Reports\CSM_BILLS_ISSUED.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Common_Mark_Move.rpt" />
-    <Content Include="SourceDir\Reports\CSM_DEBTS.rpt" />
-    <Content Include="SourceDir\Reports\CSM_DEPARTMENTS_EMPLOYEES_RESULTS.RPT" />
-    <Content Include="SourceDir\Reports\CSM_Detail_Mark_Move.rpt" />
-    <Content Include="SourceDir\Reports\CSM_DEVICE_STATE.rpt" />
-    <Content Include="SourceDir\Reports\CSM_DEVICE_STATE_ISSUE.rpt" />
-    <Content Include="SourceDir\Reports\CSM_DEV_LIST_AVAIL.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Dpt_Mark_Move.rpt" />
-    <Content Include="SourceDir\Reports\CSM_ENTERED_ORDER_HEAD.rpt" />
-    <Content Include="SourceDir\Reports\CSM_INCOMES.rpt" />
-    <Content Include="SourceDir\Reports\csm_issued_billf.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Logging.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Mark_History.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Mark_Rec_Rep.rpt" />
-    <Content Include="SourceDir\Reports\CSM_PREVIOUS_MARK.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Ret_Act.rpt" />
-    <Content Include="SourceDir\Reports\CSM_SALES_BOOK.rpt" />
-    <Content Include="SourceDir\Reports\CSM_SCHED_AVAIL.rpt" />
-    <Content Include="SourceDir\Reports\CSM_SCHED_RECEIPT.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Total_Mark_Rep.rpt" />
-    <Content Include="SourceDir\Reports\CSM_Total_Mark_Usage.rpt" />
-    <Content Include="SourceDir\Reports\cust.rpt" />
-    <Content Include="SourceDir\Reports\customer_type.rpt" />
-    <Content Include="SourceDir\Reports\cust_rep.rpt" />
-    <Content Include="SourceDir\Reports\deliveryschedule.rpt" />
-    <Content Include="SourceDir\Reports\dep_cust.rpt" />
-    <Content Include="SourceDir\Reports\device_groups.rpt" />
-    <Content Include="SourceDir\Reports\device_groups_expanded.rpt" />
-    <Content Include="SourceDir\Reports\dogovor.rpt" />
-    <Content Include="SourceDir\Reports\emp_plan.rpt" />
-    <Content Include="SourceDir\Reports\EXP.rpt" />
-    <Content Include="SourceDir\Reports\Express.rpt" />
-    <Content Include="SourceDir\Reports\ExpressAdd.rpt" />
-    <Content Include="SourceDir\Reports\FacturaF.rpt" />
-    <Content Include="SourceDir\Reports\Izveshenie.rpt" />
-    <Content Include="SourceDir\Reports\Izveshenie_A5.rpt" />
-    <Content Include="SourceDir\Reports\Izveshenie_A5_form.rpt" />
-    <Content Include="SourceDir\Reports\Journal.rpt" />
-    <Content Include="SourceDir\Reports\list.rpt" />
-    <Content Include="SourceDir\Reports\LocalDevList.rpt" />
-    <Content Include="SourceDir\Reports\log.rpt" />
-    <Content Include="SourceDir\Reports\markreq.rpt" />
-    <Content Include="SourceDir\Reports\markreq_blank.rpt" />
-    <Content Include="SourceDir\Reports\measure_type.rpt" />
-    <Content Include="SourceDir\Reports\MNG_ACT_FORM.RPT" />
-    <Content Include="SourceDir\Reports\MNG_ACT_VIEW.RPT" />
-    <Content Include="SourceDir\Reports\OKATO.rpt" />
-    <Content Include="SourceDir\Reports\Order.rpt" />
-    <Content Include="SourceDir\Reports\order_add.rpt" />
-    <Content Include="SourceDir\Reports\payment_type.rpt" />
-    <Content Include="SourceDir\Reports\plan.rpt" />
-    <Content Include="SourceDir\Reports\plans.rpt" />
-    <Content Include="SourceDir\Reports\plans_year.rpt" />
-    <Content Include="SourceDir\Reports\purpose.rpt" />
-    <Content Include="SourceDir\Reports\ResultReport.rpt" />
-    <Content Include="SourceDir\Reports\Schedule.rpt" />
-    <Content Include="SourceDir\Reports\SchetF.rpt" />
-    <Content Include="SourceDir\Reports\SchetF1.rpt" />
-    <Content Include="SourceDir\Reports\SPHERE.rpt" />
-    <Content Include="SourceDir\Reports\SP_WT.rpt" />
-    <Content Include="SourceDir\Reports\Svidetelstvo.rpt" />
-    <Content Include="SourceDir\Reports\Svidetelstvo_A5.rpt" />
-    <Content Include="SourceDir\Reports\Svidetelstvo_A5_ETALON.rpt" />
-    <Content Include="SourceDir\Reports\Svidetelstvo_A5_form.rpt" />
-    <Content Include="SourceDir\Reports\units.rpt" />
-    <Content Include="SourceDir\Reports\UPD.rpt" />
-    <Content Include="SourceDir\Reports\urgency.rpt" />
-    <Content Include="SourceDir\Reports\usage.rpt" />
-    <Content Include="SourceDir\Reports\UsageReport_MeasureType.rpt" />
-    <Content Include="SourceDir\Reports\UsageReport_MeasureType_Percent.rpt" />
-    <Content Include="SourceDir\Reports\view_tariff_change.rpt" />
-    <Content Include="SourceDir\Reports\warrant.rpt" />
-    <Content Include="SourceDir\Reports\Work_Place.rpt" />
-    <Content Include="SourceDir\Reports\work_type.rpt" />
     <Content Include="SourceDir\sqlc.dll" />
   </ItemGroup>
   <ItemGroup>
