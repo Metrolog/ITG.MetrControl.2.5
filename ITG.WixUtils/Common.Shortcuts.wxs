@@ -62,7 +62,7 @@
 		<!--<DirectoryRef Id="ProductVersionProgramMenuFolder">
 			<Directory Id="PRODUCTMENUFOLDER" Name="!(wix.ProductShortName) !(wix.ProductMajorVersion).!(wix.ProductMinorVersion)"/>
 		</DirectoryRef>-->
-		<PropertyRef Id="DISABLEPRODUCTMENUFOLDERSHORTCUTS"/>
+		<!--<PropertyRef Id="DISABLEPRODUCTMENUFOLDERSHORTCUTS"/>-->
 		<IgnoreModularization Type="Directory" Name="PRODUCTMENUFOLDER"/>
 	</Fragment>
 
@@ -70,7 +70,7 @@
 		<DirectoryRef Id="AdminToolsFolder">
 			<Directory Id="PRODUCTADMINTOOLSFOLDER"/>
 		</DirectoryRef>
-		<PropertyRef Id="DISABLEPRODUCTADMINTOOLSFOLDERSHORTCUTS"/>
+		<!--<PropertyRef Id="DISABLEPRODUCTADMINTOOLSFOLDERSHORTCUTS"/>-->
 		<IgnoreModularization Type="Directory" Name="PRODUCTADMINTOOLSFOLDER"/>
 	</Fragment>
 
@@ -78,7 +78,7 @@
 		<DirectoryRef Id="StartupFolder">
 			<Directory Id="PRODUCTSTARTUPFOLDER"/>
 		</DirectoryRef>
-		<PropertyRef Id="DISABLEPRODUCTSTARTUPFOLDERSHORTCUTS"/>
+		<!--<PropertyRef Id="DISABLEPRODUCTSTARTUPFOLDERSHORTCUTS"/>-->
 		<IgnoreModularization Type="Directory" Name="PRODUCTSTARTUPFOLDER"/>
 	</Fragment>
 
@@ -86,7 +86,7 @@
 		<DirectoryRef Id="DesktopFolder">
 			<Directory Id="PRODUCTDESKTOPFOLDER"/>
 		</DirectoryRef>
-		<PropertyRef Id="DISABLEPRODUCTDESKTOPFOLDERSHORTCUTS"/>
+		<!--<PropertyRef Id="DISABLEPRODUCTDESKTOPFOLDERSHORTCUTS"/>-->
 		<IgnoreModularization Type="Directory" Name="PRODUCTDESKTOPFOLDER"/>
 	</Fragment>
 

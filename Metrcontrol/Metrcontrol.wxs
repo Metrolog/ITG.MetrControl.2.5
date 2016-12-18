@@ -94,9 +94,6 @@
 		<?ifdef AdminImage ?>
 		<Property Id="ARPNOMODIFY" Value="1"/>
 		<?endif?>
-		<!--<Property Id="ARPNOREMOVE" Value=""/>-->
-		<!--<Property Id="ARPNOREPAIR" Value=""/>-->
-		<!--<Property Id="ARPSYSTEMCOMPONENT" Value=""/>-->
 
 		<Property Id="MSIARPSETTINGSIDENTIFIER" Value="IFirst\MarkInventoryClient;ifirst\Metrcontrol"/>
 		<PropertyRef Id="MSIDEPLOYMENTCOMPLIANT"/>
@@ -117,9 +114,6 @@
 		<MediaTemplate EmbedCab="$(var.Compressed)"/>
 
 		<PropertyRef Id="DISABLESHORTCUTS"/>
-
-		<WixVariable Id="DISABLEPRODUCTSTARTUPFOLDERSHORTCUTS" Value="Yes"/>
-		<WixVariable Id="DISABLEPRODUCTDESKTOPFOLDERSHORTCUTS" Value="Yes"/>
 
 		<?ifndef AdminImage ?>
 
