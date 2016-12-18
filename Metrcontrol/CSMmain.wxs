@@ -54,7 +54,7 @@
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
 		<Component
 			Id="csmmain.exe"
-			Guid="{A8840BA1-D58E-4DAC-A867-2131F2CFE7B6}"
+			Guid="{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
