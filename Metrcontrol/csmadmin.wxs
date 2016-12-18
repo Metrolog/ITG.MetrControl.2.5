@@ -63,16 +63,6 @@
 				>
 					<Icon Id="csmadmin.exe" SourceFile=".\Icons\csmadmin.ico"/>
 				</Shortcut>
-				<Shortcut
-					Id="csmadmin.AdminToolsShortcut"
-					Directory="AdminToolsFolder"
-					Name="$(var.AdminToolName)"
-					Description="$(var.AdminToolDescription)"
-					WorkingDirectory="APPLICATIONFOLDER"
-					Show="normal"
-					Advertise="yes"
-					Icon="csmadmin.exe"
-				/>
 			</File>
 			<RemoveFolder Id="csmadmin.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
 			<File
