@@ -107,11 +107,14 @@
 		<MediaTemplate EmbedCab="$(var.Compressed)"/>
 		<PropertyRef Id="DISABLESHORTCUTS"/>
 
+		<!-- установка приложения по умолчанию per user -->
+		<Property Id="ALLUSERS" Admin="yes" Value="2"/>
+		<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>
+
 		<?ifndef AdminImage ?>
 
 		<UI>
-			<!--<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>-->
-			<UIRef Id="WixUI_Advanced"/>
+			<UIRef Id="WixUI_AdvancedWithoutLicenseDlg"/>
 			<UIRef Id="WixUI_ErrorProgressText"/>
 		</UI>
 		<WixVariable Id="WixUISupportPerUser" Value="1" />
@@ -119,10 +122,6 @@
 		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
 
 		<?else?>
-
-		<!-- установка приложения по умолчанию per user -->
-		<Property Id="ALLUSERS" Admin="yes" Value="2"/>
-		<!--<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>-->
 
 		<?endif?>
 

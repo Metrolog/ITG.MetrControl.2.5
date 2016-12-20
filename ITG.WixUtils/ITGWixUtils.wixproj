@@ -35,6 +35,7 @@
     <Compile Include="Common.Help.wxs" />
     <Compile Include="Common.UninstallOldPackage.wxs" />
     <Compile Include="Common.WscServer.wxs" />
+    <Compile Include="WixUI_AdvancedWithoutLicenseDlg.wxs" />
     <Compile Include="WixUI_MondoWithoutLicenseDlg.wxs" />
     <Compile Include="WixUI_Properties.wxs" />
   </ItemGroup>
