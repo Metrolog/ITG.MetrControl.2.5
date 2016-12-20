@@ -4,9 +4,10 @@
 >
 	<Fragment>
 		<UI Id="WixUI_MondoWithoutLicenseDlg">
-			<TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
-			<TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
-			<TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+			<TextStyle Id="WixUI_Font_Normal" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Normal_Size)" />
+			<TextStyle Id="WixUI_Font_Bigger" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Bigger_Size)" />
+			<TextStyle Id="WixUI_Font_Title" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Title_Size)" Bold="yes" />
+			<TextStyle Id="WixUI_Font_Emphasized" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Emphasized_Size)" Bold="yes" />
 
 			<Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
 			<Property Id="WixUI_Mode" Value="Mondo" />
