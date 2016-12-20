@@ -6,7 +6,6 @@
 	<Fragment Id="WixAppFolder">
 		<WixVariable Id="WixAppFolder" Overridable="yes" Value="WixPerMachineFolder"/>
 		<Property Id="WixAppFolder" Value="!(wix.WixAppFolder)"/>
-		<!--<WixVariable Id="PRIMARYFOLDER" Value="APPLICATIONFOLDER"/>-->
 	</Fragment>
 
 </Wix>
