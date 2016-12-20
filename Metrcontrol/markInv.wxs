@@ -26,7 +26,6 @@
 		<ComponentRef	Id="markinv.exe" Primary="yes" />
 		<ComponentRef	Id="MarkInvInterop.dll" />
 		<ComponentRef	Id="markinv.registry" />
-		<ComponentRef	Id="markinv.registry.2" />
 		<ComponentRef	Id="csmusers.dll"/>
 		<ComponentRef	Id="csmutil.dll"/>
 		<ComponentRef	Id="CurrentCsmSelector.dll"/>
@@ -36,7 +35,7 @@
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
 		<Component
 			Id="markinv.exe"
-			Guid="{787104E4-96B1-4D9E-A10D-B2D285A47E13}"
+			Guid="{81ED99F6-06D3-47A9-924D-ADC05230B10C}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
@@ -82,8 +81,8 @@
 			<RemoveFolder Id="markinv.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
 			<RemoveFolder Id="markinv.ProductDesktopFolder" Directory="PRODUCTDESKTOPFOLDER" On="uninstall"/>
 			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\ifirst\Metrcontrol"
+				Root="HKMU"
+				Key="$(var.ProductRegKey)"
 			>
 				<RegistryValue Name="MarkInvInstalled" Type="integer" Value="1" />
 			</RegistryKey>
@@ -91,7 +90,7 @@
 
 		<Component
 			Id="MarkInvInterop.dll"
-			Guid="{9717207D-A76E-4638-93A8-DD485DB3A807}"
+			Guid="{D89EAB43-DB96-4A54-905B-999E8D45DCF8}"
 			Location="local"
 			Win64="$(var.Win64)"
 		>
@@ -135,22 +134,7 @@
 
 		<Component
 			Id="markinv.registry"
-			Guid="{02E9FE07-30B7-4E56-A99A-444A03204244}"
-			Location="either"
-			Win64="$(var.Win64)"
-		>
-			<RegistryKey
-				Root="HKCU"
-				Key="SOFTWARE\ifirst\MarkInventoryClient"
-				ForceDeleteOnUninstall="yes"
-			>
-				<RegistryValue Type="string" Value="installed" KeyPath="yes" />
-			</RegistryKey>
-		</Component>
-
-		<Component
-			Id="markinv.registry.2"
-			Guid="{9CCA0C59-BDB0-4486-8E95-CB8E9C1F4562}"
+			Guid="{10D58893-9058-4415-8A5F-BC984F8E9308}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>

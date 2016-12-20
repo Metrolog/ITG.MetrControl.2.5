@@ -19,7 +19,7 @@ namespace ITG.CSM.Metrcontrol
 
 		static
 		Guid
-		ProductCode = new Guid("{ABA668A2-5226-4163-8595-89BA3FDF2D23}");
+		ProductCode = new Guid("{0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66}");
 
         enum CsmTool
         {
@@ -105,7 +105,7 @@ namespace ITG.CSM.Metrcontrol
                     ToolPath = Package.ProvideComponent(
 						ProductCode
                         , Tool.ToString()
-                        , new Guid("{E5957298-538D-44F3-86B5-76D09E721E0E}")
+                        , new Guid("{D49011DA-C023-4B55-AA7C-724C7A7F3679}")
                     );
                     break;
                 case "csmmain":
@@ -114,7 +114,7 @@ namespace ITG.CSM.Metrcontrol
                     ToolPath = Package.ProvideComponent(
 						ProductCode
                         , Tool.ToString()
-                        , new Guid("{A8840BA1-D58E-4DAC-A867-2131F2CFE7B6}")
+                        , new Guid("{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}")
                     );
                     break;
                 case "markinv":
@@ -122,7 +122,7 @@ namespace ITG.CSM.Metrcontrol
                     ToolPath = Package.ProvideComponent(
 						ProductCode
                         , Tool.ToString()
-                        , new Guid("{787104E4-96B1-4D9E-A10D-B2D285A47E13}")
+                        , new Guid("{81ED99F6-06D3-47A9-924D-ADC05230B10C}")
                     );
                     break;
                 default:

@@ -8,9 +8,9 @@
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>ITG.WixUtils</OutputName>
     <OutputType>Library</OutputType>
-		<WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-		<WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
-		<!--
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <!--
 		<WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\WiX Toolset\v4\Wix.targets</WixTargetsPath>
     <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\WiX Toolset\v4\Wix.targets</WixTargetsPath>
 		-->
@@ -35,7 +35,9 @@
     <Compile Include="Common.Help.wxs" />
     <Compile Include="Common.UninstallOldPackage.wxs" />
     <Compile Include="Common.WscServer.wxs" />
+    <Compile Include="WixUI_AdvancedWithoutLicenseDlg.wxs" />
     <Compile Include="WixUI_MondoWithoutLicenseDlg.wxs" />
+    <Compile Include="WixUI_Properties.wxs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="en-us\Common.wxl" />

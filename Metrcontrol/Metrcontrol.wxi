@@ -12,12 +12,12 @@
 	<?define ProductDescription="Автоматизиованная информационная система АИС Метроконтроль."?>
 	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
 	<?define ProductCode="0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66"?>
-	<?define UpgradeCode="19F14309-5782-4010-9770-E63635CC0782"?>
+	<?define UpgradeCode="3A64DCFD-2FCD-4139-AFEF-2BCC4B1B14E4"?>
 	<?define Manufacturer="РЦН"?>
 	<?define ManufacturerId="iFirst"?>
 
 	<?define ProductId="$(var.ManufacturerId).$(var.ProductInternalName).$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
-	<?define ProductRegKey="SOFTWARE\$(var.ManufacturerId)\$(var.ProductInternalName)"?>
+	<?define ProductRegKey="SOFTWARE\$(var.ManufacturerId)\$(var.ProductInternalName)\$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
 	<?define ProductProgIdPrefix="$(var.ManufacturerId).$(var.ProductInternalName)"?>
 	<?define ProductProgIdPostfix="$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
 	<?define ProductProgId="$(var.ProductProgIdPrefix).$(var.ProductProgIdPostfix)"?>

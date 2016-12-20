@@ -24,7 +24,6 @@
 
 	<ComponentGroup Id="csmadmin" Directory="APPLICATIONFOLDER">
 		<ComponentRef	Id="csmadmin.exe" Primary="yes"/>
-		<ComponentRef	Id="csmadmin.exe_x64"/>
 		<ComponentRef	Id="csmadmin.registry"/>
 		<ComponentRef	Id="csmusers.dll"/>
 		<ComponentRef	Id="csmutil.dll"/>
@@ -40,7 +39,7 @@
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
 		<Component
 			Id="csmadmin.exe"
-			Guid="{E5957298-538D-44F3-86B5-76D09E721E0E}"
+			Guid="{D49011DA-C023-4B55-AA7C-724C7A7F3679}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
@@ -63,16 +62,6 @@
 				>
 					<Icon Id="csmadmin.exe" SourceFile=".\Icons\csmadmin.ico"/>
 				</Shortcut>
-				<Shortcut
-					Id="csmadmin.AdminToolsShortcut"
-					Directory="AdminToolsFolder"
-					Name="$(var.AdminToolName)"
-					Description="$(var.AdminToolDescription)"
-					WorkingDirectory="APPLICATIONFOLDER"
-					Show="normal"
-					Advertise="yes"
-					Icon="csmadmin.exe"
-				/>
 			</File>
 			<RemoveFolder Id="csmadmin.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
 			<File
@@ -81,36 +70,16 @@
 				CompanionFile="csmadmin.exe"
 			/>
 			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\ifirst\Metrcontrol"
+				Root="HKMU"
+				Key="$(var.ProductRegKey)"
 			>
 				<RegistryValue Name="CsmAdminInstalled" Type="integer" Value="1" />
-			</RegistryKey>
-			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
-			>
-				<RegistryValue Name="[#csmadmin.exe]" Type="string" Value="RUNASADMIN" />
-			</RegistryKey>
-		</Component>
-
-		<Component
-			Id="csmadmin.exe_x64"
-			Guid="{0284D1EC-0FBD-4032-96BF-C44D12CC0278}"
-			Win64="yes"
-		>
-			<Condition><![CDATA[VersionNT64]]></Condition>
-			<RegistryKey
-				Root="HKLM"
-				Key="SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"
-			>
-				<RegistryValue Name="[#csmadmin.exe]" Type="string" Value="RUNASADMIN" KeyPath="yes"/>
 			</RegistryKey>
 		</Component>
 
 		<Component
 			Id="csmadmin.registry"
-			Guid="{061D2DDA-8F3D-49C4-B89E-7137F43F5160}"
+			Guid="{E005B3BE-9D25-43E0-9197-1D2157D0FFC7}"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
