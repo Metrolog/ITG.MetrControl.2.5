@@ -6,6 +6,8 @@ dirstate
 make.log
 build.log
 .vs
+db
+ipch
 /_UpgradeReport_Files
 /UpgradeLog*.htm
 /UpgradeLog*.XML
