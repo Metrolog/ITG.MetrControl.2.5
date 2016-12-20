@@ -60,12 +60,16 @@
 		<WixVariable Id="ProductInternalName" Overridable="yes" Value="ProductInternalName"/>
 		<WixVariable Id="ProductMajorVersion" Overridable="yes" Value="ProductMajorVersion"/>
 		<WixVariable Id="ProductMinorVersion" Overridable="yes" Value="ProductMinorVersion"/>
+		<!-- Чтобы исключить генерацию подпапок x86, x64 в каталоге программы достаточно установить значение следующей переменной в пустую строку -->
+		<WixVariable Id="ProductVersionArchDependentProgramFolderName" Overridable="yes" Value="$(sys.BUILDARCH)"/>
 
 		<DirectoryRef Id="$(var.ProgramFilesFolderId)">
 			<Directory Id="ManufacturerProgramFolder" Name="!(wix.ManufacturerId)">
 				<Directory Id="ProductProgramFolder" Name="!(wix.ProductInternalName)">
 					<Directory Id="ProductVersionProgramFolder" Name="!(wix.ProductMajorVersion).!(wix.ProductMinorVersion)">
-						<Directory Id="PRODUCTPROGRAMFOLDER"/>
+						<Directory Id="ProductVersionArchDependentProgramFolder" Name="!(wix.ProductVersionArchDependentProgramFolderName)">
+							<Directory Id="PRODUCTPROGRAMFOLDER"/>
+						</Directory>
 					</Directory>
 				</Directory>
 			</Directory>
