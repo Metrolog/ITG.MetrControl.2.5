@@ -21,7 +21,7 @@
 	</Fragment>
 
 	<Fragment Id="PRIMARYFOLDER">
-		<WixVariable Id="PRIMARYFOLDER" Overridable="yes" Value="PRODUCTPROGRAMFOLDER"/>
+		<WixVariable Id="PRIMARYFOLDER" Overridable="yes" Value="APPLICATIONFOLDER"/>
 
 		<Property Id="PRIMARYFOLDER" Value="!(wix.PRIMARYFOLDER)"/>
 		<!--

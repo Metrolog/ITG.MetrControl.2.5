@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix
+	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+>
+
+	<Fragment Id="ApplicationFolderName">
+		<Property Id="ApplicationFolderName" Value="!(wix.ManufacturerId)\!(wix.ProductInternalName)\!(wix.ProductMajorVersion).!(wix.ProductMinorVersion)" />
+	</Fragment>
+
+	<Fragment Id="WixAppFolder">
+		<WixVariable Id="WixAppFolder" Overridable="yes" Value="WixPerMachineFolder"/>
+		<Property Id="WixAppFolder" Value="!(wix.WixAppFolder)"/>
+		<!--<WixVariable Id="PRIMARYFOLDER" Value="APPLICATIONFOLDER"/>-->
+	</Fragment>
+
+</Wix>
