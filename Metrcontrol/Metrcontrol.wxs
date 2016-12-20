@@ -15,8 +15,6 @@
 	>
 		<Package
 			InstallerVersion="500"
-			InstallScope="perUser"
-			InstallPrivileges="limited"
 			AdminImage="$(var.IsAdminImage)"
 			Compressed="$(var.Compressed)"
 			Manufacturer="IT-Service"
@@ -102,34 +100,31 @@
 		<Property Id="ARPPRODUCTICON" Value="Product.ico"/>
 
 		<PropertyRef Id="PRIMARYFOLDER"/>
-
 		<!--<Property Id="ARPSIZE" Value=""/>-->
-
 		<Property Id="MSIFASTINSTALL" Value="3"/>
-
 		<Property Id="INSTALLLEVEL" Value="3"/>
-
 		<Property Id="MSIRESTARTMANAGERCONTROL" Value="Disable"/>
-
 		<MediaTemplate EmbedCab="$(var.Compressed)"/>
-
 		<PropertyRef Id="DISABLESHORTCUTS"/>
 
 		<?ifndef AdminImage ?>
 
 		<UI>
-			<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>
+			<!--<UIRef Id="WixUI_MondoWithoutLicenseDlg"/>-->
+			<UIRef Id="WixUI_Advanced"/>
 			<UIRef Id="WixUI_ErrorProgressText"/>
 		</UI>
-		<Property Id="WixAppFolder" Value="WixPerUserFolder" />
 		<WixVariable Id="WixUISupportPerUser" Value="1" />
+		<WixVariable Id="WixUISupportPerMachine" Value="1" />
 		<!--<WixVariable Id="WixUILicenseRtf" Value="eula.rtf" />-->
 
-		<?endif?>
+		<?else?>
 
 		<!-- установка приложения по умолчанию per user -->
 		<Property Id="ALLUSERS" Admin="yes" Value="2"/>
-		<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>
+		<!--<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>-->
+
+		<?endif?>
 
 		<DirectoryRef Id="PRODUCTPROGRAMFOLDER">
 			<Directory Id="APPLICATIONFOLDER"
