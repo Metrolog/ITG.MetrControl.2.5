@@ -94,7 +94,6 @@
 		<?endif?>
 
 		<Property Id="MSIARPSETTINGSIDENTIFIER" Value="IFirst\MarkInventoryClient;ifirst\Metrcontrol"/>
-		<PropertyRef Id="MSIDEPLOYMENTCOMPLIANT"/>
 
 		<Icon Id="Product.ico" SourceFile=".\Icons\Product.ico"/>
 		<Property Id="ARPPRODUCTICON" Value="Product.ico"/>
@@ -108,8 +107,8 @@
 		<PropertyRef Id="DISABLESHORTCUTS"/>
 
 		<!-- установка приложения по умолчанию per user -->
-		<Property Id="ALLUSERS" Admin="yes" Value="2"/>
-		<Property Id="MSIINSTALLPERUSER" Admin="yes" Value="1"/>
+		<Property Id="ALLUSERS" Value="2"/>
+		<Property Id="MSIINSTALLPERUSER" Value="1"/>
 
 		<?ifndef AdminImage ?>
 

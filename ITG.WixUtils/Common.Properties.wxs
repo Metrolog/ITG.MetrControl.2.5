@@ -5,6 +5,7 @@
 
 	<Fragment Id="MSIDEPLOYMENTCOMPLIANT">
 		<!-- http://msdn.microsoft.com/en-us/library/bb736313.aspx -->
+		<!-- НЕ ИСПОЛЬЗОВАТЬ для пакетов с установкой per user и dual purpose package. Приводит к вызову UAC при установке и обслуживании per user продуктов. -->
 		<Property Id="MSIDEPLOYMENTCOMPLIANT" SuppressModularization="yes" Value="1"/>
 	</Fragment>
 
