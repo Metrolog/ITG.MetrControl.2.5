@@ -4,26 +4,6 @@
 		<WixVariable Id="WixUISupportPerUser" Value="1" Overridable="yes" />
 		<WixVariable Id="WixUISupportPerMachine" Value="1" Overridable="yes" />
 
-		<PropertyRef Id="ApplicationFolderName" />
-
-		<!--<CustomAction Id="WixSetDefaultPerUserFolder" Property="WixPerUserFolder" Value="[LocalAppDataFolder]Apps\[ApplicationFolderName]" Execute="immediate" />-->
-		<!--<CustomAction Id="WixSetDefaultPerMachineFolder" Property="WixPerMachineFolder" Value="[ProgramFilesFolder][ApplicationFolderName]" Execute="immediate" />-->
-		<!--<CustomAction Id="WixSetPerUserFolder" Property="APPLICATIONFOLDER" Value="[WixPerUserFolder]" Execute="immediate" />-->
-		<!--<CustomAction Id="WixSetPerMachineFolder" Property="APPLICATIONFOLDER" Value="[WixPerMachineFolder]" Execute="immediate" />-->
-
-		<InstallExecuteSequence>
-			<!--<Custom Action="WixSetDefaultPerUserFolder" Before="CostFinalize" />-->
-			<!--<Custom Action="WixSetDefaultPerMachineFolder" After="WixSetDefaultPerUserFolder" />-->
-			<!--<Custom Action="WixSetPerUserFolder" After="WixSetDefaultPerMachineFolder">ACTION="INSTALL" AND APPLICATIONFOLDER="" AND (ALLUSERS="" OR (ALLUSERS=2 AND (NOT Privileged)))</Custom>-->
-			<!--<Custom Action="WixSetPerMachineFolder" After="WixSetPerUserFolder">ACTION="INSTALL" AND APPLICATIONFOLDER="" AND (ALLUSERS=1 OR (ALLUSERS=2 AND Privileged))</Custom>-->
-		</InstallExecuteSequence>
-		<InstallUISequence>
-			<!--<Custom Action="WixSetDefaultPerUserFolder" Before="CostFinalize" />-->
-			<!--<Custom Action="WixSetDefaultPerMachineFolder" After="WixSetDefaultPerUserFolder" />-->
-			<!--<Custom Action="WixSetPerUserFolder" After="WixSetDefaultPerMachineFolder">ACTION="INSTALL" AND APPLICATIONFOLDER="" AND (ALLUSERS="" OR (ALLUSERS=2 AND (NOT Privileged)))</Custom>-->
-			<!--<Custom Action="WixSetPerMachineFolder" After="WixSetPerUserFolder">ACTION="INSTALL" AND APPLICATIONFOLDER="" AND (ALLUSERS=1 OR (ALLUSERS=2 AND Privileged))</Custom>-->
-		</InstallUISequence>
-
 		<UI Id="WixUI_AdvancedWithoutLicenseDlg">
 			<TextStyle Id="WixUI_Font_Normal" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Normal_Size)" />
 			<TextStyle Id="WixUI_Font_Bigger" FaceName="!(loc.Advanced_Font_FaceName)" Size="!(loc.Advanced_Font_Bigger_Size)" />
