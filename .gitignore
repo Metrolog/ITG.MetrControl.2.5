@@ -6,8 +6,8 @@ dirstate
 make.log
 build.log
 .vs
-.opensdf
-.sdf
+*.opensdf
+*.sdf
 ipch
 /*.VC.db
 /*.VC.opendb
