@@ -20,3 +20,7 @@
 
 
 // TODO: reference additional headers your program requires here
+
+#include <exception>
+#include <stdexcept>
+#include <memory>
