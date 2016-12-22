@@ -54,14 +54,40 @@ int APIENTRY wWinMain
 	GetVarFromPrivateProfileString(PasswordHash);
 	GetVarFromPrivateProfileString(NTLM);
 
-	std::wstringstream msgstream;
-	msgstream << _T("Server: ") << Server.GetString() << std::endl
-		<< _T("Database: ") << Database.GetString() << std::endl
-		<< _T("Login: ") << Login.GetString() << std::endl
-		<< _T("PasswordHash: ") << PasswordHash.GetString() << std::endl
-		<< _T("NTLM: ") << NTLM.GetString();
-	std::wstring msg = msgstream.str();
-	MessageBox(NULL, msg.c_str(), appTitle, MB_OK);
+	//std::wstringstream msgstream;
+	//msgstream << _T("Server: ") << Server.GetString() << std::endl
+	//	<< _T("Database: ") << Database.GetString() << std::endl
+	//	<< _T("Login: ") << Login.GetString() << std::endl
+	//	<< _T("PasswordHash: ") << PasswordHash.GetString() << std::endl
+	//	<< _T("NTLM: ") << NTLM.GetString();
+	//std::wstring msg = msgstream.str();
+	//MessageBox(NULL, msg.c_str(), appTitle, MB_OK);
+	#pragma endregion
+
+	#pragma region Запись файла конфигурации АИС Метрконтроль
+	#define MULTI_LINE_STRING(...) L#__VA_ARGS__
+	CString ConfigFileContent;
+	ConfigFileContent.FormatMessage(
+		MULTI_LINE_STRING(<?xml version="1.0" encoding="utf-8"?>
+			<entries>
+				<entry key="Key">35AA16F410699668C19C86A111D7A1287FD6D0FB33490C9B</entry>
+				<entry key="IV">3CE48E956DFB399A</entry>
+				<entry key="iFirst.SP.Ryabkov.CrossSessionData.UniversalSettingsSaver key: Assembly version: ">1.48.0.1</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: server">%1%</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: db">%2%</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: user">%3%</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: passwd">%4%</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: timeout">-1</entry>
+				<entry key="SQLConnectLib.SQLConnecter key: ntauth">%5%</entry>
+			</entries>
+		)
+		, Server.GetString()
+		, Database.GetString()
+		, Login.GetString()
+		, PasswordHash.GetString()
+		, (NTLM == _T("yes")) ? _T("true") : _T("false")
+	);
+	//MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
 	#pragma endregion
 
 	//	return ERROR_UNIDENTIFIED_ERROR;
