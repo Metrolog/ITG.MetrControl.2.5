@@ -4,107 +4,66 @@
 #include "stdafx.h"
 #include "Bootstrapper_v2.h"
 
-#define DEFAULT_STR_LENGTH 1024
-
-std::wstring GetValueFromCsmDbIni
-(
-	LPCWSTR FilePath,
-	LPCWSTR ValueId
-);
+#define DEFAULT_STR_LENGTH 0x0400
 
 int APIENTRY wWinMain
 (
   _In_ HINSTANCE hInstance,
   _In_opt_ HINSTANCE hPrevInstance,
-  _In_ LPWSTR lpCmdLine,
+  _In_ LPTSTR lpCmdLine,
   _In_ int nCmdShow
 )
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
-	LPCWSTR appTitle = L"Metrcontrol loader";
+	CString appTitle = _T("Metrcontrol loader");
+	appTitle.LoadString(IDS_APP_TITLE);
 
-	try
-	{
-		#pragma region читаем из ресурсов заголовок приложения
-		WCHAR appTitleBuf[DEFAULT_STR_LENGTH];
-		::LoadString(hInstance, IDS_APP_TITLE, appTitleBuf, DEFAULT_STR_LENGTH);
-		if (ERROR_SUCCESS != ::GetLastError())
-		{
-			throw std::runtime_error(""); // TODO
-		}
-		appTitle = appTitleBuf;
-		#pragma endregion
-
-		#pragma region анализируем аргументы командной строки
-		if ((2 > __argc) || (3 < __argc))
-		{
-			throw std::invalid_argument(""); // TODO
-		}
-
-		LPCWSTR IniFilePath = __wargv[1];
-		bootstrapper::csmToolId ToolId = bootstrapper::csmToolId::csmmain;
-		if (3 == __argc)
-		{
-			if (0 == std::wcscmp(IniFilePath, L"csmmain")) ToolId = bootstrapper::csmToolId::csmmain;
-			else if (0 == std::wcscmp(IniFilePath, L"csmadmin")) ToolId = bootstrapper::csmToolId::csmadmin;
-			else if (0 == std::wcscmp(IniFilePath, L"markinv")) ToolId = bootstrapper::csmToolId::markinv;
-			else
-			{
-				throw std::invalid_argument(""); // TODO
-			}
-		}
-		#pragma endregion
-
-		#pragma region Читаем ini файл дескриптора базы
-		const std::wstring Server		= GetValueFromCsmDbIni(IniFilePath, L"Server");
-		std::wstring Database		= GetValueFromCsmDbIni(IniFilePath, L"Database");
-		std::wstring Login		= GetValueFromCsmDbIni(IniFilePath, L"Login");
-		std::wstring PasswordHash	= GetValueFromCsmDbIni(IniFilePath, L"PasswordHash");
-		std::wstring NTLM			= GetValueFromCsmDbIni(IniFilePath, L"NTLM");
-
-		std::wstringstream msgstream;
-		msgstream << L"Server: " << Server << std::endl
-			<< L"Database: " << Database << std::endl
-			<< L"Login: " << Login << std::endl
-			<< L"PasswordHash: " << PasswordHash << std::endl
-			<< L"NTLM: " << NTLM;
-		std::wstring msg = msgstream.str();
-		MessageBoxW(NULL, msg.c_str(), appTitle, MB_OK);
-		#pragma endregion
-
-	}
-	catch (const std::invalid_argument& e)
+	#pragma region анализируем аргументы командной строки
+	if ((2 > __argc) || (3 < __argc))
 	{
 		return ERROR_BAD_ARGUMENTS;
 	}
-	catch (const std::exception& e)
-	{
-		return ERROR_UNIDENTIFIED_ERROR;
-	}
-	catch (...)
-	{
-		return ERROR_UNIDENTIFIED_ERROR;
-	}
-    return ERROR_SUCCESS;
-}
 
-std::wstring GetValueFromCsmDbIni
-(
-	LPCWSTR FilePath,
-	LPCWSTR ValueId
-)
-{
+	CString IniFilePath(__targv[1]);
+	bootstrapper::csmToolId ToolId = bootstrapper::csmToolId::csmmain;
+	if (3 == __argc)
+	{
+		if (IniFilePath == _T("csmmain")) ToolId = bootstrapper::csmToolId::csmmain;
+		else if (IniFilePath == _T("csmadmin")) ToolId = bootstrapper::csmToolId::csmadmin;
+		else if (IniFilePath == _T("markinv")) ToolId = bootstrapper::csmToolId::markinv;
+		else
+		{
+			return ERROR_BAD_ARGUMENTS;
+		}
+	}
+	#pragma endregion
+
+	#pragma region Читаем ini файл дескриптора базы
 	static LPCWSTR IniSection = L"MetrControlDB";
 
-	WCHAR result[DEFAULT_STR_LENGTH];
-	::GetPrivateProfileStringW(IniSection, ValueId, NULL, result, DEFAULT_STR_LENGTH, FilePath);
-	if (ERROR_SUCCESS != ::GetLastError())
-	{
-		return L"";
-		// throw std::runtime_error(""); // TODO
-	}
+	#define GetVarFromPrivateProfileString(Var) \
+		CString Var; \
+		::GetPrivateProfileString(IniSection, _T(# Var), NULL, Var.GetBuffer(DEFAULT_STR_LENGTH), DEFAULT_STR_LENGTH, IniFilePath); \
+		Var.ReleaseBuffer();
 
-	return result;
-};
+	GetVarFromPrivateProfileString(Server);
+	GetVarFromPrivateProfileString(Database);
+	GetVarFromPrivateProfileString(Login);
+	GetVarFromPrivateProfileString(PasswordHash);
+	GetVarFromPrivateProfileString(NTLM);
+
+	std::wstringstream msgstream;
+	msgstream << _T("Server: ") << Server.GetString() << std::endl
+		<< _T("Database: ") << Database.GetString() << std::endl
+		<< _T("Login: ") << Login.GetString() << std::endl
+		<< _T("PasswordHash: ") << PasswordHash.GetString() << std::endl
+		<< _T("NTLM: ") << NTLM.GetString();
+	std::wstring msg = msgstream.str();
+	MessageBox(NULL, msg.c_str(), appTitle, MB_OK);
+	#pragma endregion
+
+	//	return ERROR_UNIDENTIFIED_ERROR;
+    return ERROR_SUCCESS;
+}

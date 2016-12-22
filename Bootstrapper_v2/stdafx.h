@@ -17,12 +17,9 @@
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
-#include <string>
-#include <sstream>
-
 
 // TODO: reference additional headers your program requires here
 
-#include <exception>
-#include <stdexcept>
-#include <memory>
+#include <atlstr.h>
+#include <string>
+#include <sstream>
