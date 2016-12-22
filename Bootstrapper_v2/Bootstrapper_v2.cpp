@@ -53,15 +53,6 @@ int APIENTRY wWinMain
 	GetVarFromPrivateProfileString(Login);
 	GetVarFromPrivateProfileString(PasswordHash);
 	GetVarFromPrivateProfileString(NTLM);
-
-	//std::wstringstream msgstream;
-	//msgstream << _T("Server: ") << Server.GetString() << std::endl
-	//	<< _T("Database: ") << Database.GetString() << std::endl
-	//	<< _T("Login: ") << Login.GetString() << std::endl
-	//	<< _T("PasswordHash: ") << PasswordHash.GetString() << std::endl
-	//	<< _T("NTLM: ") << NTLM.GetString();
-	//std::wstring msg = msgstream.str();
-	//MessageBox(NULL, msg.c_str(), appTitle, MB_OK);
 	#pragma endregion
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
@@ -87,7 +78,7 @@ int APIENTRY wWinMain
 		, PasswordHash.GetString()
 		, (NTLM == _T("yes")) ? _T("true") : _T("false")
 	);
-	//MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
+	MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
 	#pragma endregion
 
 	//	return ERROR_UNIDENTIFIED_ERROR;

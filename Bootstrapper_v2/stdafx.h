@@ -21,5 +21,3 @@
 // TODO: reference additional headers your program requires here
 
 #include <atlstr.h>
-#include <string>
-#include <sstream>
