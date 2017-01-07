@@ -36,9 +36,9 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-*.h          merge=text   eol-
-*.cpp        merge=text   eol-
-*.rc         merge=text   eol-
+*.h          merge=text   diff=cpp    -eol
+*.cpp        merge=text   diff=cpp    -eol
+*.rc         merge=text   diff        -eol
 
 ###############################################################################
 # behavior for image files
