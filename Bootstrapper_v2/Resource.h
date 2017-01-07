@@ -4,6 +4,7 @@
 //
 
 #define IDS_APP_TITLE			      103
+#define IDS_CONFIG_FILE_TEMPLATE      104
 
 #define IDI_BOOTSTRAPPER_V2			107
 #define IDI_SMALL				        108

@@ -56,22 +56,9 @@ int APIENTRY wWinMain
 	#pragma endregion
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
-	#define MULTI_LINE_STRINGW(...) L#__VA_ARGS__
 	CStringW ConfigFileContent;
-	ConfigFileContent.FormatMessage(
-		MULTI_LINE_STRINGW(<?xml version="1.0" encoding="utf-8"?>
-			<entries>
-				<entry key="Key">35AA16F410699668C19C86A111D7A1287FD6D0FB33490C9B</entry>
-				<entry key="IV">3CE48E956DFB399A</entry>
-				<entry key="iFirst.SP.Ryabkov.CrossSessionData.UniversalSettingsSaver key: Assembly version: ">1.48.0.1</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: server">%1%</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: db">%2%</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: user">%3%</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: passwd">%4%</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: timeout">-1</entry>
-				<entry key="SQLConnectLib.SQLConnecter key: ntauth">%5%</entry>
-			</entries>
-		)
+	ConfigFileContent.FormatMessageW(
+		IDS_CONFIG_FILE_TEMPLATE
 		, Server.GetString()
 		, Database.GetString()
 		, Login.GetString()
