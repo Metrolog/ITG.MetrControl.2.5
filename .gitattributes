@@ -36,9 +36,9 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-*.h          merge=text   eol=crlf
-*.cpp        merge=text   eol=crlf
-*.rc         merge=text   eol=crlf
+*.h          merge=text   eol-
+*.cpp        merge=text   eol-
+*.rc         merge=text   eol-
 
 ###############################################################################
 # behavior for image files
