@@ -70,6 +70,6 @@
 ###############################################################################
 # Options for other files
 ###############################################################################
-*.md text eol=lf
-*.mk text eol=crlf
-Makefile text eol=crlf
+*.md         merge=text   eol=lf
+*.mk         merge=text   eol=crlf
+Makefile     merge=text   eol=crlf
