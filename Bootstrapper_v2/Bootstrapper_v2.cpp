@@ -69,14 +69,23 @@ int APIENTRY wWinMain
 		, PasswordHash.GetString()
 		, (NTLM == _T("yes")) ? _T("true") : _T("false")
 	);
-	mbres = MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
+	mbres = ::MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
 	if (0 == mbres) AtlThrowLastWin32();
 
 	CComHeapPtr<WCHAR> pszLocalAppDataPath;
-	hr = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, (PWSTR*) &pszLocalAppDataPath);
+	hr = ::SHGetKnownFolderPath(
+		FOLDERID_LocalAppData,
+		CSIDL_PERSONAL | CSIDL_FLAG_CREATE,
+		NULL,
+		(PWSTR*) &pszLocalAppDataPath
+	);
 	if (FAILED(hr)) AtlThrow(hr);
 	CString ConfigFilePath(pszLocalAppDataPath);
-	MessageBox(NULL, ConfigFilePath, appTitle, MB_OK);
+	::PathAppend(ConfigFilePath.GetBuffer(MAX_PATH), _T("IFirst\\MetrControl\\CnnSettings.xml"));
+	ConfigFilePath.ReleaseBuffer();
+
+	mbres = ::MessageBox(NULL, ConfigFilePath, appTitle, MB_OK);
+	if (0 == mbres) AtlThrowLastWin32();
 	#pragma endregion
 
 	//	return ERROR_UNIDENTIFIED_ERROR;
