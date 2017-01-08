@@ -20,7 +20,7 @@ int APIENTRY wWinMain
 	CTrace::SetLevel(4);
 
 	HRESULT hr = ERROR_SUCCESS;
-	int mbres, res;
+	int res;
 
 	CString appTitle = _T("Metrcontrol loader");
 	appTitle.LoadString(IDS_APP_TITLE);
@@ -46,11 +46,9 @@ int APIENTRY wWinMain
 	#pragma endregion
 
 	#pragma region Читаем ini файл дескриптора базы
-	static LPCWSTR IniSection = L"MetrControlDB";
-
 	#define GetVarFromPrivateProfileString(Var) \
 		CString Var; \
-		::GetPrivateProfileString(IniSection, _T(# Var), NULL, Var.GetBuffer(DEFAULT_STR_LENGTH), DEFAULT_STR_LENGTH, IniFilePath); \
+		::GetPrivateProfileString(_T("MetrControlDB"), _T(# Var), NULL, Var.GetBuffer(DEFAULT_STR_LENGTH), DEFAULT_STR_LENGTH, IniFilePath); \
 		Var.ReleaseBuffer();
 
 	GetVarFromPrivateProfileString(Server);
@@ -61,9 +59,8 @@ int APIENTRY wWinMain
 	#pragma endregion
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
-	CStringW ConfigFileContent;
-	// TODO: нехорошо поступаю с кодировками, необходимо корректно использовать TCHAR
-	ConfigFileContent.FormatMessageW(
+	CString ConfigFileContent;
+	ConfigFileContent.FormatMessage(
 		IDS_CONFIG_FILE_TEMPLATE,
 		Server.GetString(),
 		Database.GetString(),
@@ -77,12 +74,12 @@ int APIENTRY wWinMain
 		ConfigFileContent.GetString()
 	);
 
-	CComHeapPtr<WCHAR> pszLocalAppDataPath;
+	CComHeapPtr<TCHAR> pszLocalAppDataPath;
 	hr = ::SHGetKnownFolderPath(
 		FOLDERID_LocalAppData,
 		CSIDL_PERSONAL | CSIDL_FLAG_CREATE,
 		NULL,
-		(PWSTR*) &pszLocalAppDataPath
+		(PTSTR*) &pszLocalAppDataPath
 	);
 	if (FAILED(hr)) AtlThrow(hr);
 	CString ConfigFilePath(pszLocalAppDataPath);
