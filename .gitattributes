@@ -36,8 +36,8 @@
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
-*.h          merge=text   diff=cpp    eol=crlf
-*.cpp        merge=text   diff=cpp    eol=crlf
+*.h          merge=text   diff=cpp    -eol
+*.cpp        merge=text   diff=cpp    -eol
 *.rc         merge=binary diff        -eol
 
 ###############################################################################
