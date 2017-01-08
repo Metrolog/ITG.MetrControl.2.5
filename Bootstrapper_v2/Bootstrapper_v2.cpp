@@ -15,7 +15,10 @@ int APIENTRY wWinMain
 )
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
-    UNREFERENCED_PARAMETER(lpCmdLine);
+    //UNREFERENCED_PARAMETER(lpCmdLine);
+
+	HRESULT hr = ERROR_SUCCESS;
+	int mbres, res;
 
 	CString appTitle = _T("Metrcontrol loader");
 	appTitle.LoadString(IDS_APP_TITLE);
@@ -57,6 +60,7 @@ int APIENTRY wWinMain
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
 	CStringW ConfigFileContent;
+	// TODO: нехорошо поступаю с кодировками, необходимо корректно использовать TCHAR
 	ConfigFileContent.FormatMessageW(
 		IDS_CONFIG_FILE_TEMPLATE
 		, Server.GetString()
@@ -65,9 +69,14 @@ int APIENTRY wWinMain
 		, PasswordHash.GetString()
 		, (NTLM == _T("yes")) ? _T("true") : _T("false")
 	);
-	MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
+	mbres = MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
+	if (0 == mbres) AtlThrowLastWin32();
 
-	// https://msdn.microsoft.com/en-us/library/bb762188.aspx
+	CComHeapPtr<WCHAR> pszLocalAppDataPath;
+	hr = SHGetKnownFolderPath(FOLDERID_LocalAppData, 0, nullptr, (PWSTR*) &pszLocalAppDataPath);
+	if (FAILED(hr)) AtlThrow(hr);
+	CString ConfigFilePath(pszLocalAppDataPath);
+	MessageBox(NULL, ConfigFilePath, appTitle, MB_OK);
 	#pragma endregion
 
 	//	return ERROR_UNIDENTIFIED_ERROR;

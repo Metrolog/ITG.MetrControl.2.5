@@ -10,7 +10,6 @@
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
 // Windows Header Files:
 #include <windows.h>
-#include <Msi.h>
 
 // C RunTime Header Files
 #include <stdlib.h>
@@ -21,3 +20,6 @@
 // TODO: reference additional headers your program requires here
 
 #include <atlstr.h>
+#include <Msi.h>
+#include <KnownFolders.h>
+#include <ShlObj.h>
