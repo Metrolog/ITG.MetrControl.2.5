@@ -45,16 +45,19 @@ int APIENTRY wWinMain
 	#pragma endregion
 
 	#pragma region Читаем ini файл дескриптора базы
-	#define GetVarFromPrivateProfileString(Var) \
-		CString Var; \
-		::GetPrivateProfileString(_T("MetrControlDB"), _T(# Var), NULL, Var.GetBuffer(DEFAULT_STR_LENGTH), DEFAULT_STR_LENGTH, IniFilePath); \
-		Var.ReleaseBuffer();
+	auto GetVarFromPrivateProfileString = [IniFilePath](LPCTSTR key)
+	{
+		CString value;
+		::GetPrivateProfileString(_T("MetrControlDB"), key, NULL, value.GetBuffer(DEFAULT_STR_LENGTH), DEFAULT_STR_LENGTH, IniFilePath);
+		value.ReleaseBuffer();
+		return value;
+	};
 
-	GetVarFromPrivateProfileString(Server);
-	GetVarFromPrivateProfileString(Database);
-	GetVarFromPrivateProfileString(Login);
-	GetVarFromPrivateProfileString(PasswordHash);
-	GetVarFromPrivateProfileString(NTLM);
+	CString Server = GetVarFromPrivateProfileString(_T("Server"));
+	CString Database = GetVarFromPrivateProfileString(_T("Database"));
+	CString Login = GetVarFromPrivateProfileString(_T("Login"));
+	CString PasswordHash = GetVarFromPrivateProfileString(_T("PasswordHash"));
+	CString NTLM = GetVarFromPrivateProfileString(_T("NTLM"));
 	#pragma endregion
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
