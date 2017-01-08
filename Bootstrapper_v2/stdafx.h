@@ -20,6 +20,7 @@
 // TODO: reference additional headers your program requires here
 
 #include <atlstr.h>
+#include <atltrace.h>
 #include <Msi.h>
 #include <KnownFolders.h>
 #include <ShlObj.h>

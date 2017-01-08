@@ -17,6 +17,8 @@ int APIENTRY wWinMain
     UNREFERENCED_PARAMETER(hPrevInstance);
     //UNREFERENCED_PARAMETER(lpCmdLine);
 
+	CTrace::SetLevel(4);
+
 	HRESULT hr = ERROR_SUCCESS;
 	int mbres, res;
 
@@ -62,15 +64,18 @@ int APIENTRY wWinMain
 	CStringW ConfigFileContent;
 	// TODO: нехорошо поступаю с кодировками, необходимо корректно использовать TCHAR
 	ConfigFileContent.FormatMessageW(
-		IDS_CONFIG_FILE_TEMPLATE
-		, Server.GetString()
-		, Database.GetString()
-		, Login.GetString()
-		, PasswordHash.GetString()
-		, (NTLM == _T("yes")) ? _T("true") : _T("false")
+		IDS_CONFIG_FILE_TEMPLATE,
+		Server.GetString(),
+		Database.GetString(),
+		Login.GetString(),
+		PasswordHash.GetString(),
+		(NTLM == _T("yes")) ? _T("true") : _T("false")
 	);
-	mbres = ::MessageBox(NULL, ConfigFileContent, appTitle, MB_OK);
-	if (0 == mbres) AtlThrowLastWin32();
+	ATLTRACE2(
+		atlTraceGeneral, 4,
+		_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
+		ConfigFileContent.GetString()
+	);
 
 	CComHeapPtr<WCHAR> pszLocalAppDataPath;
 	hr = ::SHGetKnownFolderPath(
@@ -83,9 +88,11 @@ int APIENTRY wWinMain
 	CString ConfigFilePath(pszLocalAppDataPath);
 	::PathAppend(ConfigFilePath.GetBuffer(MAX_PATH), _T("IFirst\\MetrControl\\CnnSettings.xml"));
 	ConfigFilePath.ReleaseBuffer();
-
-	mbres = ::MessageBox(NULL, ConfigFilePath, appTitle, MB_OK);
-	if (0 == mbres) AtlThrowLastWin32();
+	ATLTRACE2(
+		atlTraceGeneral, 4,
+		_T("Путь файла конфигурации: \"%s\".\n"),
+		ConfigFilePath.GetString()
+	);
 	#pragma endregion
 
 	//	return ERROR_UNIDENTIFIED_ERROR;
