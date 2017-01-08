@@ -59,21 +59,6 @@ int APIENTRY wWinMain
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
 	{ // для локализации и освобождения COM объектов до CoUninitialize
-		CString ConfigFileContent;
-		ConfigFileContent.FormatMessage(
-			IDS_CONFIG_FILE_TEMPLATE,
-			Server.GetString(),
-			Database.GetString(),
-			Login.GetString(),
-			PasswordHash.GetString(),
-			(NTLM == _T("yes")) ? _T("true") : _T("false")
-		);
-		ATLTRACE2(
-			atlTraceGeneral, 4,
-			_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
-			ConfigFileContent.GetString()
-		);
-
 		CComHeapPtr<TCHAR> pszLocalAppDataPath;
 		ATLENSURE_SUCCEEDED(::SHGetKnownFolderPath(
 			FOLDERID_LocalAppData,
@@ -90,9 +75,34 @@ int APIENTRY wWinMain
 			ConfigFilePath.GetString()
 		);
 
-		MSXML2::IXMLDOMDocument2Ptr xmlDoc(__uuidof(MSXML2::DOMDocument60));
-		xmlDoc->loadXML(ConfigFileContent.AllocSysString());
-		xmlDoc->save(ConfigFilePath.AllocSysString());
+		MSXML2::IXMLDOMDocument2Ptr ConfigFileDoc(__uuidof(MSXML2::DOMDocument60));
+		MSXML2::IXMLDOMNodePtr ConfigFileElement(ConfigFileDoc);
+		auto xmlDeclaration = ConfigFileElement->appendChild((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createProcessingInstruction(_T("xml"), _T("version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\""))));
+		auto EntriesNode = ConfigFileElement->appendChild((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createElement(_T("entries"))));
+
+		auto AddConfigEntry = [ConfigFileDoc, EntriesNode] (LPCTSTR key, LPCTSTR value)
+		{
+			auto KeyNode = EntriesNode->appendChild((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createElement(_T("entry"))));
+			(KeyNode->attributes->setNamedItem((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createAttribute(_T("key")))))->nodeTypedValue = key;
+			KeyNode->nodeTypedValue = value;
+		};
+
+		AddConfigEntry(_T("Key"), _T("35AA16F410699668C19C86A111D7A1287FD6D0FB33490C9B"));
+		AddConfigEntry(_T("IV"), _T("3CE48E956DFB399A"));
+		AddConfigEntry(_T("iFirst.SP.Ryabkov.CrossSessionData.UniversalSettingsSaver key: Assembly version: "), _T("1.48.0.1"));
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: server"), Server.GetString());
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: db"), Database.GetString());
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: user"), Login.GetString());
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: passwd"), PasswordHash.GetString());
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: timeout"), _T("-1"));
+		AddConfigEntry(_T("SQLConnectLib.SQLConnecter key: ntauth"), (NTLM == _T("yes")) ? _T("true") : _T("false"));
+
+		ATLTRACE2(
+			atlTraceGeneral, 4,
+			_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
+			(LPCTSTR)(ConfigFileElement->xml)
+		);
+		ConfigFileDoc->save(ConfigFilePath.AllocSysString());
 	};
 	#pragma endregion
 
