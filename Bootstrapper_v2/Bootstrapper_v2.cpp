@@ -15,12 +15,11 @@ int APIENTRY wWinMain
 )
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
-    //UNREFERENCED_PARAMETER(lpCmdLine);
+    UNREFERENCED_PARAMETER(lpCmdLine);
 
 	CTrace::SetLevel(4);
 
-	HRESULT hr = ERROR_SUCCESS;
-	int res;
+	ATLENSURE_SUCCEEDED(::CoInitialize(NULL));
 
 	CString appTitle = _T("Metrcontrol loader");
 	appTitle.LoadString(IDS_APP_TITLE);
@@ -59,38 +58,45 @@ int APIENTRY wWinMain
 	#pragma endregion
 
 	#pragma region Запись файла конфигурации АИС Метрконтроль
-	CString ConfigFileContent;
-	ConfigFileContent.FormatMessage(
-		IDS_CONFIG_FILE_TEMPLATE,
-		Server.GetString(),
-		Database.GetString(),
-		Login.GetString(),
-		PasswordHash.GetString(),
-		(NTLM == _T("yes")) ? _T("true") : _T("false")
-	);
-	ATLTRACE2(
-		atlTraceGeneral, 4,
-		_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
-		ConfigFileContent.GetString()
-	);
+	{ // для локализации и освобождения COM объектов до CoUninitialize
+		CString ConfigFileContent;
+		ConfigFileContent.FormatMessage(
+			IDS_CONFIG_FILE_TEMPLATE,
+			Server.GetString(),
+			Database.GetString(),
+			Login.GetString(),
+			PasswordHash.GetString(),
+			(NTLM == _T("yes")) ? _T("true") : _T("false")
+		);
+		ATLTRACE2(
+			atlTraceGeneral, 4,
+			_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
+			ConfigFileContent.GetString()
+		);
 
-	CComHeapPtr<TCHAR> pszLocalAppDataPath;
-	hr = ::SHGetKnownFolderPath(
-		FOLDERID_LocalAppData,
-		CSIDL_PERSONAL | CSIDL_FLAG_CREATE,
-		NULL,
-		(PTSTR*) &pszLocalAppDataPath
-	);
-	if (FAILED(hr)) AtlThrow(hr);
-	CString ConfigFilePath(pszLocalAppDataPath);
-	::PathAppend(ConfigFilePath.GetBuffer(MAX_PATH), _T("IFirst\\MetrControl\\CnnSettings.xml"));
-	ConfigFilePath.ReleaseBuffer();
-	ATLTRACE2(
-		atlTraceGeneral, 4,
-		_T("Путь файла конфигурации: \"%s\".\n"),
-		ConfigFilePath.GetString()
-	);
+		CComHeapPtr<TCHAR> pszLocalAppDataPath;
+		ATLENSURE_SUCCEEDED(::SHGetKnownFolderPath(
+			FOLDERID_LocalAppData,
+			CSIDL_PERSONAL | CSIDL_FLAG_CREATE,
+			NULL,
+			(PTSTR*)&pszLocalAppDataPath
+		));
+		CString ConfigFilePath(pszLocalAppDataPath);
+		::PathAppend(ConfigFilePath.GetBuffer(MAX_PATH), _T("IFirst\\MetrControl\\CnnSettings.xml"));
+		ConfigFilePath.ReleaseBuffer();
+		ATLTRACE2(
+			atlTraceGeneral, 4,
+			_T("Путь файла конфигурации: \"%s\".\n"),
+			ConfigFilePath.GetString()
+		);
+
+		MSXML2::IXMLDOMDocument2Ptr xmlDoc(__uuidof(MSXML2::DOMDocument60));
+		xmlDoc->loadXML(ConfigFileContent.AllocSysString());
+		xmlDoc->save(ConfigFilePath.AllocSysString());
+	};
 	#pragma endregion
+
+	::CoUninitialize();
 
 	//	return ERROR_UNIDENTIFIED_ERROR;
     return ERROR_SUCCESS;

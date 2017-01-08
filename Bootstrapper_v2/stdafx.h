@@ -24,3 +24,5 @@
 #include <Msi.h>
 #include <KnownFolders.h>
 #include <ShlObj.h>
+//#include <MsXml6.h>
+#import <msxml6.dll>
