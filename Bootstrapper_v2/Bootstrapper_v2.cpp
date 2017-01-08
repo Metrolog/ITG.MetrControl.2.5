@@ -105,7 +105,31 @@ int APIENTRY wWinMain
 			_T("Подготовлено содержимое файла конфигурации:\n\n%s\n\n"),
 			(LPCTSTR)(ConfigFileElement->xml)
 		);
-		ConfigFileDoc->save(ConfigFilePath.AllocSysString());
+
+		IStreamPtr ConfigFileStream;
+		ATLENSURE_SUCCEEDED(::SHCreateStreamOnFile(
+			ConfigFilePath.GetString(),
+			//STGM_WRITE | STGM_SHARE_DENY_WRITE | STGM_CREATE | STGM_TRANSACTED | STGM_DIRECT_SWMR,
+			STGM_WRITE | STGM_CREATE,
+			&ConfigFileStream
+		));
+
+		MSXML2::IMXWriterPtr ConfigFileWriter(__uuidof(MSXML2::MXXMLWriter60));
+		ConfigFileWriter->encoding = _T("utf-8");
+		ConfigFileWriter->byteOrderMark = VARIANT_TRUE;
+		ConfigFileWriter->indent = VARIANT_TRUE;
+		ConfigFileWriter->omitXMLDeclaration = VARIANT_FALSE;
+		ConfigFileWriter->standalone = VARIANT_TRUE;
+		ConfigFileWriter->output = &*ConfigFileStream;
+
+		MSXML2::ISAXXMLReaderPtr xmlParser(__uuidof(MSXML2::SAXXMLReader60));
+		ATLENSURE_SUCCEEDED(xmlParser->putContentHandler((MSXML2::ISAXContentHandlerPtr)ConfigFileWriter));
+		ATLENSURE_SUCCEEDED(xmlParser->putDTDHandler((MSXML2::ISAXDTDHandlerPtr)ConfigFileWriter));
+		ATLENSURE_SUCCEEDED(xmlParser->putErrorHandler((MSXML2::ISAXErrorHandlerPtr)ConfigFileWriter));
+		ATLENSURE_SUCCEEDED(xmlParser->putProperty((unsigned short *) _T("http://xml.org/sax/properties/lexical-handler"), &*ConfigFileWriter));
+		ATLENSURE_SUCCEEDED(xmlParser->putProperty((unsigned short *) _T("http://xml.org/sax/properties/declaration-handler"), &*ConfigFileWriter));
+
+		ATLENSURE_SUCCEEDED(xmlParser->parse(&*ConfigFileDoc));
 	};
 	#pragma endregion
 
