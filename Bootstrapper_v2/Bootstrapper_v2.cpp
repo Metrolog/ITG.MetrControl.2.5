@@ -80,7 +80,6 @@ int APIENTRY wWinMain
 
 		MSXML2::IXMLDOMDocument2Ptr ConfigFileDoc(__uuidof(MSXML2::DOMDocument60));
 		MSXML2::IXMLDOMNodePtr ConfigFileElement(ConfigFileDoc);
-		auto xmlDeclaration = ConfigFileElement->appendChild((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createProcessingInstruction(_T("xml"), _T("version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\""))));
 		auto EntriesNode = ConfigFileElement->appendChild((MSXML2::IXMLDOMNodePtr)(ConfigFileDoc->createElement(_T("entries"))));
 
 		auto AddConfigEntry = [ConfigFileDoc, EntriesNode] (LPCTSTR key, LPCTSTR value)
@@ -109,7 +108,6 @@ int APIENTRY wWinMain
 		IStreamPtr ConfigFileStream;
 		ATLENSURE_SUCCEEDED(::SHCreateStreamOnFile(
 			ConfigFilePath.GetString(),
-			//STGM_WRITE | STGM_SHARE_DENY_WRITE | STGM_CREATE | STGM_TRANSACTED | STGM_DIRECT_SWMR,
 			STGM_WRITE | STGM_CREATE,
 			&ConfigFileStream
 		));
