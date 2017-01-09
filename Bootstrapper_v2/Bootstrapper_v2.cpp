@@ -4,6 +4,10 @@
 #include "stdafx.h"
 #include "Bootstrapper_v2.h"
 
+#ifndef PRODUCT_CODE
+#error "PRODUCT_CODE variable expected! It must be set in project configuration."
+#endif
+
 #define DEFAULT_STR_LENGTH 0x0400
 
 int APIENTRY wWinMain
@@ -24,7 +28,7 @@ int APIENTRY wWinMain
 	CString appTitle = _T("Metrcontrol loader");
 	appTitle.LoadString(IDS_APP_TITLE);
 
-	#pragma region анализируем аргументы командной строки
+#pragma region анализируем аргументы командной строки
 	if ((2 > __argc) || (3 < __argc))
 	{
 		return ERROR_BAD_ARGUMENTS;
@@ -32,19 +36,21 @@ int APIENTRY wWinMain
 
 	CString IniFilePath(__targv[1]);
 	bootstrapper::csmToolId ToolId = bootstrapper::csmToolId::csmmain;
+	CString ToolStrId(_T("csmmain"));
 	if (3 == __argc)
 	{
-		if (IniFilePath == _T("csmmain")) ToolId = bootstrapper::csmToolId::csmmain;
-		else if (IniFilePath == _T("csmadmin")) ToolId = bootstrapper::csmToolId::csmadmin;
-		else if (IniFilePath == _T("markinv")) ToolId = bootstrapper::csmToolId::markinv;
+		ToolStrId = __targv[2];
+		if (ToolStrId == _T("csmmain")) ToolId = bootstrapper::csmToolId::csmmain;
+		else if (ToolStrId == _T("csmadmin")) ToolId = bootstrapper::csmToolId::csmadmin;
+		else if (ToolStrId == _T("markinv")) ToolId = bootstrapper::csmToolId::markinv;
 		else
 		{
 			return ERROR_BAD_ARGUMENTS;
 		}
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Читаем ini файл дескриптора базы
+#pragma region Читаем ini файл дескриптора базы
 	auto GetVarFromPrivateProfileString = [IniFilePath](LPCTSTR key)
 	{
 		CString value;
@@ -58,9 +64,9 @@ int APIENTRY wWinMain
 	CString Login = GetVarFromPrivateProfileString(_T("Login"));
 	CString PasswordHash = GetVarFromPrivateProfileString(_T("PasswordHash"));
 	CString NTLM = GetVarFromPrivateProfileString(_T("NTLM"));
-	#pragma endregion
+#pragma endregion
 
-	#pragma region Запись файла конфигурации АИС Метрконтроль
+#pragma region Запись файла конфигурации АИС Метрконтроль
 	{ // для локализации и освобождения COM объектов до CoUninitialize
 		CComHeapPtr<TCHAR> pszLocalAppDataPath;
 		ATLENSURE_SUCCEEDED(::SHGetKnownFolderPath(
@@ -129,7 +135,42 @@ int APIENTRY wWinMain
 
 		ATLENSURE_SUCCEEDED(xmlParser->parse(&*ConfigFileDoc));
 	};
-	#pragma endregion
+#pragma endregion
+
+#pragma region устанавливаем необходимые компоненты приложения и получаем путь к исполняемым файлам
+	{
+		LPCTSTR Product = _T(PRODUCT_CODE);
+		HRESULT hr = ::MsiConfigureFeature(
+			Product,
+			ToolStrId.GetString(),
+			INSTALLSTATE_DEFAULT
+		);
+		ATLENSURE_THROW(ERROR_SUCCESS == hr, hr);
+		ATLTRACE2(
+			atlTraceGeneral, 4,
+			_T("Необходимый компонент установлен (%s).\n"),
+			ToolStrId.GetString()
+		);
+
+		CString ToolFilePath;
+		DWORD ToolFilePathSize = MAX_PATH;
+		INSTALLSTATE ToolInstallState = ::MsiGetComponentPath(
+			Product,
+			_T("{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"),
+			ToolFilePath.GetBuffer(MAX_PATH),
+			&ToolFilePathSize
+		);
+		ToolFilePath.ReleaseBuffer();
+		ATLENSURE((INSTALLSTATE_LOCAL == ToolInstallState) || (INSTALLSTATE_SOURCE == ToolInstallState));
+		ATLTRACE2(
+			atlTraceGeneral, 4,
+			_T("Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n\nСостояние компонента: %d.\n"),
+			ToolStrId.GetString(),
+			ToolFilePath.GetString(),
+			ToolInstallState
+		);
+	};
+#pragma endregion
 
 	::CoUninitialize();
 

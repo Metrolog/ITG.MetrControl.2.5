@@ -22,6 +22,7 @@
 #include <atlstr.h>
 #include <atltrace.h>
 #include <Msi.h>
+#pragma comment(lib, "msi.lib")
 #include <KnownFolders.h>
 #include <ShlObj.h>
 #include <Shlwapi.h>
