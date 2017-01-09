@@ -150,7 +150,7 @@ int APIENTRY wWinMain
 				HRESULT hr = ::MsiProvideComponent(
 					Product,
 					ToolStrId.GetString(),
-					_T("{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"),
+					_T(CSMMAIN_CODE),
 					INSTALLMODE_DEFAULT,
 					ToolFilePath.GetBuffer(MAX_PATH),
 					&ToolFilePathSize
