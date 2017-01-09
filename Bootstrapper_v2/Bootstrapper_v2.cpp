@@ -4,9 +4,15 @@
 #include "stdafx.h"
 #include "Bootstrapper_v2.h"
 
-#ifndef PRODUCT_CODE
-#error "PRODUCT_CODE variable expected! It must be set in project configuration."
+#if !defined(PRODUCT_CODE) || !defined(CSMMAIN_CODE) || !defined(CSMADMIN_CODE) || !defined(MARKINV_CODE)
+#error "PRODUCT_CODE, CSMMAIN_CODE, CSMADMIN_CODE or MARKINV_CODE variable expected! It must be set in project configuration."
 #endif
+
+const std::map<std::wstring, std::wstring> Tools({{
+	{ _T("csmmain"), _T(CSMMAIN_CODE) },
+	{ _T("csmadmin"), _T(CSMADMIN_CODE) },
+	{ _T("markinv"), _T(MARKINV_CODE) }
+}});
 
 #define DEFAULT_STR_LENGTH 0x0400
 
@@ -38,20 +44,17 @@ int APIENTRY wWinMain
 #pragma region анализируем аргументы командной строки
 		ATLENSURE_THROW((2 <= __argc) || (3 >= __argc), ERROR_BAD_ARGUMENTS);
 
-		CString IniFilePath(__targv[1]);
-		bootstrapper::csmToolId ToolId = bootstrapper::csmToolId::csmmain;
-		CString ToolStrId(_T("csmmain"));
+		const LPCTSTR IniFilePath(__targv[1]);
+		LPCTSTR ToolStrId(_T("csmmain"));
 		if (3 == __argc)
 		{
 			ToolStrId = __targv[2];
-			if (ToolStrId == _T("csmmain")) ToolId = bootstrapper::csmToolId::csmmain;
-			else if (ToolStrId == _T("csmadmin")) ToolId = bootstrapper::csmToolId::csmadmin;
-			else if (ToolStrId == _T("markinv")) ToolId = bootstrapper::csmToolId::markinv;
-			else
+			if (Tools.find(__targv[2]) == Tools.end())
 			{
 				AtlThrow(ERROR_BAD_ARGUMENTS);
 			}
 		}
+		const LPCTSTR ToolCode = Tools.at(ToolStrId).c_str();
 #pragma endregion
 
 #pragma region Читаем ini файл дескриптора базы
@@ -149,8 +152,8 @@ int APIENTRY wWinMain
 			{
 				HRESULT hr = ::MsiProvideComponent(
 					Product,
-					ToolStrId.GetString(),
-					_T(CSMMAIN_CODE),
+					ToolStrId,
+					ToolCode,
 					INSTALLMODE_DEFAULT,
 					ToolFilePath.GetBuffer(MAX_PATH),
 					&ToolFilePathSize
@@ -161,7 +164,7 @@ int APIENTRY wWinMain
 			ATLTRACE2(
 				atlTraceGeneral, 4,
 				_T("Необходимый компонент установлен. Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n"),
-				ToolStrId.GetString(),
+				ToolStrId,
 				ToolFilePath.GetString()
 			);
 		};
@@ -191,7 +194,7 @@ int APIENTRY wWinMain
 			ATLTRACE2(
 				atlTraceGeneral, 4,
 				_T("Запущено приложение. Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n"),
-				ToolStrId.GetString(),
+				ToolStrId,
 				ToolFilePath.GetString()
 			);
 

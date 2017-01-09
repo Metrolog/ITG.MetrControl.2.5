@@ -28,3 +28,5 @@
 #include <Shlwapi.h>
 //#include <MsXml6.h>
 #import <msxml6.dll>
+
+#include <map>
