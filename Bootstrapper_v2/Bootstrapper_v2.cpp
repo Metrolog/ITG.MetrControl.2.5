@@ -141,10 +141,10 @@ int APIENTRY wWinMain
 		};
 #pragma endregion
 
+		CString ToolFilePath;
 #pragma region устанавливаем необходимые компоненты приложения и получаем путь к исполняемым файлам
 		{
 			LPCTSTR Product = _T(PRODUCT_CODE);
-			CString ToolFilePath;
 			DWORD ToolFilePathSize = MAX_PATH;
 			{
 				HRESULT hr = ::MsiProvideComponent(
@@ -164,6 +164,39 @@ int APIENTRY wWinMain
 				ToolStrId.GetString(),
 				ToolFilePath.GetString()
 			);
+		};
+#pragma endregion
+
+#pragma region запускаем приложение
+		{
+			STARTUPINFO si;
+			PROCESS_INFORMATION pi;
+			ZeroMemory(&si, sizeof(si));
+			si.cb = sizeof(si);
+			ZeroMemory(&pi, sizeof(pi));
+
+			if (!::CreateProcess(
+				ToolFilePath.GetString(),
+				NULL,
+				NULL,
+				NULL,
+				FALSE,
+				0,
+				NULL,
+				NULL,
+				&si,
+				&pi
+			))
+				AtlThrowLastWin32();
+			ATLTRACE2(
+				atlTraceGeneral, 4,
+				_T("Запущено приложение. Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n"),
+				ToolStrId.GetString(),
+				ToolFilePath.GetString()
+			);
+
+			CloseHandle(pi.hProcess);
+			CloseHandle(pi.hThread);
 		};
 #pragma endregion
 
