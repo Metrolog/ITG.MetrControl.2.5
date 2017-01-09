@@ -144,34 +144,25 @@ int APIENTRY wWinMain
 #pragma region устанавливаем необходимые компоненты приложения и получаем путь к исполняемым файлам
 		{
 			LPCTSTR Product = _T(PRODUCT_CODE);
-			HRESULT hr = ::MsiConfigureFeature(
-				Product,
-				ToolStrId.GetString(),
-				INSTALLSTATE_DEFAULT
-			);
-			ATLENSURE_THROW(ERROR_SUCCESS == hr, hr);
-			ATLTRACE2(
-				atlTraceGeneral, 4,
-				_T("Необходимый компонент установлен (%s).\n"),
-				ToolStrId.GetString()
-			);
-
 			CString ToolFilePath;
 			DWORD ToolFilePathSize = MAX_PATH;
-			INSTALLSTATE ToolInstallState = ::MsiGetComponentPath(
-				Product,
-				_T("{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"),
-				ToolFilePath.GetBuffer(MAX_PATH),
-				&ToolFilePathSize
-			);
+			{
+				HRESULT hr = ::MsiProvideComponent(
+					Product,
+					ToolStrId.GetString(),
+					_T("{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"),
+					INSTALLMODE_DEFAULT,
+					ToolFilePath.GetBuffer(MAX_PATH),
+					&ToolFilePathSize
+				);
+				ATLENSURE_THROW(ERROR_SUCCESS == hr, hr);
+			};
 			ToolFilePath.ReleaseBuffer();
-			ATLENSURE((INSTALLSTATE_LOCAL == ToolInstallState) || (INSTALLSTATE_SOURCE == ToolInstallState));
 			ATLTRACE2(
 				atlTraceGeneral, 4,
-				_T("Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n\nСостояние компонента: %d.\n"),
+				_T("Необходимый компонент установлен. Путь к исполняемому файлу затребованного компонента (%s): \n\"%s\".\n"),
 				ToolStrId.GetString(),
-				ToolFilePath.GetString(),
-				ToolInstallState
+				ToolFilePath.GetString()
 			);
 		};
 #pragma endregion
@@ -190,6 +181,7 @@ int APIENTRY wWinMain
 		hr = ERROR_UNIDENTIFIED_ERROR;
 	}
 
+#pragma region выводим сообщение об ошибке пользователю
 	if (ERROR_SUCCESS != hr)
 	{
 		_com_error cerr(hr);
@@ -205,6 +197,7 @@ int APIENTRY wWinMain
 		);
 		::MessageBox(0, ErrorMessage.GetString(), appTitle.GetString(), MB_ICONERROR | MB_OK);
 	};
+#pragma endregion
 
 	::CoUninitialize();
 
