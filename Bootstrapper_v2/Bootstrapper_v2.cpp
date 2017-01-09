@@ -195,7 +195,7 @@ int APIENTRY wWinMain
 		_com_error cerr(hr);
 		CString ErrorMessage;
 		ErrorMessage.Format(
-			_T("В процессе исполнения возникла ошибка: 0x%08X. %s\n"),
+			IDS_ERROR_MESSAGE_TEMPLATE,
 			hr,
 			cerr.ErrorMessage()
 		);
