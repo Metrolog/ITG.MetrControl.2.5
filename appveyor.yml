@@ -16,6 +16,9 @@ platform:
 
 configuration: Release
 
+before_build:
+  - nuget restore
+
 build_script:
   - cmd: make
 
