@@ -8,7 +8,16 @@
 #error "PRODUCT_CODE, CSMMAIN_CODE, CSMADMIN_CODE or MARKINV_CODE variable expected! It must be set in project configuration."
 #endif
 
-const std::map<std::wstring, std::wstring> Tools({{
+template<>
+struct std::less<LPCTSTR>
+{	// functor for operator<
+	bool operator()(const LPCTSTR _Left, const LPCTSTR _Right) const
+	{
+		return std::_tcscmp(_Left, _Right) < 0;
+	}
+};
+
+const std::map<LPCTSTR, LPCTSTR> Tools({{
 	{ _T("csmmain"), _T(CSMMAIN_CODE) },
 	{ _T("csmadmin"), _T(CSMADMIN_CODE) },
 	{ _T("markinv"), _T(MARKINV_CODE) }
@@ -49,12 +58,9 @@ int APIENTRY wWinMain
 		if (3 == __argc)
 		{
 			ToolStrId = __targv[2];
-			if (Tools.find(__targv[2]) == Tools.end())
-			{
-				AtlThrow(ERROR_BAD_ARGUMENTS);
-			}
+			ATLENSURE_THROW(!(Tools.find(__targv[2]) == Tools.end()), ERROR_BAD_ARGUMENTS);
 		}
-		const LPCTSTR ToolCode = Tools.at(ToolStrId).c_str();
+		const LPCTSTR ToolCode = Tools.at(ToolStrId);
 #pragma endregion
 
 #pragma region Читаем ini файл дескриптора базы
