@@ -22,7 +22,7 @@
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
     <DefineConstants>SingleMSIFile;ReportsSourceDir=.\SourceDir\Reports</DefineConstants>
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
-	</PropertyGroup>
+  </PropertyGroup>
   <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
   <!-- <DefineConstants>AdminImage;ReportsSourceDir=.\SourceDir\Reports</DefineConstants> -->
   <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
@@ -33,12 +33,12 @@
     <Compile Include="CSMmain.wxs" />
     <Compile Include="markInv.wxs" />
     <Compile Include="Metrcontrol.wxs" />
-		<HarvestDirectory Include="SourceDir\Reports">
-			<DirectoryRefId>Reports</DirectoryRefId>
-			<SuppressRootDirectory>true</SuppressRootDirectory>
-			<ComponentGroupName>ProductReports</ComponentGroupName>
-			<PreprocessorVariable>var.ReportsSourceDir</PreprocessorVariable>
-		</HarvestDirectory>
+    <HarvestDirectory Include="SourceDir\Reports">
+      <DirectoryRefId>Reports</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+      <ComponentGroupName>ProductReports</ComponentGroupName>
+      <PreprocessorVariable>var.ReportsSourceDir</PreprocessorVariable>
+    </HarvestDirectory>
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".csmdb" />
@@ -93,9 +93,9 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bootstrapper\Bootstrapper.csproj">
-      <Name>Bootstrapper</Name>
-      <Project>{b65b92a6-fcb0-465e-b7ea-ca77c7c987f0}</Project>
+    <ProjectReference Include="..\Bootstrapper_v2\Bootstrapper_v2.vcxproj">
+      <Name>Bootstrapper_v2</Name>
+      <Project>{e1c9e553-52b7-40e9-9c25-770ebff2f2f6}</Project>
       <Private>True</Private>
       <DoNotHarvest>True</DoNotHarvest>
       <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
