@@ -15,7 +15,6 @@ ipch
 /_UpgradeReport_Files
 /UpgradeLog*.htm
 /UpgradeLog*.XML
+version.h
 packages
 ReleaseNotes.md
-/Metrocontrol/.csmdb examples/ncsm.csmdb23
-/Metrocontrol.v11.suo
