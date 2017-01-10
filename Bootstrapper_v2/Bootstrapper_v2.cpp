@@ -156,6 +156,15 @@ int APIENTRY wWinMain
 			LPCTSTR Product = _T(PRODUCT_CODE);
 			DWORD ToolFilePathSize = MAX_PATH;
 			{
+				INSTALLSTATE ToolFeatureState = ::MsiQueryFeatureState(Product, ToolStrId);
+				ATLENSURE_THROW(
+					(INSTALLSTATE_LOCAL == ToolFeatureState) ||
+					(INSTALLSTATE_SOURCE == ToolFeatureState) ||
+					(INSTALLSTATE_ADVERTISED == ToolFeatureState),
+					ERROR_INSTALL_NOTUSED
+				);
+			}
+			{
 				HRESULT hr = ::MsiProvideComponent(
 					Product,
 					ToolStrId,
