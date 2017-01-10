@@ -32,7 +32,7 @@
 #*.dbproj    merge=binary
 #*.fsproj    merge=binary
 #*.lsproj    merge=binary
-*.wixproj    merge=text   diff        -eol
+*.wixproj    merge=text   diff=text   -eol
 #*.modelproj merge=binary
 #*.sqlproj   merge=binary
 #*.wwaproj   merge=binary
