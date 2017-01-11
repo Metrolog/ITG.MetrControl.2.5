@@ -20,13 +20,16 @@
     <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
-    <DefineConstants>SingleMSIFile;ReportsSourceDir=.\SourceDir\Reports</DefineConstants>
+    <DefineConstants>SingleMSIFile;ReportsSourceDir=.\SourceDir\Reports;$(DefineConstants)</DefineConstants>
     <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
   </PropertyGroup>
   <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
   <!-- <DefineConstants>AdminImage;ReportsSourceDir=.\SourceDir\Reports</DefineConstants> -->
   <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
   <!-- </PropertyGroup> -->
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)ProductProperties.props" />
+  </ImportGroup>
   <ItemGroup>
     <Compile Include="csmadmin.wxs" />
     <Compile Include="CSMBootstrapper.wxs" />

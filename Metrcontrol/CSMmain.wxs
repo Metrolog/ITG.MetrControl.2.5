@@ -51,9 +51,13 @@
 	</ComponentGroup>
  
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
+		<?ifndef csmmainId?>
+			<?error csmmainId must be set in project configuration (in ProductProperties.props).?>
+		<?endif?>
+		
 		<Component
 			Id="csmmain.exe"
-			Guid="{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}"
+			Guid="$(var.csmmainId)"
 			Location="either"
 			Win64="$(var.Win64)"
 		>

@@ -2,16 +2,26 @@
 <Include
 	xmlns="http://schemas.microsoft.com/wix/2006/wi"
 >
-	<?define ProductVersion="02.04.3369.0007"?>
+	<?ifndef ProductVersion?>
+		<?error ProductVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
 	<?define MetrControlVersion="2.4.3369.7"?>
-	<?define ProductMajorVersion="2"?>
-	<?define ProductMinorVersion="4"?>
+	<?ifndef ProductMajorVersion?>
+		<?error ProductMajorVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+	<?ifndef ProductMinorVersion?>
+		<?error ProductMinorVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
 	<?define ProductShortName="АИС Метроконтроль"?>
 	<?define ProductInternalName="MetrControl"?>
 	<?define ProductProjectName="ITG.MetrControl.$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
 	<?define ProductDescription="Автоматизиованная информационная система АИС Метроконтроль."?>
 	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
-	<?define ProductCode="0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66"?>
+
+	<?ifndef ProductCode?>
+		<?error ProductCode must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+
 	<?define UpgradeCode="3A64DCFD-2FCD-4139-AFEF-2BCC4B1B14E4"?>
 	<?define Manufacturer="РЦН"?>
 	<?define ManufacturerId="iFirst"?>

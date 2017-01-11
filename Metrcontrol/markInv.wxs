@@ -33,9 +33,13 @@
 	</ComponentGroup>
 
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
+		<?ifndef markinvId?>
+			<?error markinvId must be set in project configuration (in ProductProperties.props).?>
+		<?endif?>
+		
 		<Component
 			Id="markinv.exe"
-			Guid="{81ED99F6-06D3-47A9-924D-ADC05230B10C}"
+			Guid="$(var.markinvId)"
 			Location="either"
 			Win64="$(var.Win64)"
 		>

@@ -1,9 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
-  <PropertyGroup Label="UserMacros">
+  <PropertyGroup>
     <ProductCode>{0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66}</ProductCode>
     <ProductVersion>2.4.3369.7</ProductVersion>
+    <ProductMajorVersion>2</ProductMajorVersion>
+    <ProductMinorVersion>4</ProductMinorVersion>
     <csmmainId>{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}</csmmainId>
     <csmadminId>{D49011DA-C023-4B55-AA7C-724C7A7F3679}</csmadminId>
     <markinvId>{81ED99F6-06D3-47A9-924D-ADC05230B10C}</markinvId>
@@ -16,6 +18,12 @@
     <BuildMacro Include="ProductVersion">
       <Value>$(ProductVersion)</Value>
     </BuildMacro>
+    <BuildMacro Include="ProductMajorVersion">
+      <Value>$(ProductMajorVersion)</Value>
+    </BuildMacro>
+    <BuildMacro Include="ProductMinorVersion">
+      <Value>$(ProductMinorVersion)</Value>
+    </BuildMacro>
     <BuildMacro Include="csmmainId">
       <Value>$(csmmainId)</Value>
     </BuildMacro>
@@ -24,6 +32,14 @@
     </BuildMacro>
     <BuildMacro Include="markinvId">
       <Value>$(markinvId)</Value>
+    </BuildMacro>
+  </ItemGroup>
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);ProductCode=$(ProductCode);ProductVersion=$(ProductVersion);ProductMajorVersion=$(ProductMajorVersion);ProductMinorVersion=$(ProductMinorVersion);csmmainId=$(csmmainId);csmadminId=$(csmadminId);markinvId=$(markinvId)</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <BuildMacro Include="DefineConstants">
+      <Value>$(DefineConstants)</Value>
     </BuildMacro>
   </ItemGroup>
 </Project>
