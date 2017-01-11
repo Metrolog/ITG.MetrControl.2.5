@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".csmdb" />
+    <Folder Include="msm" />
     <Folder Include="ru-ru" />
     <Folder Include="SourceDir" />
     <Folder Include="Icons" />
@@ -55,6 +56,7 @@
     <Content Include="Icons\Product.ico" />
     <Content Include="Common.RemoveAutoFile.wxi" />
     <Content Include="Metrcontrol.wxi" />
+    <Content Include="msm\Microsoft_VC140_CRT_x86.msm" />
     <Content Include="SourceDir\Accounts.dll" />
     <Content Include="SourceDir\CommonControls.dll" />
     <Content Include="SourceDir\ConnectedDBComponents.dll" />

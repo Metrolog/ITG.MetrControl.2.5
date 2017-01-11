@@ -40,7 +40,17 @@
 			TypicalDefault="install"
 		>
 			<ComponentGroupRef Id="$(var.AppInternalName)" />
+			<MergeRef Id="Microsoft_VC140_CRT_x86" Primary="yes"/>
 		</Feature>
+
+		<DirectoryRef Id="$(var.AppDirectory)">
+			<Merge
+				Id="Microsoft_VC140_CRT_x86"
+				SourceFile="msm\Microsoft_VC140_CRT_x86.msm"
+				Language="0"
+				DiskId="1"
+			/>
+		</DirectoryRef>
 
 		<ComponentGroup Id="$(var.AppInternalName)" Directory="$(var.AppDirectory)">
 			<ComponentRef Id="$(var.AppFileName)" />
