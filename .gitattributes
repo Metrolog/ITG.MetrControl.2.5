@@ -25,6 +25,7 @@
 # intervention with every merge. To do so, just uncomment the entries below
 ###############################################################################
 *.sln        merge=text   diff        -eol
+*.targets    merge=text   diff=text   -eol
 #*.csproj    merge=binary
 #*.vbproj    merge=binary
 #*.vcxproj   merge=binary
