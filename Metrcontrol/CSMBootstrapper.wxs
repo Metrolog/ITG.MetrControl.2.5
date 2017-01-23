@@ -14,7 +14,7 @@
 		<?ifdef AppDirectory?><?undef AppDirectory?><?endif?>
 		<?define AppDirectory="APPLICATIONFOLDER"?>
 		<?ifdef AppFileName?><?undef AppFileName?><?endif?>
-		<?define AppFileName="$(var.Bootstrapper.TargetFileName)"?>
+		<?define AppFileName="$(var.Bootstrapper_v2.TargetFileName)"?>
 		<?ifdef AppIcon?><?undef AppIcon?><?endif?>
 		<?define AppIcon="Product.ico"?>
 
@@ -40,7 +40,17 @@
 			TypicalDefault="install"
 		>
 			<ComponentGroupRef Id="$(var.AppInternalName)" />
+			<!--<MergeRef Id="Microsoft_VC140_CRT_x86" Primary="yes"/>-->
 		</Feature>
+
+		<!--<DirectoryRef Id="$(var.AppDirectory)">
+			<Merge
+				Id="Microsoft_VC140_CRT_x86"
+				SourceFile="msm\Microsoft_VC140_CRT_x86.msm"
+				Language="0"
+				DiskId="1"
+			/>
+		</DirectoryRef>-->
 
 		<ComponentGroup Id="$(var.AppInternalName)" Directory="$(var.AppDirectory)">
 			<ComponentRef Id="$(var.AppFileName)" />
@@ -50,7 +60,7 @@
 			<ComponentGroupRef Id="common.RemoveAutoFile" />
 		</ComponentGroup>
 
-		<DirectoryRef Id="$(var.AppDirectory)" FileSource="$(var.Bootstrapper.TargetDir)">
+		<DirectoryRef Id="$(var.AppDirectory)" FileSource="$(var.Bootstrapper_v2.TargetDir)">
 
 			<Component
 				Id="$(var.AppFileName)"
@@ -62,11 +72,6 @@
 					Name="$(var.AppFileName)"
 					Vital="yes"
 					KeyPath="yes"
-				/>
-				<File
-					Name="$(var.AppFileName).config"
-					Vital="no"
-					CompanionFile="$(var.AppFileName)"
 				/>
 				<ProgId
 					Id="$(var.AppProgId)"

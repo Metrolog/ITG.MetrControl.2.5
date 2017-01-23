@@ -1,15 +1,20 @@
 obj
 release
+debug
 bin
 _output
 dirstate
 make.log
 build.log
 .vs
+*.opensdf
+*.sdf
+ipch
+/*.VC.db
+/*.VC.opendb
 /_UpgradeReport_Files
 /UpgradeLog*.htm
 /UpgradeLog*.XML
+version.h
 packages
 ReleaseNotes.md
-/Metrocontrol/.csmdb examples/ncsm.csmdb23
-/Metrocontrol.v11.suo

@@ -37,9 +37,13 @@
 	</ComponentGroup>
 
 	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
+		<?ifndef csmadminId?>
+			<?error csmadminId must be set in project configuration (in ProductProperties.props).?>
+		<?endif?>
+
 		<Component
 			Id="csmadmin.exe"
-			Guid="{D49011DA-C023-4B55-AA7C-724C7A7F3679}"
+			Guid="$(var.csmadminId)"
 			Location="either"
 			Win64="$(var.Win64)"
 		>
