@@ -201,4 +201,7 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <!-- GitVersion: подключение для генерации MSBuild переменных и констант -->
+  <Import Project="$(SolutionDir)GitVersionTask.targets" Condition="Exists('$(SolutionDir)GitVersionTask.targets')" />
+  <!-- /GitVersion -->
 </Project>
