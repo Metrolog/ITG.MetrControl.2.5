@@ -86,7 +86,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <CustomBuildStep>
-      <Command>SET CONFIGURATION=&amp;&amp;$(SolutionDir)packages\GitVersion.CommandLine.3.6.5\tools\GitVersion.exe /exec cmd.exe /execargs "/C update_version.h.cmd version.h"</Command> 
+      <Command>SET CONFIGURATION=&amp;&amp;SET PLATFORM=&amp;&amp;$(SolutionDir)packages\GitVersion.CommandLine.3.6.5\tools\GitVersion.exe /exec cmd.exe /execargs "/C update_version.h.cmd version.h"</Command> 
       <Message>GitVersion: retrieving version information from git repository</Message>
       <Outputs>version.h</Outputs>
       <Inputs>$(SolutionDir).git/logs/HEAD</Inputs>
