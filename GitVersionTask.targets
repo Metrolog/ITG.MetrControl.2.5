@@ -15,7 +15,7 @@
     AssemblyFile="$(SolutionDir)packages\GitVersionTask.3.6.5\GitVersionTask.dll"
 	/>
 
-  <Target Name="GetVersion" BeforeTargets="ClCompile;ResourceCompile" Condition="$(GetVersion) == 'true'">
+  <Target Name="GetVersion" BeforeTargets="ClCompile;ResourceCompile;Compile" Condition="$(GetVersion) == 'true'">
     <GetVersion SolutionDirectory="$(SolutionDir)" NoFetch="$(GitVersion_NoFetchEnabled)">
       <Output TaskParameter="Major" PropertyName="GitVersion_Major" />
       <Output TaskParameter="Minor" PropertyName="GitVersion_Minor" />
