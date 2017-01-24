@@ -25,6 +25,8 @@
 			SummaryCodepage="!(loc.CodePage)"
 		/>
 
+		<Property Id="PackageVersion" Value="$(var.GitVersion_FullSemVer)"/>
+
 		<WixVariable Id="ManufacturerId"      Value="$(var.ManufacturerId)"/>
 		<WixVariable Id="Manufacturer"        Value="$(var.Manufacturer)"/>
 		<WixVariable Id="ProductInternalName" Value="$(var.ProductInternalName)"/>
