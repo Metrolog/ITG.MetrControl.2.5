@@ -81,18 +81,6 @@
     <OutDir>$(Configuration)\$(Platform)\</OutDir>
     <IntDir>$(Configuration)\$(Platform)\</IntDir>
   </PropertyGroup>
-  <PropertyGroup>
-    <CustomBuildBeforeTargets>GenerateAdditionalSources;ClCompile;ResourceCompile</CustomBuildBeforeTargets>
-  </PropertyGroup>
-  <ItemDefinitionGroup>
-    <CustomBuildStep>
-      <Command>SET CONFIGURATION=&amp;&amp;SET PLATFORM=&amp;&amp;$(SolutionDir)packages\GitVersion.CommandLine.3.6.5\tools\GitVersion.exe /exec cmd.exe /execargs "/C update_version.h.cmd version.h"</Command> 
-      <Message>GitVersion: retrieving version information from git repository</Message>
-      <Outputs>version.h</Outputs>
-      <Inputs>$(SolutionDir).git/logs/HEAD</Inputs>
-      <TreatOutputAsContent>false</TreatOutputAsContent>
-    </CustomBuildStep>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PreprocessorDefinitions>_WINDOWS;%(PreprocessorDefinitions);PRODUCT_CODE="$(ProductCode)";CSMMAIN_CODE="$(csmmainId)";CSMADMIN_CODE="$(csmadminId)";MARKINV_CODE="$(markinvId)"</PreprocessorDefinitions>
@@ -176,7 +164,6 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="version.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bootstrapper_v2.cpp" />
@@ -196,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="update_version.h.cmd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
