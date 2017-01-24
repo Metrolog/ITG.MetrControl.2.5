@@ -240,18 +240,67 @@
 				<EnvironmentVariable>true</EnvironmentVariable>
 			</BuildMacro>
 		</ItemGroup>
+		<PropertyGroup>
+			<DefineConstants>
+				$(DefineConstants);
+				GitVersion_Major=$(GitVersion_Major);
+				GITVERSION_MAJOR=$(GitVersion_Major);
+				GitVersion_Minor=$(GitVersion_Minor);
+				GITVERSION_MINOR=$(GitVersion_Minor);
+				GitVersion_Patch=$(GitVersion_Patch);
+				GITVERSION_PATCH=$(GitVersion_Patch);
+				GitVersion_BuildMetaData=$(GitVersion_BuildMetaData);
+				GITVERSION_BUILDMETADATA=$(GitVersion_BuildMetaData);
+				GitVersion_BuildMetaDataPadded=$(GitVersion_BuildMetaDataPadded);
+				GITVERSION_BUILDMETADATAPADDED=$(GitVersion_BuildMetaDataPadded);
+				GitVersion_FullBuildMetaData=$(GitVersion_FullBuildMetaData);
+				GITVERSION_FULLBUILDMETADATA=$(GitVersion_FullBuildMetaData);
+				GitVersion_BranchName=$(GitVersion_BranchName);
+				GITVERSION_BRANCHNAME=$(GitVersion_BranchName);
+				GitVersion_Sha=$(GitVersion_Sha);
+				GITVERSION_SHA=$(GitVersion_Sha);
+				GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch);
+				GITVERSION_MAJORMINORPATCH=$(GitVersion_MajorMinorPatch);
+				GitVersion_SemVer=$(GitVersion_SemVer);
+				GITVERSION_SEMVER=$(GitVersion_SemVer);
+				GitVersion_LegacySemVer=$(GitVersion_LegacySemVer);
+				GITVERSION_LEGACYSEMVER=$(GitVersion_LegacySemVer);
+				GitVersion_LegacySemVerPadded=$(GitVersion_LegacySemVerPadded);
+				GITVERSION_LEGACYSEMVERPADDED=$(GitVersion_LegacySemVerPadded);
+				GitVersion_FullSemVer=$(GitVersion_FullSemVer);
+				GITVERSION_FULLSEMVER=$(GitVersion_FullSemVer);
+				GitVersion_AssemblySemVer=$(GitVersion_AssemblySemVer);
+				GITVERSION_ASSEMBLYSEMVER=$(GitVersion_AssemblySemVer);
+				GitVersion_NuGetVersion=$(GitVersion_NuGetVersion);
+				GITVERSION_NUGETVERSION=$(GitVersion_NuGetVersion);
+				GitVersion_PreReleaseTag=$(GitVersion_PreReleaseTag);
+				GITVERSION_PRERELEASETAG=$(GitVersion_PreReleaseTag);
+				GitVersion_PreReleaseTagWithDash=$(GitVersion_PreReleaseTagWithDash);
+				GITVERSION_PRERELEASETAGWITHDASH=$(GitVersion_PreReleaseTagWithDash);
+				GitVersion_PreReleaseLabel=$(GitVersion_PreReleaseLabel);
+				GITVERSION_PRERELEASELABEL=$(GitVersion_PreReleaseLabel);
+				GitVersion_PreReleaseNumber=$(GitVersion_PreReleaseNumber);
+				GITVERSION_PRERELEASENUMBER=$(GitVersion_PreReleaseNumber);
+				GitVersion_InformationalVersion=$(GitVersion_InformationalVersion);
+				GITVERSION_INFORMATIONALVERSION=$(GitVersion_InformationalVersion);
+				GitVersion_CommitDate=$(GitVersion_CommitDate);
+				GITVERSION_COMMITDATE=$(GitVersion_CommitDate);
+				GitVersion_CommitsSinceVersionSource=$(GitVersion_CommitsSinceVersionSource);
+				GITVERSION_COMMITSSINCEVERSIONSOURCE=$(GitVersion_CommitsSinceVersionSource);
+				GitVersion_CommitsSinceVersionSourcePadded=$(GitVersion_CommitsSinceVersionSourcePadded);
+				GITVERSION_COMMITSSINCEVERSIONSOURCEPADDED=$(GitVersion_CommitsSinceVersionSourcePadded)
+			</DefineConstants>
+		</PropertyGroup>
+		<ItemGroup>
+			<BuildMacro Include="DefineConstants">
+				<Value>$(DefineConstants)</Value>
+			</BuildMacro>
+		</ItemGroup>
 	</Target>
 	
   <Target Name="WriteVersionInfoToBuildLog" AfterTargets="GetVersion" Condition="$(WriteVersionInfoToBuildLog) == 'true'">
     <WriteVersionInfoToBuildLog SolutionDirectory="$(SolutionDir)" NoFetch="$(GitVersion_NoFetchEnabled)"/>
   </Target>
-
-	<!--<PropertyGroup>
-    <DefineConstants>$(DefineConstants);GitVersion_Major=$(GitVersion_Major);GitVersion_Minor=$(GitVersion_Minor);GitVersion_Patch=$(GitVersion_Patch);GitVersion_BuildMetaData=$(GitVersion_BuildMetaData);GitVersion_BuildMetaDataPadded=$(GitVersion_BuildMetaDataPadded);GitVersion_FullBuildMetaData=$(GitVersion_FullBuildMetaData);GitVersion_BranchName=$(GitVersion_BranchName);GitVersion_Sha=$(GitVersion_Sha);GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch);GitVersion_SemVer=$(GitVersion_SemVer);GitVersion_LegacySemVer=$(GitVersion_LegacySemVer);GitVersion_LegacySemVerPadded=$(GitVersion_LegacySemVerPadded);GitVersion_FullSemVer=$(GitVersion_FullSemVer);GitVersion_AssemblySemVer=$(GitVersion_AssemblySemVer);GitVersion_NuGetVersion=$(GitVersion_NuGetVersion);GitVersion_PreReleaseTag=$(GitVersion_PreReleaseTag);GitVersion_PreReleaseTagWithDash=$(GitVersion_PreReleaseTagWithDash);GitVersion_PreReleaseLabel=$(GitVersion_PreReleaseLabel);GitVersion_PreReleaseNumber=$(GitVersion_PreReleaseNumber);GitVersion_InformationalVersion=$(GitVersion_InformationalVersion);GitVersion_CommitDate=$(GitVersion_CommitDate);GitVersion_CommitsSinceVersionSource=$(GitVersion_CommitsSinceVersionSource);GitVersion_CommitsSinceVersionSourcePadded=$(GitVersion_CommitsSinceVersionSourcePadded)</DefineConstants>
-  </PropertyGroup>
-  <ItemGroup>
-    <BuildMacro Include="DefineConstants"><Value>$(DefineConstants)</Value></BuildMacro>
-  </ItemGroup>-->
 
   <!--Support for ncrunch-->
   <ItemGroup Condition="$(NCrunch) != ''">
