@@ -116,6 +116,9 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
+  <!-- GitVersion: подключение для генерации MSBuild переменных и констант -->
+  <Import Project="$(SolutionDir)GitVersionTask.targets" Condition="Exists('$(SolutionDir)GitVersionTask.targets')" />
+  <!-- /GitVersion -->
   <!-- <PropertyGroup>
     <PostBuildEvent>call "%25VS140COMNTOOLS%25VsDevCmd.bat"
 signtool sign /a /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
