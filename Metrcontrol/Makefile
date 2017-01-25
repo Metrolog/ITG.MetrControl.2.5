@@ -11,14 +11,14 @@ include $(ITG_MAKEUTILS_DIR)/signing/sign.mk
 # $(eval $(call exportGlobalVariable,UpgradeCode))
 # WIXEXTENSIONS     = WixUIExtension
 
-export PLATFORM := x86
-$(eval $(call exportGlobalVariable,PLATFORM))
-export CONFIGURATION := Release
-$(eval $(call exportGlobalVariable,CONFIGURATION))
-export SOLUTION := ../Metrocontrol.sln
-$(eval $(call exportGlobalVariable,SOLUTION))
+export Platform := x86
+$(eval $(call exportGlobalVariable,Platform))
+export Configuration := Release
+$(eval $(call exportGlobalVariable,Configuration))
+export Solution := ../Metrocontrol.sln
+$(eval $(call exportGlobalVariable,Solution))
 OUTPUTDIR := ../bin
-export msiTARGETS := ../bin/$(CONFIGURATION)/$(PLATFORM)/ru-RU/Metrcontrol.msi
+export msiTARGETS := ../bin/$(Configuration)/$(Platform)/ru-RU/Metrcontrol.msi
 $(eval $(call exportGlobalVariable,msiTARGETS))
 
 $(eval $(call pushArtifactTargets,msiTARGETS))
@@ -27,7 +27,7 @@ all: msi
 msi: $(msiTARGETS)
 	$(pushDeploymentArtifact)
 
-$(msiTARGETS): $(SOLUTION) $(CODE_SIGNING_CERTIFICATE_PFX)
+$(msiTARGETS): $(Solution) $(CODE_SIGNING_CERTIFICATE_PFX)
 	msbuild.exe $<
 	$(SIGNTARGET)
 

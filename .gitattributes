@@ -73,4 +73,4 @@
 ###############################################################################
 *.md         merge=text   eol=lf
 *.mk         merge=text   eol=crlf
-Makefile     merge=text   eol=crlf
+Makefile     merge=text diff        -eol
