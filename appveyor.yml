@@ -42,5 +42,7 @@ deploy:
     description: $(release_description)
     artifact: msi
     on:
-      branch: /release\/.*/
+      branches:
+        only:
+          - master
       #appveyor_repo_tag: true
