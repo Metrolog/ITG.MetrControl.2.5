@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <GitVersion_NoFetchEnabled Condition="$(GitVersion_NoFetchEnabled) == ''">false</GitVersion_NoFetchEnabled>
+    <GetVersion Condition="$(GetVersion) == ''">true</GetVersion>
+    <WriteVersionInfoToBuildLog Condition="$(WriteVersionInfoToBuildLog) == ''">false</WriteVersionInfoToBuildLog>
+  </PropertyGroup>
+
+  <UsingTask
+    TaskName="GitVersionTask.GetVersion"
+    AssemblyFile="$(SolutionDir)packages\GitVersionTask.3.6.5\GitVersionTask.dll"
+	/>
+  <UsingTask
+    TaskName="GitVersionTask.WriteVersionInfoToBuildLog"
+    AssemblyFile="$(SolutionDir)packages\GitVersionTask.3.6.5\GitVersionTask.dll"
+	/>
+
+  <Target Name="GetVersion" BeforeTargets="ClCompile;ResourceCompile;Compile" Condition="$(GetVersion) == 'true'">
+    <GetVersion SolutionDirectory="$(SolutionDir)" NoFetch="$(GitVersion_NoFetchEnabled)">
+      <Output TaskParameter="Major" PropertyName="GitVersion_Major" />
+      <Output TaskParameter="Minor" PropertyName="GitVersion_Minor" />
+      <Output TaskParameter="Patch" PropertyName="GitVersion_Patch" />
+      <Output TaskParameter="BuildMetaData" PropertyName="GitVersion_BuildMetaData" />
+      <Output TaskParameter="BuildMetaDataPadded" PropertyName="GitVersion_BuildMetaDataPadded" />
+      <Output TaskParameter="FullBuildMetaData" PropertyName="GitVersion_FullBuildMetaData" />
+      <Output TaskParameter="BranchName" PropertyName="GitVersion_BranchName" />
+      <Output TaskParameter="Sha" PropertyName="GitVersion_Sha" />
+      <Output TaskParameter="MajorMinorPatch" PropertyName="GitVersion_MajorMinorPatch" />
+      <Output TaskParameter="SemVer" PropertyName="GitVersion_SemVer" />
+      <Output TaskParameter="LegacySemVer" PropertyName="GitVersion_LegacySemVer" />
+      <Output TaskParameter="LegacySemVerPadded" PropertyName="GitVersion_LegacySemVerPadded" />
+      <Output TaskParameter="FullSemVer" PropertyName="GitVersion_FullSemVer" />
+      <Output TaskParameter="AssemblySemVer" PropertyName="GitVersion_AssemblySemVer" />
+      <Output TaskParameter="NuGetVersion" PropertyName="GitVersion_NuGetVersion" />
+      <Output TaskParameter="PreReleaseTag" PropertyName="GitVersion_PreReleaseTag" />
+      <Output TaskParameter="PreReleaseTagWithDash" PropertyName="GitVersion_PreReleaseTagWithDash" />
+      <Output TaskParameter="PreReleaseLabel" PropertyName="GitVersion_PreReleaseLabel" />
+      <Output TaskParameter="PreReleaseNumber" PropertyName="GitVersion_PreReleaseNumber" />
+      <Output TaskParameter="InformationalVersion" PropertyName="GitVersion_InformationalVersion" />
+      <Output TaskParameter="CommitDate" PropertyName="GitVersion_CommitDate" />
+      <Output TaskParameter="CommitsSinceVersionSource" PropertyName="GitVersion_CommitsSinceVersionSource" />
+      <Output TaskParameter="CommitsSinceVersionSourcePadded" PropertyName="GitVersion_CommitsSinceVersionSourcePadded" />
+    </GetVersion>
+		<Message Text="FullSemVer is $(GitVersion_FullSemVer)"/>
+		<PropertyGroup>
+			<GitVersionDefinitions>
+				GitVersion_Major=$(GitVersion_Major);
+				GITVERSION_MAJOR=$(GitVersion_Major);
+				GitVersion_Minor=$(GitVersion_Minor);
+				GITVERSION_MINOR=$(GitVersion_Minor);
+				GitVersion_Patch=$(GitVersion_Patch);
+				GITVERSION_PATCH=$(GitVersion_Patch);
+				GitVersion_BuildMetaData=$(GitVersion_BuildMetaData);
+				GITVERSION_BUILDMETADATA=$(GitVersion_BuildMetaData);
+				GitVersion_BuildMetaDataPadded=$(GitVersion_BuildMetaDataPadded);
+				GITVERSION_BUILDMETADATAPADDED=$(GitVersion_BuildMetaDataPadded);
+				GitVersion_FullBuildMetaData=$(GitVersion_FullBuildMetaData);
+				GITVERSION_FULLBUILDMETADATA=$(GitVersion_FullBuildMetaData);
+				GitVersion_BranchName=$(GitVersion_BranchName);
+				GITVERSION_BRANCHNAME=$(GitVersion_BranchName);
+				GitVersion_Sha=$(GitVersion_Sha);
+				GITVERSION_SHA=$(GitVersion_Sha);
+				GitVersion_MajorMinorPatch=$(GitVersion_MajorMinorPatch);
+				GITVERSION_MAJORMINORPATCH=$(GitVersion_MajorMinorPatch);
+				GitVersion_SemVer=$(GitVersion_SemVer);
+				GITVERSION_SEMVER=$(GitVersion_SemVer);
+				GitVersion_LegacySemVer=$(GitVersion_LegacySemVer);
+				GITVERSION_LEGACYSEMVER=$(GitVersion_LegacySemVer);
+				GitVersion_LegacySemVerPadded=$(GitVersion_LegacySemVerPadded);
+				GITVERSION_LEGACYSEMVERPADDED=$(GitVersion_LegacySemVerPadded);
+				GitVersion_FullSemVer=$(GitVersion_FullSemVer);
+				GITVERSION_FULLSEMVER=$(GitVersion_FullSemVer);
+				GitVersion_AssemblySemVer=$(GitVersion_AssemblySemVer);
+				GITVERSION_ASSEMBLYSEMVER=$(GitVersion_AssemblySemVer);
+				GitVersion_NuGetVersion=$(GitVersion_NuGetVersion);
+				GITVERSION_NUGETVERSION=$(GitVersion_NuGetVersion);
+				GitVersion_PreReleaseTag=$(GitVersion_PreReleaseTag);
+				GITVERSION_PRERELEASETAG=$(GitVersion_PreReleaseTag);
+				GitVersion_PreReleaseTagWithDash=$(GitVersion_PreReleaseTagWithDash);
+				GITVERSION_PRERELEASETAGWITHDASH=$(GitVersion_PreReleaseTagWithDash);
+				GitVersion_PreReleaseLabel=$(GitVersion_PreReleaseLabel);
+				GITVERSION_PRERELEASELABEL=$(GitVersion_PreReleaseLabel);
+				GitVersion_PreReleaseNumber=$(GitVersion_PreReleaseNumber);
+				GITVERSION_PRERELEASENUMBER=$(GitVersion_PreReleaseNumber);
+				GitVersion_InformationalVersion=$(GitVersion_InformationalVersion);
+				GITVERSION_INFORMATIONALVERSION=$(GitVersion_InformationalVersion);
+				GitVersion_CommitDate=$(GitVersion_CommitDate);
+				GITVERSION_COMMITDATE=$(GitVersion_CommitDate);
+				GitVersion_CommitsSinceVersionSource=$(GitVersion_CommitsSinceVersionSource);
+				GITVERSION_COMMITSSINCEVERSIONSOURCE=$(GitVersion_CommitsSinceVersionSource);
+				GitVersion_CommitsSinceVersionSourcePadded=$(GitVersion_CommitsSinceVersionSourcePadded);
+				GITVERSION_COMMITSSINCEVERSIONSOURCEPADDED=$(GitVersion_CommitsSinceVersionSourcePadded)
+			</GitVersionDefinitions>
+		</PropertyGroup>
+		<ItemGroup>
+			<ClCompile>
+				<PreprocessorDefinitions>%(PreprocessorDefinitions);$(GitVersionDefinitions)</PreprocessorDefinitions>
+			</ClCompile>
+			<ResourceCompile>
+				<PreprocessorDefinitions>%(PreprocessorDefinitions);$(GitVersionDefinitions)</PreprocessorDefinitions>
+			</ResourceCompile>
+		</ItemGroup>
+		<ItemGroup>
+			<BuildMacro Include="GitVersion_Major">
+				<Value>$(GitVersion_Major)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_Minor">
+				<Value>$(GitVersion_Minor)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_Patch">
+				<Value>$(GitVersion_Patch)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_BuildMetaData">
+				<Value>$(GitVersion_BuildMetaData)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_BuildMetaDataPadded">
+				<Value>$(GitVersion_BuildMetaDataPadded)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_FullBuildMetaData">
+				<Value>$(GitVersion_FullBuildMetaData)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_BranchName">
+				<Value>$(GitVersion_BranchName)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_Sha">
+				<Value>$(GitVersion_Sha)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_MajorMinorPatch">
+				<Value>$(GitVersion_MajorMinorPatch)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_SemVer">
+				<Value>$(GitVersion_SemVer)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_LegacySemVer">
+				<Value>$(GitVersion_LegacySemVer)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_LegacySemVerPadded">
+				<Value>$(GitVersion_LegacySemVerPadded)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_FullSemVer">
+				<Value>$(GitVersion_FullSemVer)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_AssemblySemVer">
+				<Value>$(GitVersion_AssemblySemVer)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_NuGetVersion">
+				<Value>$(GitVersion_NuGetVersion)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_PreReleaseTag">
+				<Value>$(GitVersion_PreReleaseTag)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_PreReleaseTagWithDash">
+				<Value>$(GitVersion_PreReleaseTagWithDash)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_PreReleaseLabel">
+				<Value>$(GitVersion_PreReleaseLabel)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_PreReleaseNumber">
+				<Value>$(GitVersion_PreReleaseNumber)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_InformationalVersion">
+				<Value>$(GitVersion_InformationalVersion)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_CommitDate">
+				<Value>$(GitVersion_CommitDate)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_CommitsSinceVersionSource">
+				<Value>$(GitVersion_CommitsSinceVersionSource)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+			<BuildMacro Include="GitVersion_CommitsSinceVersionSourcePadded">
+				<Value>$(GitVersion_CommitsSinceVersionSourcePadded)</Value>
+				<EnvironmentVariable>true</EnvironmentVariable>
+			</BuildMacro>
+		</ItemGroup>
+		<PropertyGroup>
+			<DefineConstants>$(DefineConstants);$(GitVersionDefinitions)</DefineConstants>
+		</PropertyGroup>
+		<ItemGroup>
+			<BuildMacro Include="DefineConstants">
+				<Value>$(DefineConstants)</Value>
+			</BuildMacro>
+		</ItemGroup>
+	</Target>
+	
+  <Target Name="WriteVersionInfoToBuildLog" AfterTargets="GetVersion" Condition="$(WriteVersionInfoToBuildLog) == 'true'">
+    <WriteVersionInfoToBuildLog SolutionDirectory="$(SolutionDir)" NoFetch="$(GitVersion_NoFetchEnabled)"/>
+  </Target>
+
+  <!--Support for ncrunch-->
+  <ItemGroup Condition="$(NCrunch) != ''">
+    <None Include="$(SolutionDir)packages\GitVersionTask.3.6.5\GitVersionTask.dll">
+      <Visible>False</Visible>
+    </None>
+    <None Include="$(SolutionDir)packages\GitVersionTask.3.6.5\GitVersionTask.pdb">
+      <Visible>False</Visible>
+    </None>
+    <None Include="$(SolutionDir)packages\GitVersionTask.3.6.5\NativeBinaries\**\*">
+      <Visible>False</Visible>
+    </None>
+  </ItemGroup>
+
+</Project>

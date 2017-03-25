@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix
+	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+>
+
+	<?include Metrcontrol.wxi ?>
+
+	<?include Common.RemoveAutoFile.wxi ?>
+
+	<Fragment>
+
+		<?ifdef AppInternalName?><?undef AppInternalName?><?endif?>
+		<?define AppInternalName="Bootstrapper"?>
+		<?ifdef AppDirectory?><?undef AppDirectory?><?endif?>
+		<?define AppDirectory="APPLICATIONFOLDER"?>
+		<?ifdef AppFileName?><?undef AppFileName?><?endif?>
+		<?define AppFileName="$(var.Bootstrapper_v2.TargetFileName)"?>
+		<?ifdef AppIcon?><?undef AppIcon?><?endif?>
+		<?define AppIcon="Product.ico"?>
+
+		<?ifdef AppRegKey?><?undef AppRegKey?><?endif?>
+		<?define AppRegKey="$(var.ProductRegKey)\$(var.AppInternalName)"?>
+
+		<?ifdef AppFileExt?><?undef AppFileExt?><?endif?>
+		<?define AppFileExt="$(var.ProductExt)"?>
+		<?ifdef AppProgId?><?undef AppProgId?><?endif?>
+		<?define AppProgId="$(var.ProductProgIdPrefix).$(var.AppInternalName).$(var.ProductProgIdPostfix)"?>
+		<?ifdef AppProgIdDescription?><?undef AppProgIdDescription?><?endif?>
+		<?define AppProgIdDescription="$(var.ProductProgIdDescription)"?>
+		<?ifdef AppContentType?><?undef AppContentType?><?endif?>
+		<?define AppContentType="$(var.ProductContentType)"?>
+
+		<Feature
+			Id="$(var.AppInternalName)"
+			Level="1"
+			Absent="disallow"
+			Display="hidden"
+			AllowAdvertise="no"
+			InstallDefault="local"
+			TypicalDefault="install"
+		>
+			<ComponentGroupRef Id="$(var.AppInternalName)" />
+			<!--<MergeRef Id="Microsoft_VC140_CRT_x86" Primary="yes"/>-->
+		</Feature>
+
+		<!--<DirectoryRef Id="$(var.AppDirectory)">
+			<Merge
+				Id="Microsoft_VC140_CRT_x86"
+				SourceFile="msm\Microsoft_VC140_CRT_x86.msm"
+				Language="0"
+				DiskId="1"
+			/>
+		</DirectoryRef>-->
+
+		<ComponentGroup Id="$(var.AppInternalName)" Directory="$(var.AppDirectory)">
+			<ComponentRef Id="$(var.AppFileName)" />
+			<ComponentRef Id="$(var.AppInternalName).AppReg" />
+			<ComponentRef Id="$(var.AppInternalName).VerbsAddins" />
+			<ComponentGroupRef Id="CommonComponents" />
+			<ComponentGroupRef Id="common.RemoveAutoFile" />
+		</ComponentGroup>
+
+		<DirectoryRef Id="$(var.AppDirectory)" FileSource="$(var.Bootstrapper_v2.TargetDir)">
+
+			<Component
+				Id="$(var.AppFileName)"
+				Guid="{6CE4D27C-8F60-4DD4-B262-AB775F53184E}"
+				Location="either"
+				Win64="$(var.Win64)"
+			>
+				<File
+					Name="$(var.AppFileName)"
+					Vital="yes"
+					KeyPath="yes"
+				/>
+				<ProgId
+					Id="$(var.AppProgId)"
+					Description="$(var.AppProgIdDescription)"
+					Icon="$(var.AppIcon)"
+					Advertise="yes"
+				>
+					<Extension
+						Id="$(var.AppFileExt)"
+						Advertise="yes"
+					>
+						<Verb
+							Id="open"
+							Argument="%1 %2"
+							Sequence="1"
+						/>
+						<Verb
+							Id="csmmain"
+							Command="Запустить приложение &quot;$(var.ProductShortName)&quot; для данной БД"
+							Argument="%1 csmmain"
+							Sequence="2"
+						/>
+						<Verb
+							Id="csmadmin"
+							Command="Запустить приложение &quot;$(var.AdminToolName)&quot; для данной БД"
+							Argument="%1 csmadmin"
+							Sequence="4"
+						/>
+						<Verb
+							Id="markinv"
+							Command="Запустить приложение &quot;$(var.markinvToolName)&quot; для данной БД"
+							Argument="%1 markinv"
+							Sequence="3"
+						/>
+						<MIME
+							ContentType="$(var.AppContentType)"
+							Default="yes"
+							Advertise="yes"
+						/>
+					</Extension>
+				</ProgId>
+			</Component>
+
+			<Component
+				Id="$(var.AppInternalName).AppReg"
+			>
+				<RegistryKey
+					Root="HKMU"
+					Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\KindMap"
+				>
+					<RegistryValue Name=".$(var.AppFileExt)" Type="string" Value="Link" KeyPath="yes"/>
+				</RegistryKey>
+				<RegistryKey
+					Root="HKMU"
+					Key="SOFTWARE\Classes\Applications"
+				>
+					<RegistryKey Key="$(var.AppFileName)">
+						<RegistryValue Name="FriendlyAppName" Type="string" Value="$(var.ProductShortName)" />
+						<RegistryValue Name="IsHostApp" Type="integer" Value="1"/>
+						<RegistryValue Name="NoOpenWith" Type="integer" Value="1"/>
+						<RegistryKey Key="SupportedTypes">
+							<RegistryValue Name=".$(var.AppFileExt)" Type="string" Value="" />
+						</RegistryKey>
+					</RegistryKey>
+				</RegistryKey>
+			</Component>
+
+			<Component
+				Id="$(var.AppInternalName).VerbsAddins"
+				Guid="{82D0389B-17EB-4E10-8A9C-C3C72E2BCA4E}"
+				Location="either"
+			>
+				<RegistryKey
+					Root="HKCR"
+					Key="$(var.AppProgId)"
+				>
+					<!--http://msdn.microsoft.com/en-us/library/windows/desktop/bb762506(v=vs.85).aspx-->
+					<!--FTA_HasExtension(0x4) + FTA_NoEdit(0x8) + FTA_NoRemove(x10) + FTA_NoNewVerb(x20) + FTA_NoEditVerb(x40)
+					+ FTA_NoRemoveVerb(x80) + FTA_NoEditDesc(x100) + FTA_NoEditIcon(x200) + FTA_NoEditDflt(x400)
+					+ FTA_NoEditVerbCmd(x800) + FTA_NoEditVerbExe(x1000) + FTA_NoDDE(x2000) + FTA_NoEditMIME(x4000)
+					+ FTA_NoRecentDocs(0x00100000)-->
+					<RegistryValue Name="EditFlags" Type="integer" Value="1081340" KeyPath="yes" />
+
+					<!-- http://msdn.microsoft.com/en-us/library/windows/desktop/bb986055.aspx#MSDNMag2001Nov -->
+					<!--!!! http://windowssucks.wordpress.com/file-type-registration/ -->
+					<!--<RegistryValue Name="InfoTip" Type="string" Value="" />-->
+					<!--<RegistryValue Name="TileInfo" Type="string" Value="" />-->
+					<!--<RegistryValue Name="NoOpen" Type="string" Value="Сообщение для NoOpen диалога" />-->
+					<RegistryValue Name="NoOpenWith" Type="string" Value="" />
+					<RegistryValue Name="NoPreviousVersions" Type="string" Value="" />
+					<RegistryValue Name="NoJumpListPathTooltip" Type="string" Value="" />
+					<RegistryValue Name="NoRecentDocs" Type="string" Value="" />
+					<RegistryValue Name="NeverShowExt" Type="string" Value="" />
+					<RegistryValue Name="NoSendTo" Type="string" Value="" />
+					<RegistryValue Name="DownloadInvokeDisabled" Type="string" Value="" />
+					<!-- http://msdn.microsoft.com/en-us/library/windows/desktop/cc144152#fa_attributes -->
+					<!--<RegistryValue Name="AllowSilentDefaultTakeOver" Type="string" Value="" />-->
+					<RegistryValue Name="AppUserModelID" Type="string" Value="$(var.AppProgId)" />
+
+					<!-- http://msdn.microsoft.com/en-us/library/windows/desktop/hh127468 -->
+					<!--<RegistryValue Name="ContentViewModeForBrowse " Type="string" Value="" />-->
+
+					<RegistryKey Key="shell">
+						<RegistryKey Key="csmmain">
+							<!-- http://msdn.microsoft.com/en-us/library/windows/desktop/cc144171#dynamic_behavior -->
+							<RegistryValue Name="MultiSelectModel" Type="string" Value="Single"/>
+						</RegistryKey>
+						<RegistryKey Key="markinv">
+							<RegistryValue Name="MultiSelectModel" Type="string" Value="Single"/>
+						</RegistryKey>
+						<RegistryKey Key="csmadmin">
+							<RegistryValue Name="MultiSelectModel" Type="string" Value="Single"/>
+							<RegistryValue Name="extended" Type="string" Value=""/>
+							<RegistryValue Name="HasLUAShield" Type="string" Value=""/>
+						</RegistryKey>
+						<RegistryKey Key="open">
+							<RegistryValue Name="MultiSelectModel" Type="string" Value="Single"/>
+							<!--<RegistryValue Name="extended" Type="string" Value=""/>-->
+						</RegistryKey>
+					</RegistryKey>
+				</RegistryKey>
+			</Component>
+
+			<Component
+				Id="$(var.AppInternalName).Edit"
+				Guid="{2CBCDCE9-80E4-467A-B721-E00F395B2BA4}"
+				Location="either"
+			>
+				<RegistryKey
+					Root="HKCR"
+					Key="$(var.AppProgId)"
+				>
+					<RegistryKey Key="shell">
+						<RegistryKey Key="edit">
+							<RegistryValue Name="MultiSelectModel" Type="string" Value="Document" KeyPath="yes"/>
+							<RegistryValue Name="extended" Type="string" Value=""/>
+							<RegistryValue Name="HasLUAShield" Type="string" Value=""/>
+							<RegistryKey Key="command">
+								<RegistryValue Type="expandable" Value="%SystemRoot%\system32\NOTEPAD.EXE %1"/>
+							</RegistryKey>
+						</RegistryKey>
+					</RegistryKey>
+				</RegistryKey>
+			</Component>
+
+		</DirectoryRef>
+
+		<ComponentGroup	Id="$(var.AppInternalName).template.$(var.AppFileExt)">
+			<ComponentRef	Id="$(var.AppInternalName).template.$(var.AppFileExt)"/>
+			<ComponentRef	Id="$(var.AppInternalName).ShellNew.$(var.AppFileExt)"/>
+		</ComponentGroup>
+
+		<DirectoryRef Id="CsmDbTemplatesFolder" FileSource=".\.csmdb">
+			<Component
+				Id="$(var.AppInternalName).template.$(var.AppFileExt)"
+				Guid="{7C265ECA-0A70-4D5E-967A-07A5046AB918}"
+				Location="either"
+				Win64="$(var.Win64)"
+			>
+				<File
+					Name="template.$(var.AppFileExt)"
+					KeyPath="yes"
+					Vital="no"
+				/>
+			</Component>
+			<Component
+				Id="$(var.AppInternalName).ShellNew.$(var.AppFileExt)"
+				Guid="{9AE13079-FEF5-4355-BBD9-48D01F9494F8}"
+				Location="either"
+			>
+				<RegistryKey
+					Root="HKCR"
+					Key=".$(var.ProductExt)"
+				>
+					<RegistryKey Key="$(var.AppProgId)">
+						<RegistryKey Key="ShellNew">
+							<!-- http://msdn.microsoft.com/en-us/library/windows/desktop/cc144101(v=vs.85).aspx -->
+							<RegistryValue Name="FileName" Type="string" Value="[#template.csmdb23]" KeyPath="yes" />
+							<RegistryKey Key="Config">
+								<RegistryValue Name="AllDrives" Type="string" Value="" />
+							</RegistryKey>
+						</RegistryKey>
+					</RegistryKey>
+				</RegistryKey>
+			</Component>
+		</DirectoryRef>
+
+	</Fragment>
+</Wix>

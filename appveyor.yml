@@ -1,0 +1,48 @@
+image: Visual Studio 2015
+version: 1.0.0 (Build {build})
+
+environment: 
+  CODE_SIGNING_CERTIFICATE_PASSWORD:
+    secure: +Dn/WhvBx1rVgenyg7x+Bg==
+  LANG: ru_RU.UTF8
+
+install:
+  - cmd: GitVersion /output buildserver
+  - ps: .\install\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
+  - cmd: call "%VS140COMNTOOLS%VsDevCmd.bat"
+
+platform:
+  - x86
+
+configuration: Release
+
+before_build:
+  - nuget restore
+
+build_script:
+  - cmd: make
+
+before_test: 
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -out sign/certificate/cert.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/cert.cer' -CertStoreLocation 'Cert:\LocalMachine\TrustedPublisher' -Verbose
+  - cmd: openssl pkcs12 -in sign/certificate/cert.pfx -passin pass:%CODE_SIGNING_CERTIFICATE_PASSWORD% -nokeys -cacerts -out sign/certificate/CA.cer
+  - ps: Import-Certificate -FilePath 'sign/certificate/CA.cer' -CertStoreLocation 'Cert:\LocalMachine\AuthRoot' -Verbose
+
+test_script:
+  - cmd: make test --keep-going
+
+before_deploy:
+  - ps: >-
+      & GitReleaseNotes . /OutputFile ReleaseNotes.md;
+      ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
+
+deploy:
+  - provider: Environment
+    name: GitHub-Releases
+    description: $(release_description)
+    artifact: msi
+    on:
+      branches:
+        only:
+          - master
+      #appveyor_repo_tag: true

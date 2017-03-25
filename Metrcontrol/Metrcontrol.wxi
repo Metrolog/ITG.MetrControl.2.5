@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include
+	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+>
+	<?ifndef ProductVersion?>
+		<?error ProductVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+	<?define MetrControlVersion="2.4.3369.7"?>
+	<?ifndef ProductMajorVersion?>
+		<?error ProductMajorVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+	<?ifndef ProductMinorVersion?>
+		<?error ProductMinorVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+	<?define ProductShortName="АИС Метроконтроль"?>
+	<?define ProductInternalName="MetrControl"?>
+	<?define ProductProjectName="ITG.MetrControl.$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
+	<?define ProductDescription="Автоматизиованная информационная система АИС Метроконтроль."?>
+	<?define ProductName="$(var.ProductShortName) v$(var.ProductVersion)"?>
+
+	<?ifndef ProductCode?>
+		<?error ProductCode must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
+
+	<?define UpgradeCode="3A64DCFD-2FCD-4139-AFEF-2BCC4B1B14E4"?>
+	<?define Manufacturer="РЦН"?>
+	<?define ManufacturerId="iFirst"?>
+
+	<?define ProductId="$(var.ManufacturerId).$(var.ProductInternalName).$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
+	<?define ProductRegKey="SOFTWARE\$(var.ManufacturerId)\$(var.ProductInternalName)\$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
+	<?define ProductProgIdPrefix="$(var.ManufacturerId).$(var.ProductInternalName)"?>
+	<?define ProductProgIdPostfix="$(var.ProductMajorVersion).$(var.ProductMinorVersion)"?>
+	<?define ProductProgId="$(var.ProductProgIdPrefix).$(var.ProductProgIdPostfix)"?>
+	<?define ProductProgIdDescription="Описатель базы данных АИС Метроконтроль"?>
+	<?define ProductExt="csmdb$(var.ProductMajorVersion)$(var.ProductMinorVersion)"?>
+	<?define ProductContentType="application/vnd.rcn-metrcontrol.db"?>
+
+	<?define ReportsChecksum="no"?>
+
+	<?ifdef SingleMSIFile ?>
+	<?define Compressed="yes" ?>
+	<?define IsAdminImage="no" ?>
+	<?else?>
+	<?define Compressed="no" ?>
+	<?define IsAdminImage="yes" ?>
+	<?endif?>
+
+	<?if $(sys.BUILDARCH) = "x86" ?>
+	<?define PlatformPostfix="32" ?>
+	<?define SystemFolderId="SystemFolder" ?>
+	<?define SystemFolder="System32" ?>
+	<?define ProgramFilesFolderId="ProgramFilesFolder" ?>
+	<?define Win64="no" ?>
+	<?else?>
+	<?define PlatformPostfix="64" ?>
+	<?define SystemFolderId="System64Folder" ?>
+	<?define SystemFolder="System64" ?>
+	<?define ProgramFilesFolderId="ProgramFiles64Folder" ?>
+	<?define Win64="yes" ?>
+
+	<?error "Platform must be x86" ?>
+	<?endif?>
+
+	<?define ProductSettingsKey="$(var.ProductRegKey)" ?>
+
+	<?define ProductFeatures="csmmain;csmadmin;markinv" ?>
+
+	<?define ShFolders=PRODUCTMENUFOLDER;PRODUCTSTARTUPFOLDER;PRODUCTDESKTOPFOLDER?>
+
+	<?define MainProgId="$(var.ProductProgIdPrefix).Main.$(var.ProductProgIdPostfix)"?>
+	<?define MainExt="csmdb-main$(var.ProductMajorVersion)$(var.ProductMinorVersion)"?>
+
+	<?define AdminProgId="$(var.ProductProgIdPrefix).Admin.$(var.ProductProgIdPostfix)"?>
+	<?define AdminToolName="$(var.ProductShortName) - администратор"?>
+	<?define AdminToolDescription="Инструменты администратора продукта $(var.ProductName)."?>
+	<?define AdminExt="csmdb-admin$(var.ProductMajorVersion)$(var.ProductMinorVersion)"?>
+
+	<?define markinvProgId="$(var.ProductProgIdPrefix).MarkInv.$(var.ProductProgIdPostfix)"?>
+	<?define markinvToolName="Учёт клейм"?>
+	<?define markinvToolDescription="Система учёта клейм поверителей."?>
+	<?define markinvExt="csmdb-markinv$(var.ProductMajorVersion)$(var.ProductMinorVersion)"?>
+
+</Include>

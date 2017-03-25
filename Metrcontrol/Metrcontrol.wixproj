@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Release</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.7</ProductVersion>
+    <ProjectGuid>00cb7f8e-8726-4e55-91b7-eb05d0a4a5d3</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Metrcontrol</OutputName>
+    <OutputType>Package</OutputType>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\Microsoft\WiX\v3.x\Wix.targets</WixTargetsPath>
+    <!--
+		<WixTargetsPath Condition=" '$(WixTargetsPath)' == '' AND '$(MSBuildExtensionsPath32)' != '' ">$(MSBuildExtensionsPath32)\WiX Toolset\v4\Wix.targets</WixTargetsPath>
+    <WixTargetsPath Condition=" '$(WixTargetsPath)' == '' ">$(MSBuildExtensionsPath)\WiX Toolset\v4\Wix.targets</WixTargetsPath>
+		-->
+    <Name>Metrcontrol</Name>
+    <Cultures>ru-RU</Cultures>
+    <SuppressPdbOutput>True</SuppressPdbOutput>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\$(Platform)\</IntermediateOutputPath>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <DefineConstants>SingleMSIFile;ReportsSourceDir=.\SourceDir\Reports;$(DefineConstants)</DefineConstants>
+    <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces>
+  </PropertyGroup>
+  <!-- <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Admin image|x86' "> -->
+  <!-- <DefineConstants>AdminImage;ReportsSourceDir=.\SourceDir\Reports</DefineConstants> -->
+  <!-- <SuppressIces>ICE39;ICE69;ICE90;ICE80</SuppressIces> -->
+  <!-- </PropertyGroup> -->
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(SolutionDir)ProductProperties.props" />
+  </ImportGroup>
+  <ItemGroup>
+    <Compile Include="csmadmin.wxs" />
+    <Compile Include="CSMBootstrapper.wxs" />
+    <Compile Include="CSMmain.wxs" />
+    <Compile Include="markInv.wxs" />
+    <Compile Include="Metrcontrol.wxs" />
+    <HarvestDirectory Include="SourceDir\Reports">
+      <DirectoryRefId>Reports</DirectoryRefId>
+      <SuppressRootDirectory>true</SuppressRootDirectory>
+      <ComponentGroupName>ProductReports</ComponentGroupName>
+      <PreprocessorVariable>var.ReportsSourceDir</PreprocessorVariable>
+    </HarvestDirectory>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include=".csmdb" />
+    <Folder Include="msm" />
+    <Folder Include="ru-ru" />
+    <Folder Include="SourceDir" />
+    <Folder Include="Icons" />
+    <Folder Include="SourceDir\Bootstrapper" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".csmdb\template.csmdb24" />
+    <Content Include="Icons\csmadmin.ico" />
+    <Content Include="Icons\help.ico" />
+    <Content Include="Icons\MarkInv.ico" />
+    <Content Include="Icons\Product.ico" />
+    <Content Include="Common.RemoveAutoFile.wxi" />
+    <Content Include="Metrcontrol.wxi" />
+    <Content Include="msm\Microsoft_VC140_CRT_x86.msm" />
+    <Content Include="SourceDir\Accounts.dll" />
+    <Content Include="SourceDir\CommonControls.dll" />
+    <Content Include="SourceDir\ConnectedDBComponents.dll" />
+    <Content Include="SourceDir\csm.dll" />
+    <Content Include="SourceDir\csm4.dll" />
+    <Content Include="SourceDir\csmadmin.exe" />
+    <Content Include="SourceDir\csmadmin.exe.config" />
+    <Content Include="SourceDir\csmhelp.chm" />
+    <Content Include="SourceDir\csmmain.exe" />
+    <Content Include="SourceDir\csmmain.exe.config" />
+    <Content Include="SourceDir\csmusers.dll" />
+    <Content Include="SourceDir\csmutil.dll" />
+    <Content Include="SourceDir\CurrentCsmSelector.dll" />
+    <Content Include="SourceDir\interop.dll" />
+    <Content Include="SourceDir\MarkInv.exe" />
+    <Content Include="SourceDir\MarkInv.exe.config" />
+    <Content Include="SourceDir\MarkInv.exe.manifest" />
+    <Content Include="SourceDir\MarkInvInterop.dll" />
+    <Content Include="SourceDir\MarkInvInterop.dll.manifest" />
+    <Content Include="SourceDir\metrcontrolupdate.exe" />
+    <Content Include="SourceDir\msvcr71.dll" />
+    <Content Include="SourceDir\References.dll" />
+    <Content Include="SourceDir\sqlc.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ru-ru\Common.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bootstrapper_v2\Bootstrapper_v2.vcxproj">
+      <Name>Bootstrapper_v2</Name>
+      <Project>{e1c9e553-52b7-40e9-9c25-770ebff2f2f6}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\ITG.WixUtils\ITGWixUtils.wixproj">
+      <Name>ITGWixUtils</Name>
+      <Project>{a6247d3f-c713-46f7-876f-fabf05437b65}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" />
+  <!-- GitVersion: подключение для генерации MSBuild переменных и констант -->
+  <Import Project="$(SolutionDir)GitVersionTask.targets" Condition="Exists('$(SolutionDir)GitVersionTask.targets')" />
+  <!-- /GitVersion -->
+  <!-- <PropertyGroup>
+    <PostBuildEvent>call "%25VS140COMNTOOLS%25VsDevCmd.bat"
+signtool sign /a /t http://timestamp.verisign.com/scripts/timstamp.dll "!(TargetPath)"</PostBuildEvent>
+  </PropertyGroup> -->
+</Project>

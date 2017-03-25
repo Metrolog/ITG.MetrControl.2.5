@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Wix
+	xmlns="http://schemas.microsoft.com/wix/2006/wi"
+>
+	<Fragment>
+
+	<?include Metrcontrol.wxi ?>
+
+	<?define MainDllList=Accounts.dll;CommonControls.dll;ConnectedDBComponents.dll;csm.dll;csm4.dll;csmusers.dll;csmutil.dll;CurrentCsmSelector.dll;interop.dll;References.dll;sqlc.dll ?>
+
+	<Feature
+		Id="csmmain"
+		Level="1"
+		Absent="allow"
+		AllowAdvertise="yes"
+		Display="3"
+		InstallDefault="followParent"
+		TypicalDefault="install"
+		Title="Исполняемые файлы приложения"
+		Description="Собственно исполняемые файлы приложения."
+	>
+		<ComponentGroupRef Id="ProductComponents" />
+		<ComponentGroupRef Id="ProductHelp" />
+	</Feature>
+	<Feature
+		Id="csmhelp"
+		Level="1"
+		Absent="allow"
+		AllowAdvertise="yes"
+		Display="11"
+		InstallDefault="followParent"
+		TypicalDefault="install"
+		Title="Справочная система"
+		Description="Файлы справочной системы приложения."
+	>
+		<ComponentGroupRef Id="ProductHelp" />
+	</Feature>
+
+	<ComponentGroup Id="ProductComponents" Directory="APPLICATIONFOLDER">
+		<ComponentRef	Id="csmmain.exe" Primary="yes"/>
+		<ComponentRef	Id="csmmain.registry"/>
+		<ComponentRef	Id="common.settings"/>
+		<?foreach Dll in $(var.MainDllList)?>
+		<ComponentRef	Id="$(var.Dll)"/>
+		<?endforeach?>
+		<ComponentGroupRef Id="ProductReports"/>
+	</ComponentGroup>
+
+	<ComponentGroup Id="CommonComponents">
+		<ComponentRef	Id="common.settings"/>
+	</ComponentGroup>
+ 
+	<DirectoryRef Id="APPLICATIONFOLDER" FileSource=".\SourceDir">
+		<?ifndef csmmainId?>
+			<?error csmmainId must be set in project configuration (in ProductProperties.props).?>
+		<?endif?>
+		
+		<Component
+			Id="csmmain.exe"
+			Guid="$(var.csmmainId)"
+			Location="either"
+			Win64="$(var.Win64)"
+		>
+			<File
+				Id="application"
+				Name="csmmain.exe"
+				KeyPath="yes"
+				Vital="yes"
+				BindPath="[APPLICATIONFOLDER]"
+				Checksum="yes"
+				DefaultLanguage="1049"
+			>
+				<Shortcut
+					Id="csmmain.Shortcut"
+					Directory="PRODUCTMENUFOLDER"
+					Name="$(var.ProductShortName)"
+					Description="$(var.ProductName)"
+					WorkingDirectory="APPLICATIONFOLDER"
+					Show="normal"
+					Advertise="yes"
+				>
+					<Icon Id="csmmain.exe" SourceFile=".\Icons\Product.ico"/>
+				</Shortcut>
+				<Shortcut
+					Id="csmmain.DesktopShortcut"
+					Directory="PRODUCTDESKTOPFOLDER"
+					Name="$(var.ProductShortName)"
+					Description="$(var.ProductName)"
+					WorkingDirectory="APPLICATIONFOLDER"
+					Show="normal"
+					Icon="csmmain.exe"
+					Advertise="yes"
+				/>
+				<Shortcut
+					Id="csmmain.StartupShortcut"
+					Directory="PRODUCTSTARTUPFOLDER"
+					Name="$(var.ProductShortName)"
+					Description="$(var.ProductName)"
+					WorkingDirectory="APPLICATIONFOLDER"
+					Show="normal"
+					Icon="csmmain.exe"
+					Advertise="yes"
+				/>
+			</File>
+			<RemoveFolder Id="csmmain.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
+			<RemoveFolder Id="csmmain.ProductDesktopFolder" Directory="PRODUCTDESKTOPFOLDER" On="uninstall"/>
+			<RemoveFolder Id="csmmain.ProductStartupFolder" Directory="PRODUCTSTARTUPFOLDER" On="uninstall"/>
+			<File
+				Name="csmmain.exe.config"
+				Vital="no"
+				CompanionFile="application"
+			/>
+			<!--Ключ ниже не требуется для работы. Ввёл, по сути, только для того, чтобы удалять его при деинсталляции-->
+			<RegistryKey
+				Root="HKMU"
+				Key="$(var.ProductRegKey)"
+			>
+				<RegistryValue Name="CsmMainInstalled" Type="integer" Value="1" />
+			</RegistryKey>
+		</Component>
+
+		<Component
+			Id="csmmain.registry"
+			Guid="{823857CB-E704-487A-9972-3B09FDF5273B}"
+			Location="either"
+				Win64="$(var.Win64)"
+		>
+			<!--http://msdn.microsoft.com/ru-RU/library/windows/desktop/ee872121(v=vs.85).aspx-->
+			<RegistryKey
+				Root="HKMU"
+				Key="SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths"
+			>
+				<?foreach AppFileName in csmmain.exe;metrcontrol.exe;metrocontrol.exe;метроконтроль.exe?>
+				<RegistryKey Key="$(var.AppFileName)">
+					<RegistryValue Type="string" Value="[#application]" />
+				</RegistryKey>
+				<?endforeach?>
+			</RegistryKey>
+			<RegistryKey
+				Root="HKMU"
+				Key="SOFTWARE\Classes\Applications"
+			>
+				<RegistryKey Key="csmmain.exe">
+					<RegistryValue Type="string" Value="[#application]" />
+					<RegistryValue Name="FriendlyAppName" Type="string" Value="$(var.ProductShortName)" />
+					<RegistryValue Name="NoOpenWith" Type="integer" Value="0" />
+				</RegistryKey>
+			</RegistryKey>
+
+			<RegistryKey
+				Root="HKMU"
+				Key="SOFTWARE\RegisteredApplications"
+			>
+				<RegistryValue Name="$(var.MainProgId)" Type="string" Value="$(var.ProductRegKey)\Main\Capabilities" />
+			</RegistryKey>
+			<RegistryKey
+				Root="HKMU"
+				Key="$(var.ProductRegKey)\Main\Capabilities"
+			>
+				<RegistryValue Name="ApplicationName" Type="string" Value="$(var.ProductShortName)" KeyPath="yes" />
+				<RegistryValue Name="ApplicationDescription" Type="string" Value="$(var.ProductDescription)" />
+				<RegistryValue Name="Hidden" Type="integer" Value="0" />
+				<RegistryKey Key="FileAssociations">
+					<RegistryValue Name=".$(var.ProductExt)" Type="string" Value="$(var.MainProgId)" />
+				</RegistryKey>
+				<RegistryKey Key="MIMEAssociations">
+					<RegistryValue Name="$(var.ProductContentType)" Type="string" Value="$(var.MainProgId)" />
+				</RegistryKey>
+			</RegistryKey>
+		</Component>
+
+		<Component
+			Id="common.settings"
+			Guid="{A62EDD1F-10C6-4427-9F04-A58AFB397E9B}"
+			Location="local"
+			Win64="$(var.Win64)"
+		>
+			<!--Ключ ниже не требуется для работы. Ввёл, по сути, только для того, чтобы удалять его при деинсталляции-->
+			<RegistryKey
+				Root="HKMU"
+				Key="$(var.ProductRegKey)"
+				ForceCreateOnInstall="yes"
+				ForceDeleteOnUninstall="yes"
+			>
+				<RegistryValue Name="InstDir" Type="string" Value="[APPLICATIONFOLDER]" />
+				<RegistryValue Name="CurrentVersion" Type="string" Value="$(var.ProductVersion)" />
+				<RegistryValue Name="StartMenu" Type="string" Value="[PRODUCTMENUFOLDER]" />
+			</RegistryKey>
+			<CreateFolder Directory="PRODUCTLOCALAPPDATAFOLDER"/>
+			<RemoveFolder Id="common.settings.PRODUCTLOCALAPPDATAFOLDER" Directory="PRODUCTLOCALAPPDATAFOLDER" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ProductVersionLocalAppDataFolder" Directory="ProductVersionLocalAppDataFolder" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ProductLocalAppDataFolder" Directory="ProductLocalAppDataFolder" On="uninstall"/>
+			<RemoveFolder Id="common.settings.ManufacturerLocalAppDataFolder" Directory="ManufacturerLocalAppDataFolder" On="uninstall"/>
+		</Component>
+
+		<?foreach Dll in $(var.MainDllList)?>
+		<Component
+			Id="$(var.Dll)"
+			Location="either"
+			Win64="$(var.Win64)"
+			>
+			<File
+				Name="$(var.Dll)"
+				KeyPath="yes"
+				Vital="yes"
+				Checksum="yes"
+				/>
+		</Component>
+		<?endforeach?>
+	</DirectoryRef>
+
+	<ComponentGroup Id="ProductHelp">
+		<ComponentRef	Id="csmhelp.chm"/>
+	</ComponentGroup>
+
+	<DirectoryRef Id="Help" FileSource=".\SourceDir">
+		<Component
+			Id="csmhelp.chm"
+			Location="either"
+		>
+			<File
+				Id="help"
+				Name="csmhelp.chm"
+				KeyPath="yes"
+				Vital="no"
+			>
+				<Shortcut
+					Id="csmhelp_Shortcut"
+					Directory="PRODUCTMENUFOLDER"
+					Name="Справка приложения $(var.ProductName)"
+					Description="Файлы справочной системы приложения $(var.ProductName)."
+					WorkingDirectory="Help"
+					Show="maximized"
+					Advertise="yes"
+				>
+					<Icon Id="help.ico" SourceFile=".\Icons\help.ico"/>
+				</Shortcut>
+			</File>
+			<RemoveFolder Id="csmhelp.ProductMenuFolder" Directory="PRODUCTMENUFOLDER" On="uninstall"/>
+		</Component>
+	</DirectoryRef>
+
+	</Fragment>
+</Wix>
