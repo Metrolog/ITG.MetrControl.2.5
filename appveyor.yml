@@ -35,3 +35,12 @@ before_deploy:
   - ps: >-
       & GitReleaseNotes . /OutputFile ReleaseNotes.md;
       ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
+
+deploy:
+  - provider: Environment
+    name: GitHub-Releases
+    description: $(release_description)
+    artifact: msi
+    on:
+      branch: release/*
+      #appveyor_repo_tag: true
