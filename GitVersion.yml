@@ -9,7 +9,7 @@ build-metadata-padding: 4
 commit-message-incrementing: Enabled
 branches:
   master:
-    mode: ContinuousDeployment
+    mode:  ContinuousDeployment
     tag: build
     increment: Patch
     prevent-increment-of-merged-branch-version: true
