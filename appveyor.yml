@@ -5,6 +5,7 @@ environment:
   CODE_SIGNING_CERTIFICATE_PASSWORD:
     secure: +Dn/WhvBx1rVgenyg7x+Bg==
   LANG: ru_RU.UTF8
+  LATEST_GIT_COMMIT_DESCRIPTION: git log --format=%B -n 1
 
 install:
   - cmd: GitVersion /output buildserver
@@ -32,9 +33,16 @@ test_script:
   - cmd: make test --keep-going
 
 before_deploy:
+  #- ps: >-
+  #    & GitReleaseNotes . /OutputFile ReleaseNotes.md;
+  #    ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
   - ps: >-
-      & GitReleaseNotes . /OutputFile ReleaseNotes.md;
-      ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
+      ${env:release_description} = `
+        ( `
+          $env:LATEST_GIT_COMMIT_DESCRIPTION -split "`n" `
+          | Select-Object -Skip 2 `
+        ) -join "`n" `
+      ;
 
 deploy:
   - provider: Environment
