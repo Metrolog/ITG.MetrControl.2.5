@@ -15,7 +15,7 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: false
+    # is-release-branch: false
   releases?[/-]:
     mode: ContinuousDeployment
     tag: rc
@@ -23,7 +23,7 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: true
+    # is-release-branch: true
   features?[/-]:
     mode: ContinuousDeployment
     tag: useBranchName
@@ -31,7 +31,7 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: false
+    # is-release-branch: false
   (pull|pull\-requests|pr)[/-]:
     mode: ContinuousDeployment
     tag: pr
@@ -40,7 +40,7 @@ branches:
     tag-number-pattern: '[/-](?<number>\d+)[-/]'
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: false
+    # is-release-branch: false
   hotfix(es)?[/-]:
     mode: ContinuousDeployment
     tag: hotfix
@@ -48,7 +48,7 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: false
+    # is-release-branch: false
   support[/-]:
     mode: ContinuousDeployment
     tag: ''
@@ -56,7 +56,7 @@ branches:
     prevent-increment-of-merged-branch-version: true
     track-merge-target: false
     # tracks-release-branches: false
-    is-release-branch: false
+    # is-release-branch: false
   dev(elop)?(ment)?$:
     mode: ContinuousDeployment
     tag: unstable
@@ -64,7 +64,7 @@ branches:
     prevent-increment-of-merged-branch-version: false
     track-merge-target: true
     # tracks-release-branches: true
-    is-release-branch: false
+    # is-release-branch: false
 ignore:
   sha: []
   commits-before:
