@@ -8,7 +8,6 @@ environment:
 
 install:
   - cmd: GitVersion /output buildserver
-  - ps: Update-AppveyorBuild -Version "$env:SemVer"
   - ps: .\install\install.ps1 -ErrorAction Stop -InformationAction Continue -Verbose
   - cmd: call "%VS140COMNTOOLS%VsDevCmd.bat"
 
