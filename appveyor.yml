@@ -36,11 +36,11 @@ before_deploy:
   #    & GitReleaseNotes . /OutputFile ReleaseNotes.md;
   #    ${env:release_description} = ( Get-Content -LiteralPath ReleaseNotes.md -Encoding UTF8 ) -join "`n";
   - ps: >-
-    [Console]::OutputEncoding = [System.Text.Encoding]::UTF8;
-    ( `
-        git log --format=%B -n 1 `
-    #   | Select-Object -Skip 2 `
-    ) -join "`n";
+      [Console]::OutputEncoding = [System.Text.Encoding]::UTF8;
+      ( `
+          git log --format=%B -n 1 `
+      #   | Select-Object -Skip 2 `
+      ) -join "`n";
 
 deploy:
   - provider: Environment
