@@ -43,12 +43,4 @@ deploy:
     artifact: msi
     on:
       branch: master
-      #appveyor_repo_tag: true
-
-  - provider: Environment
-    name: GitHub-Releases
-    description: $(release_description)
-    artifact: msi
-    on:
-      branch: /v(\d+)(\.\d+){0,3}/
-      #appveyor_repo_tag: true
+      appveyor_repo_tag: false
