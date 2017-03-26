@@ -1,6 +1,8 @@
 image: Visual Studio 2015
 version: 1.0.0 (Build {build})
 
+skip_branch_with_pr: true
+
 environment: 
   CODE_SIGNING_CERTIFICATE_PASSWORD:
     secure: +Dn/WhvBx1rVgenyg7x+Bg==
@@ -39,7 +41,7 @@ before_deploy:
   - ps: >-
       ${env:release_description} = `
         ( `
-          $env:LATEST_GIT_COMMIT_DESCRIPTION -split "`n" `
+          ${env:LATEST_GIT_COMMIT_DESCRIPTION} -split "`n" `
           | Select-Object -Skip 2 `
         ) -join "`n" `
       ;
