@@ -10,7 +10,7 @@ commit-message-incrementing: Enabled
 branches:
   master:
     mode:  ContinuousDeployment
-    continuous-delivery-fallback-tag: ''
+    # continuous-delivery-fallback-tag: ''
     tag: ''
     increment: Patch
     prevent-increment-of-merged-branch-version: true
