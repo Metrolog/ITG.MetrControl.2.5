@@ -39,7 +39,7 @@ before_deploy:
   - ps: >-
       ${env:release_description} = `
         ( `
-          $env:LATEST_GIT_COMMIT_DESCRIPTION -split "`n" `
+          ${env:LATEST_GIT_COMMIT_DESCRIPTION} -split "`n" `
           | Select-Object -Skip 2 `
         ) -join "`n" `
       ;
