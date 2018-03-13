@@ -6,8 +6,8 @@
 | Build on AppVeyor (Windows)      | [![av-image-master][]][av-site]  | [![av-image-develop][]][av-site] |
 
 
-[av-image-master]: https://ci.appveyor.com/api/projects/status/26eki19xnd70arbg/branch/master?svg=true
-[av-image-develop]: https://ci.appveyor.com/api/projects/status/26eki19xnd70arbg/branch/develop?svg=true
+[av-image-master]: https://ci.appveyor.com/api/projects/status/qlqe1ylq2xsx3b8d/branch/master?svg=true
+[av-image-develop]: https://ci.appveyor.com/api/projects/status/qlqe1ylq2xsx3b8d/branch/develop?svg=true
 [av-site]: https://ci.appveyor.com/project/Metrolog/ITG.MetrControl.2.5
 
 [![GitHub releases](https://img.shields.io/github/release/Metrolog/ITG.MetrControl.2.5.svg)](https://github.com/Metrolog/ITG.MetrControl.2.5/releases)
