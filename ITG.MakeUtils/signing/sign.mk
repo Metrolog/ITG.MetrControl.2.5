@@ -11,6 +11,8 @@ SIGNCODE ?= signcode
 SIGNCODEPWD ?= signcodepwd
 CHKTRUST ?= chktrust
 
+CODE_SIGNING_TIMESTAMP_SERVER_URL ?= http://sha256timestamp.ws.symantec.com/sha256/timestamp
+
 # $(call exportCodeSigningCertificate,filePath,password)
 define exportCodeSigningCertificate
 $1:
@@ -112,7 +114,7 @@ SIGNWITHSIGNTOOL ?= \
     /f $(CODE_SIGNING_CERTIFICATE_PFX) \
     /p $(CODE_SIGNING_CERTIFICATE_PASSWORD) \
     /v \
-    /tr http://timestamp.geotrust.com/tsa \
+    /tr $(CODE_SIGNING_TIMESTAMP_SERVER_URL)   \
     /fd SHA1 \
     $(call winPath,$1)
 
@@ -123,15 +125,15 @@ SIGNWITHSIGNTOOL ?= \
 # to guarantee a maximal compatibility.
 # However it can only work for binaries (.exe) and not for .msi installers.
 # To do so, simply execute the two following commands:
-# 
+#
 # signtool sign /f yourFile.pfx /p password /t "http://timestamp.verisign.com/scripts/timstamp.dll" /fd SHA1 "PATH_TO_EXECUTABLE"
 # signtool sign /as /f yourFile.pfx /p password /tr "http://sha256timestamp.ws.symantec.com/sha256/timestamp" /td SHA256 /fd SHA256 "CHEMIN_VERS_VOTRE_EXECUTABLE"
-# 
+#
 # The first command is used to sign the file using SHA1, the second one, SHA2.
 # The SHA2 signature is set as default. The timestamping server for the SHA1 signature is using Microsoft's format.
-# The example is valid for Symantec certificates. 
+# The example is valid for Symantec certificates.
 # If your want a RFC3161 compliant SHA1 signaure, you can use the following server :
-# http://timestamp.geotrust.com/tsa 
+# http://timestamp.geotrust.com/tsa
 
 SIGNWITHSIGNCODE = \
   $(SIGNCODEPWD) \
