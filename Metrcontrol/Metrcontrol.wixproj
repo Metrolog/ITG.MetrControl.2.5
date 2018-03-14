@@ -52,7 +52,7 @@
     <Folder Include="SourceDir\Bootstrapper" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".csmdb\template.csmdb24" />
+    <Content Include=".csmdb\template.csmdb25" />
     <Content Include="Icons\csmadmin.ico" />
     <Content Include="Icons\help.ico" />
     <Content Include="Icons\MarkInv.ico" />
