@@ -5,7 +5,9 @@
 	<?ifndef ProductVersion?>
 		<?error ProductVersion must be set in project configuration (in ProductProperties.props).?>
 	<?endif?>
-	<?define MetrControlVersion="2.4.3369.7"?>
+	<?ifndef MetrControlVersion?>
+		<?error MetrControlVersion must be set in project configuration (in ProductProperties.props).?>
+	<?endif?>
 	<?ifndef ProductMajorVersion?>
 		<?error ProductMajorVersion must be set in project configuration (in ProductProperties.props).?>
 	<?endif?>

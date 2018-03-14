@@ -2,18 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ImportGroup Label="PropertySheets" />
   <PropertyGroup>
-    <ProductCode>{0DBA7CA3-BAF1-4A2D-B36D-54C6E0B9AC66}</ProductCode>
-    <ProductVersion>2.4.3369.7</ProductVersion>
+    <ProductCode>{5775C32D-8C9A-47D2-8D80-CA9FCD201278}</ProductCode>
+    <UpgradeCode>{0A877ECB-F484-4D6A-B78A-B9DDDCE2F080}</UpgradeCode>
+    <MetrControlVersion>2.5.0.6</MetrControlVersion>
+    <ProductVersion>2.5.0601.0</ProductVersion>
     <ProductMajorVersion>2</ProductMajorVersion>
-    <ProductMinorVersion>4</ProductMinorVersion>
-    <csmmainId>{C06C793C-468A-4E39-874D-3DCF7E5E9CE0}</csmmainId>
-    <csmadminId>{D49011DA-C023-4B55-AA7C-724C7A7F3679}</csmadminId>
-    <markinvId>{81ED99F6-06D3-47A9-924D-ADC05230B10C}</markinvId>
+    <ProductMinorVersion>5</ProductMinorVersion>
+    <csmmainId>{4573D203-8A53-47FE-8680-E9F9F3CC9094}</csmmainId>
+    <csmadminId>{030CF86C-5937-4AE6-8922-070E9C306366}</csmadminId>
+    <markinvId>{C5F62A92-2D91-4C9E-9E74-020E65F3DD21}</markinvId>
   </PropertyGroup>
   <ItemDefinitionGroup />
   <ItemGroup>
+    <BuildMacro Include="MetrControlVersion">
+      <Value>$(MetrControlVersion)</Value>
+    </BuildMacro>
     <BuildMacro Include="ProductCode">
       <Value>$(ProductCode)</Value>
+    </BuildMacro>
+    <BuildMacro Include="UpgradeCode">
+      <Value>$(UpgradeCode)</Value>
     </BuildMacro>
     <BuildMacro Include="ProductVersion">
       <Value>$(ProductVersion)</Value>
@@ -35,7 +43,7 @@
     </BuildMacro>
   </ItemGroup>
   <PropertyGroup>
-    <DefineConstants>$(DefineConstants);ProductCode=$(ProductCode);ProductVersion=$(ProductVersion);ProductMajorVersion=$(ProductMajorVersion);ProductMinorVersion=$(ProductMinorVersion);csmmainId=$(csmmainId);csmadminId=$(csmadminId);markinvId=$(markinvId)</DefineConstants>
+    <DefineConstants>$(DefineConstants);MetrControlVersion=$(MetrControlVersion);ProductCode=$(ProductCode);UpgradeCode=$(UpgradeCode);ProductVersion=$(ProductVersion);ProductMajorVersion=$(ProductMajorVersion);ProductMinorVersion=$(ProductMinorVersion);csmmainId=$(csmmainId);csmadminId=$(csmadminId);markinvId=$(markinvId)</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <BuildMacro Include="DefineConstants">
